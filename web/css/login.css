@@ -1,0 +1,13 @@
+.fields{
+  padding: 10px;
+}
+.fields input {
+    width: 300px;
+    padding: 5px;
+    background: #eee;
+    color: black;
+}
+.fields button {
+    width: 200px;
+    padding: 5px;
+}

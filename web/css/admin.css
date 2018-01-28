@@ -1,0 +1,34 @@
+.cab_list tr th, tr td{
+	width: 150px;
+	padding: 5px;
+	border: 1px solid black;
+	font-size: medium;
+	margin-top: 20px;
+}
+.form_add_cab_type{
+	padding: 10px;
+}
+.input_type_text{
+	padding: 10px;
+}
+.input_type_button{
+	padding: 5px;
+}
+.div_add_type{
+	margin-top: 30px;
+}
+.fee-list{
+	
+}
+.fee-list tr th, tr td{
+	padding: 10px;
+	border: 1px solid black;
+}
+
+.glowing-border {
+    border: 2px solid #dadada;
+    border-radius: 7px;
+	width : 50%;
+	padding : 2%;
+	margin : 1% 0 1% 0;
+}
