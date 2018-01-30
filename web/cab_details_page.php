@@ -3,7 +3,7 @@ include 'Includes/db.php';
 include 'Includes/header.php';
 if(isset($_SESSION['trip'])){
 	$trip = $_SESSION['trip'];
-	print_r($trip);
+	//print_r($trip);
 	$type = $trip['type'];
 	if($type == "withLocation"){
 		$pick = $trip['pick'];
@@ -116,24 +116,52 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 <div class="container">
 <div class="container pagecontainer offset-0">	
 <?php
-	$query = mysqli_query($conn, "select vehicle_category,vehicle_photo from tbl_drivers where driver_id = '".$driverID."'");
+	$query = mysqli_query($conn, "select vehicle_category, vehicle_photo, name, vehicle_no from tbl_drivers where driver_id = '".$driverID."'");
 	$num = mysqli_num_rows($query);
 	$row = mysqli_fetch_assoc($query);
-	$query2 = mysqli_query($conn, "select name, per_km_without_ac, per_km_with_ac from tbl_cab_categories where category_id='".$row['vehicle_category']."'");
+	$query2 = mysqli_query($conn, "select name, per_km_without_ac, per_km_with_ac, no_of_seats from tbl_cab_categories where category_id='".$row['vehicle_category']."'");
 	$row2 = mysqli_fetch_assoc($query2);
 	$vehicle_name = $row2['name'];
 	$rateperhourwitAC = $row2['per_km_with_ac'];
 	$rateperhourwithoutAC = $row2['per_km_without_ac'];
-	if($rateperhourwitAC == ""){
+	$noofSeats = $row2['no_of_seats'];
+	$driverName = $row['name'];
+	$vehicleNo = $row['vehicle_no'];
+	/*if($rateperhourwitAC == ""){
 		$rateperhour = $rateperhourwithoutAC;
 	}else{
 		$rateperhour = $rateperhourwitAC;
-	}
+	}*/
 ?>
 <!-- SLIDER -->
 <div class="col-md-8 details-slider">
-	<div class="wh80percent center">
+	<div class="wh80percent center cab-div">
 		<img src="<?php echo $row['vehicle_photo']; ?>" class="fwimg" alt="<?php echo $vehicle_name; ?>"/>
+	</div>
+	<div class="cab-details">
+		<div class="col-sm-8 text-left">
+			<p class="size20 bold"><?php echo $vehicle_name; ?></p>
+			<div class="padding10">
+				<div class="driver-dv1">
+					<img src="images/user.png" />
+				</div>
+				<div class="driver-dv2">
+					<p class="size14 dark paddingbtm5"><?php echo $driverName; ?></p>
+					<p class="size14 dark"><?php echo $vehicleNo; ?></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 text-right">
+			<p class="size20 bold"><i class="fa fa-wheelchair" aria-hidden="true"></i>&nbsp;<?php echo $noofSeats;?> Seats</p>
+			<div class="dark">
+				<span class="size14 bold">Ac Fare</span>	
+				<span class="size14"><?php echo $rateperhourwitAC; ?> FCFA <i>per KM</i></span>
+			</div>
+			<div class="size20 dark">
+				<span class="size14 bold">Non-Ac Fare</span>	
+				<span class="size14"><?php echo $rateperhourwithoutAC; ?> FCFA <i>per KM</i></span>
+			</div>
+		</div>
 	</div>
 	<script>
 	//Popover tooltips
@@ -146,8 +174,8 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 
 <!-- RIGHT INFO -->
 <div class="col-md-4 detailsright offset-0">
-	<div class="padding20">
-		<div class="wh70percent left">
+	<!-- <div class="padding20">
+		 <div class="wh70percent left">
 			<span class="opensans size18 dark bold"><?php echo $vehicle_name; ?></span><br/>
 			<span class="opensans size13 grey bold"></span>
 		</div>
@@ -160,14 +188,36 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 				<tr>
 					<!--<td><span class="size12 lgrey"><a href="" class="lblue">change</a></span></td>
 						<td><span class="size12 grey">(6 days)</span></td>-->
-					<td><span class="size12 lgrey"><i></i></span></td>
+					<!--<td><span class="size12 lgrey"><i></i></span></td>
 					<td><span class="size14 grey bold"></span></td>
 				</tr>							
-			</table>
+			</table>0
+		</div>
+		<div class="clearfix"></div> -->
+		<!-- <p class="size20 grey2 bold"><?php echo $vehicle_name; ?></p>
+		<div>
+			<span class="left size14">
+				
+			</span>
+			<!-- <span class="right size14"><i class="fa fa-road" aria-hidden="true"></i>&nbsp;5 km away</span> -->
+		<!--</div>
+		<div class="clearfix"></div>
+		<div class="padding5">
+			
 		</div>
 		<div class="clearfix"></div>
-	</div>
-	<div class="line3"></div>
+		<div class="padding5">
+			<span class="left size14 bold grey">NON Ac Fare</span>	
+			<span class="right size14 grey">45 FCFA <i>per KM</i></span>
+		</div>
+		<div class="clearfix"></div>
+		
+		<div class="padding5">
+			<p class="size14 bold grey" style="margin: 0px;">Current Location</p>
+			<p class="txt-jsty size13 grey">dajfkjas jfdsaj lfdjsaldfj lsjafl;j sal;fjsja fljs;lafjlsaj ;l jsa;</p>
+		</div>
+	</div> -->
+	<!-- <div class="line3"></div> -->
 	<?php
 		if($type == "withLocation"){
 			?>
@@ -179,7 +229,7 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 				});
 			</script>
 			<div class="rchkbox size13 grey2">
-				<div class="checkbox">
+				<!-- <div class="checkbox">
 					<label>
 						Pick up place <span class="right grey"><?php echo $pick; ?></span>
 					</label>
@@ -188,6 +238,14 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 					<label>
 						Drop place <span class="right grey"><?php echo $drop; ?></span>
 					</label>
+				</div> -->
+				<div>
+					<p class="size18 bold"><i class="icon-location-arrow"></i>&nbsp; Pick From</p>
+					<p class="size14"><?php echo $pick; ?></p>
+				</div>
+				<div>
+					<p class="size18 bold"><i class="icon-location-arrow"></i>&nbsp; Drop At</p>
+					<p class="size14"><?php echo $drop; ?></p>
 				</div>
 				<div class="checkbox">
 					<label>
@@ -364,207 +422,194 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 ?>
 <div class="line3"></div>
 <div class="clearfix"></div>
-<div class="hpadding20">
-<?php 
-	if($type == "withLocation"){
-		/*$_SESSION['pick'] = $pick;
-		$_SESSION['drop'] = $drop;*/
-		//echo $pick_date;
-		/*if($pick_date != ""){
-			$dates = explode(" ", $pick_date);
-			//echo sizeof($dates);
-			$_SESSION['pick_date'] = $dates[0];
-			$_SESSION['pick_time'] = $dates[1]." ".$dates[2];
-		}
-		if($drop_date != ""){
-			$dates = explode(" ", $drop_date);
-			$_SESSION['drop_date'] = $dates[0];
-			$_SESSION['drop_time'] = $dates[2]." ".$dates[3];
-		}*/
-		/*$_SESSION['pick_latlng'] = $latlong;
-		$_SESSION['drop_latlng'] = $latlong2;
-		$_SESSION['pick_date'] = $pick_date;
-		$_SESSION['drop_date'] = $drop_date;
-		$_SESSION['id'] = $id;
-		$_SESSION['distance'] = $distance['distance'];
-		$_SESSION['price'] = $price;*/
-		if($drop != ""){
-			$trip = array(
-				"pick" => $pick,
-				"pickLatLng" => $pickLatLng,
-				"drop" => $drop,
-				"dropLatLng" => $drpLatLng,
-				"pick_date" => $pick_date,
-				"driverID" => $driverID,
-				"distance" => $distance['distance'],
-				"price" => $price
-			);
+	<div class="hpadding20">
+		<?php 
+		if($type == "withLocation"){
+			/*$_SESSION['pick'] = $pick;
+			$_SESSION['drop'] = $drop;*/
+			//echo $pick_date;
+			/*if($pick_date != ""){
+				$dates = explode(" ", $pick_date);
+				//echo sizeof($dates);
+				$_SESSION['pick_date'] = $dates[0];
+				$_SESSION['pick_time'] = $dates[1]." ".$dates[2];
+			}
+			if($drop_date != ""){
+				$dates = explode(" ", $drop_date);
+				$_SESSION['drop_date'] = $dates[0];
+				$_SESSION['drop_time'] = $dates[2]." ".$dates[3];
+			}*/
+			/*$_SESSION['pick_latlng'] = $latlong;
+			$_SESSION['drop_latlng'] = $latlong2;
+			$_SESSION['pick_date'] = $pick_date;
+			$_SESSION['drop_date'] = $drop_date;
+			$_SESSION['id'] = $id;
+			$_SESSION['distance'] = $distance['distance'];
+			$_SESSION['price'] = $price;*/
+			if($drop != ""){
+				$trip = array(
+					"pick" => $pick,
+					"pickLatLng" => $pickLatLng,
+					"drop" => $drop,
+					"dropLatLng" => $drpLatLng,
+					"pick_date" => $pick_date,
+					"driverID" => $driverID,
+					"distance" => $distance['distance'],
+					"price" => $price
+				);
+			}else{
+				$trip = array(
+					"pick" => $pick,
+					"pickLatLng" => $pickLatLng,
+					"pick_date" => $pick_date,
+					"drop" => $drop,
+					"dropLatLng" => "",
+					"driverID" => $driverID,
+					"distance" => "",
+					"price" => ""
+				);
+			}
+			$_SESSION['trip_confirm'] = $trip;
+			$_session['timeout'] = time();
+			if(isset($_SESSION['customer_user_uname'])){
+				$_session['pickup_uname'] = $_SESSION['customer_user_uname'];
+				?>
+				<a href="cab_booking_confirmation_page.php" class="booknow margtop20 btnmarg">Book now</a><br/>
+				<?php
+			}else{
+				?>
+				<a href="Customer/Login.php" class="booknow margtop20 btnmarg">Book now</a><br/>	
+				<?php
+			}
 		}else{
-			$trip = array(
-				"pick" => $pick,
-				"pickLatLng" => $pickLatLng,
-				"pick_date" => $pick_date,
-				"drop" => $drop,
-				"dropLatLng" => "",
-				"driverID" => $driverID,
-				"distance" => "",
-				"price" => ""
-			);
-		}
-		$_SESSION['trip_confirm'] = $trip;
-		$_session['timeout'] = time();
-		if(isset($_SESSION['customer_user_uname'])){
-			$_session['pickup_uname'] = $_SESSION['customer_user_uname'];
 			?>
-			<a href="cab_booking_confirmation_page.php" class="booknow margtop20 btnmarg">Book now</a><br/>
-			<?php
-		}else{
-			?>
-			<a href="Customer/Login.php" class="booknow margtop20 btnmarg">Book now</a><br/>	
+			<script type="text/javascript">
+				alert("Choose pickup location");
+			</script>
 			<?php
 		}
-	}else{
 		?>
-		<script type="text/javascript">
-			alert("Choose pickup location");
-		</script>
-		<?php
-	}
-?>
-</div>
+	</div>
 </div>
 <!-- END OF RIGHT INFO -->
-
 </div>
 <!-- END OF container-->
 
 <div class="container mt25 offset-0">
-
-<!-- CONTENT -->	
-<div class="col-md-8 pagecontainer2 offset-0">
-
-<br/>
-
-<br/><br/>
-
-<div id="collapse6" class="collapse in">
-	<div class="hpadding20">
-		<div id="googleMap" style="width:100%;height:400px;"></div>
-		<?php
-			$query9 = mysqli_query($conn, "select lattitude, longitude from tbl_drivers where driver_id='".$driverID."' and duty_status='on' and is_activated='yes'");
-			$row9 = mysqli_fetch_assoc($query9);
-			$current_lat = floatval($row9['lattitude']);
-			$current_lng = floatval($row9['longitude']);
-			?>
-			<script>
-				function myMap() {
-					var currentlat = "<?php echo $current_lat; ?>";
-					var currentlng = "<?php echo $current_lng; ?>";
-					if(currentlat != 0 && currentlng != 0){
-						var mapProp= {
-    						center:new google.maps.LatLng(currentlat,currentlng),
-    						zoom:14,
-						};
-						var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-						var marker = new google.maps.Marker({
-  							position: new google.maps.LatLng(currentlat,currentlng),
-  							map: map
-						});	
-					}else{
-						//alert("Driver is offline");
-						var mapProp= {
-    						center:new google.maps.LatLng(currentlat,currentlng),
-    						zoom:5,
-						};
-						var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-						var marker = new google.maps.Marker({
-  							position: new google.maps.LatLng(currentlat,currentlng),
-  							map: map
-						});	
+	<!-- CONTENT -->	
+	<div class="col-md-8 pagecontainer2 offset-0">
+		<div id="collapse6" class="collapse in">
+			<div>
+				<div id="googleMap" style="width:100%;height:400px;"></div>
+				<?php
+				$query9 = mysqli_query($conn, "select lattitude, longitude, current_location from tbl_drivers where driver_id='".$driverID."' and duty_status='on' and is_activated='yes'");
+				$row9 = mysqli_fetch_assoc($query9);
+				$current_lat = floatval($row9['lattitude']);
+				$current_lng = floatval($row9['longitude']);
+				$driverLocation = $row9['current_location'];
+				?>
+				<script>
+					function myMap() {
+						var currentlat = "<?php echo $current_lat; ?>";
+						var currentlng = "<?php echo $current_lng; ?>";
+						if(currentlat != 0 && currentlng != 0){
+							var mapProp= {
+								center:new google.maps.LatLng(currentlat,currentlng),
+								zoom:14,
+							};
+							var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+							var marker = new google.maps.Marker({
+									position: new google.maps.LatLng(currentlat,currentlng),
+									map: map
+							});	
+						}else{
+							//alert("Driver is offline");
+							var mapProp= {
+								center:new google.maps.LatLng(currentlat,currentlng),
+								zoom:5,
+							};
+							var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+							var marker = new google.maps.Marker({
+									position: new google.maps.LatLng(currentlat,currentlng),
+									map: map
+							});	
+						}
 					}
-				}
-			</script>
-			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPLC2WagSO9xVsvC29-CZ4xnvpfMFZ2S4&callback=myMap"></script>
+				</script>
+				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPLC2WagSO9xVsvC29-CZ4xnvpfMFZ2S4&callback=myMap"></script>
+				<!-- <div class="clearfix"></div> -->
+				<div class="dv-currentlocaion">
+					<p class="size16 bold"><i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;Last Location:</p>
+					<p class="text-justify size14"><?php echo $driverLocation; ?></p>
+				</div>
+			</div>
 		</div>
-		<div class="clearfix"></div>
-	</div>
-<!-- End of collapse 6 -->		
-<div class="hpadding20">
-	<span class="size14 dark bold">Comment Below</span>
-	<div class="line4"></div>
-	<textarea class="" style="width: 100%;margin-bottom: 20px;" id="driver_comment" rows="3"></textarea>
-	<?php
-		if(!isset($_SESSION['customer_user_uname'])){
+		<!-- End of collapse 6 -->		
+			
+		<div class="padding20">
+			<p class="size16 dark bold">Comment Below</p>
+			<div class="line4"></div>
+			<textarea class="" style="width: 100%;margin-bottom: 20px;" id="driver_comment" rows="3"></textarea>
+			<?php
+			if(!isset($_SESSION['customer_user_uname'])){
 			?>
-			<a href="Customer/Login.php" style="text-decoration:none !important;">
-				<button class="btn-search5">
+				<a href="Customer/Login.php" style="text-decoration:none !important;">
+					<button class="btn-search5">
+						Post <span class="glyphicon glyphicon-arrow-down"></span>
+					</button>
+				</a>
+			<?php	
+			}else{
+				$un = $_SESSION['customer_user_uname'];
+				?>
+				<button onclick="submitComment('<?php echo $id;?>','<?php echo $un; ?>');" class="btn-search5">
 					Post <span class="glyphicon glyphicon-arrow-down"></span>
 				</button>
-			</a>
-			<?php	
-		}else{
-			$un = $_SESSION['customer_user_uname'];
-			?>
-			<button onclick="submitComment('<?php echo $id;?>','<?php echo $un; ?>');" class="btn-search5">
-				Post <span class="glyphicon glyphicon-arrow-down"></span>
-			</button>
-			<?php
-		}
-	?>
-	<br/>
-	<br/>
-	<br/>
-	<?php
-		$query7 = mysqli_query($conn, "select cust_id, comment from tbl_driver_comments where driver_id='".$driverID."' order by comment_date desc limit 10");
-		$num7 = mysqli_num_rows($query7);
-		if($num7 > 0){
-			?>
-			<span class="size14 dark bold">
-				<?php echo $num7; ?> comments
-			</span>
-			<div class="line4"></div>
-			<?php
-			while($row7 = mysqli_fetch_assoc($query7)){
-				$custid = $row7['cust_id'];
-				$query8 = mysqli_query($conn, "select concat('first_name', ' ', 'last_name') as name from tbl_customers where cust_id='".$custid."'");
-				$row8 = mysqli_fetch_assoc($query8);
-				$custname = $row8['name'];
-				$feedback = $row7['comment'];
-				?>
-				<div class="wh20percent left textleft">
-					<div class="circlewrap2">
-						<img alt="" class="circleimg" src="images/user-avatar.jpg">
-					</div>
-				</div>
-				<div class="wh80percent right">
-					<a href="#" class="lblue bold">
-						<?php echo $custname; ?>
-					</a>
-					<br/>
-					<?php echo $feedback; ?> 
-					<br/>
-				</div>
-				<div class="clearfix"></div>
-				<div class="line4"></div>			
 				<?php
-			}	
-		}else{
+			}
+			$query7 = mysqli_query($conn, "select cust_id, comment from tbl_driver_comments where driver_id='".$driverID."' order by comment_date desc limit 10");
+			$num7 = mysqli_num_rows($query7);
+			if($num7 > 0){
+				?>
+				<span class="size14 dark bold">
+					<?php echo $num7; ?> comments
+				</span>
+				<div class="line4"></div>
+				<?php
+				while($row7 = mysqli_fetch_assoc($query7)){
+					$custid = $row7['cust_id'];
+					$query8 = mysqli_query($conn, "select concat('first_name', ' ', 'last_name') as name from tbl_customers where cust_id='".$custid."'");
+					$row8 = mysqli_fetch_assoc($query8);
+					$custname = $row8['name'];
+					$feedback = $row7['comment'];
+					?>
+					<div class="wh20percent left textleft">
+						<div class="circlewrap2">
+							<img alt="" class="circleimg" src="images/user-avatar.jpg">
+						</div>
+					</div>
+					<div class="wh80percent right">
+						<a href="#" class="lblue bold">
+							<?php echo $custname; ?>
+						</a>
+						<br/>
+						<?php echo $feedback; ?> 
+						<br/>
+					</div>
+					<div class="clearfix"></div>
+					<div class="line4"></div>			
+				<?php
+				}	
+			}/*else{
+				?>
+				<!-- <center>No Comments</center> -->
+				<?php
+			}*/
 			?>
-			<center>No Comments</center>
-			<?php
-		}
-	?>
-</div>
-
-<br/><br/>
-<br/><br/>
-<br/>
-
-</div>
-<!-- END OF CONTENT -->	
-
+		</div>
+	</div>
+	<!-- END OF CONTENT -->	
 <div class="col-md-4" >
-
 <?php
 	if(!isset($_SESSION['customer_user_uname'])){
 	?>

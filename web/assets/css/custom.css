@@ -327,14 +327,12 @@ img.imgpos1{margin: 0px 10px;}
 .margtop-30{margin-top:-30px!important;}
 .margtop-35{margin-top:-35px!important;}
 .margtop-40{margin-top:-40px!important;}
-
-
 .margleft15{margin-left:15px!important;}
 .margleft20{margin-left:20px!important;}
-
 .margright10{margin-right:10px!important;}
 .margright20{margin-right:20px!important;}
 .margbottom20{margin-bottom:35px!important;}
+
 
 /*SEARCH BACKGROUND*/
 .searchbg{
@@ -2772,7 +2770,6 @@ padding-top:3px;
 .bcgrnd-lgrey{background-color: lightgrey;}
 
 
-
 /* ########################################### */
 /* ########################################### */
 /* ########        UPDATE 1.4        ######### */
@@ -2786,3 +2783,43 @@ padding-top:3px;
 
 
 
+.cab-div {
+  position: relative;
+  /*height: 250px;*/
+}
+
+.cab-details {
+  position: absolute;
+  z-index: 9999;
+  background-color: #EEEEEE;
+  /*top: 10px;*/
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  padding: 10px;
+}
+.driver-dv1 {
+	display: inline-block;
+	vertical-align: middle;
+	width: 13%;
+}
+.driver-dv1 img {
+	width: 100%;
+}
+.driver-dv2 {
+	display: inline-block;
+	vertical-align: middle;
+	width: 60%;
+	padding-left: 20px;
+}
+.driver-dv2 p {
+	margin: 0px;
+}
+.dv-currentlocaion {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	background-color: #EEEEEE;
+	padding: 10px;
+}
