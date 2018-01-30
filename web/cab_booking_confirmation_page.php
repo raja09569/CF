@@ -29,7 +29,7 @@
 			<div class="padding30 grey">
 				<?php
 					$custID = $_SESSION['customer_user_ID'];
-					$query = mysqli_query($conn, "select concat('first_name', '', 'last_name') as name, cust_id, isd_code, mobile_number, email_id from tbl_customers where cust_id='".$custID."'");
+					$query = mysqli_query($conn, "select concat(first_name, ' ', last_name) as name, cust_id, isd_code, mobile_number, email_id from tbl_customers where cust_id='".$custID."'");
 					$row = mysqli_fetch_assoc($query);
 					$name = $row['name'];
 					$number = $row['isd_code']." ".$row['mobile_number'];
@@ -115,18 +115,22 @@
 						$dropdate = "";
 						$droptime = "";
 					}*/
-					$trip_confirm = $_SESSION['trip_confirm'];
+					//$trip_confirm = $_SESSION['trip_confirm'];
 					?>
 					function completeBook(){
-						var cust_id = "<?php echo $id; ?>";
-						var driver_id = "<?php echo $_trip_confirm['driverID']; ?>";
+						alert("hello");
+						var cust_id = "<?php echo $custID; ?>";
+						var trip = sessionStorage.getItem("trip_confirm");
+						alert(trip);
+						//return;
+						/*var driver_id = "<?php echo $_trip_confirm['driverID']; ?>";
 						var pick = "<?php echo $_trip_confirm['pick']; ?>";
 						var pickLatLng = "<?php echo $_trip_confirm['pick_latlng']; ?>";
 						var pickdate= "<?php echo $_trip_confirm['pick_date']; ?>";
 						var drop = "<?php echo $_trip_confirm['drop']; ?>";
 						var dropLatLng = "<?php echo $_trip_confirm['drop_latlng']; ?>";
 						var total_distance = "<?php echo $_trip_confirm['distance']; ?>";
-						var total_fee = "<?php echo $_trip_confirm['price']; ?>";
+						var total_fee = "<?php echo $_trip_confirm['price']; ?>";*/
 						
 						/*$("#loader-wrapper").show();
 						var maxTime = 30;
@@ -154,7 +158,7 @@
 								alert(error);
 							}
 						});*/
-						$.ajax({
+						/*$.ajax({
 							type: 'POST',
 							url: 'Admin/store_customer_trip.php',
 							data:{
@@ -179,7 +183,7 @@
 							error: function(error){
 								alert(error);
 							}
-						});
+						});*/
 					}
 				</script>
 				<br/>
@@ -198,7 +202,7 @@
 			</div>
 		</div>
 		<!-- END OF LEFT CONTENT -->			
-		<?php
+		<!-- <?php
 			$query = mysqli_query($conn, "select * from tbl_drivers where driver_id = '".$_SESSION['id']."'");
 			$num = mysqli_num_rows($query);
 			//echo $num;
@@ -210,7 +214,7 @@
 			$row2 = mysqli_fetch_assoc($query2);
 			$vehicle_name = $row2['name'];
 			$rateperhour = $row2['per_km_without_ac'];
-		?>
+		?> -->
 		<!-- RIGHT CONTENT -->
 		<div class="col-md-4" >
 			<div class="pagecontainer2 paymentbox grey">
@@ -223,27 +227,27 @@
 						<img src="<?php echo $vehicle_photo; ?>" class="fwimg" alt="<?php echo $vehicle_name; ?>" style="width: 80%;"/>
 					</div>
 					<div class="wh60percent right" style="margin-bottom: 10px;">
-						<span class="size16 bold dark"><?php echo $vehicle_name; ?></span><br/>
+						<!-- <span class="size16 bold dark"><?php echo $vehicle_name; ?></span><br/> -->
 						<!-- <span class="size13 bold grey"></span><br/>
 						<div class="fdash mt10"></div><br/>
 						<div class="fdash mt10"></div><br/> -->
 					</div>
 					<table class="wh100percent size12 bold grey2">
 						<tr>
-							<td><img src="<?php echo $row['driver_photo']; ?>" style="width:80%;"/></td>
+							<!-- <td><img src="<?php echo $row['driver_photo']; ?>" style="width:80%;"/></td>
 							<td class="textright">
 								<span class="size16 bold dark"><?php echo $row['name']."(".$row['vehicle_no'].")"; ?></span><br/>
 								<span class="size16 bold dark"><?php echo $row['mobile_number']; ?></span><br/>
-							</td>
+							</td> -->
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td>Total Distance:</td>
 							<td class="textright"><?php echo $_SESSION['distance']; ?></td>
-						</tr>
+						</tr> -->
 					</table>
 					<div class="clearfix"></div>
 					<br/>
@@ -251,7 +255,7 @@
 				<div class="line3"></div>
 				<div class="padding30">					
 					<span class="left size14 dark">Trip Total:</span>
-					<span class="right lred2 bold size18"> Fcfa <?php echo $_SESSION['price']; ?></span>
+					<!-- <span class="right lred2 bold size18"> Fcfa <?php echo $_SESSION['price']; ?></span> -->
 					<div class="clearfix"></div>
 				</div>
 			</div>

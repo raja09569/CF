@@ -2823,3 +2823,13 @@ padding-top:3px;
 	background-color: #EEEEEE;
 	padding: 10px;
 }
+.p-one {
+	display: inline-block;
+	vertical-align: middle;
+	width: 49%;
+}
+.p-two {
+	display: inline-block;
+	vertical-align: middle;
+	width: 49%;
+}

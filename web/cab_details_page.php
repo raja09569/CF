@@ -92,6 +92,8 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 ?>  
 <!-- Updates -->
 <link href="updates/update1/css/style01.css" rel="stylesheet" media="screen">
+<link href="assets/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="assets/js/bootstrap-toggle.min.js"></script>
 <script src="cabs.js"></script>
 <div class="container breadcrub">
 	<div>
@@ -127,6 +129,8 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 	$noofSeats = $row2['no_of_seats'];
 	$driverName = $row['name'];
 	$vehicleNo = $row['vehicle_no'];
+	$acFare = $distance['distance'] * $rateperhourwitAC;
+	$nonacFare = $distance['distance'] * $rateperhourwithoutAC;
 	/*if($rateperhourwitAC == ""){
 		$rateperhour = $rateperhourwithoutAC;
 	}else{
@@ -240,65 +244,82 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 					</label>
 				</div> -->
 				<div>
-					<p class="size18 bold"><i class="icon-location-arrow"></i>&nbsp; Pick From</p>
-					<p class="size14"><?php echo $pick; ?></p>
+					<p class="size18 bold">
+						<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; Pick From
+					</p>
+					<p class="size14">
+						<?php echo $pick; ?>
+					</p>
 				</div>
 				<div>
-					<p class="size18 bold"><i class="icon-location-arrow"></i>&nbsp; Drop At</p>
-					<p class="size14"><?php echo $drop; ?></p>
+					<p class="size18 bold">
+						<i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp; Drop At
+					</p>
+					<p class="size14">
+						<?php echo $drop; ?>
+					</p>
 				</div>
-				<div class="checkbox">
-					<label>
+				<div>
+					<p class="size18 bold">
+						<i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp; Pick
+					</p>
+					<p class="size14">
 						<?php
-							if($pick_date != ""){
-								echo "Pickup Date <span class='right grey'>".$pick_date."</span>";
-							}else{
-								$pick_date = "Now";
-								?>
-								<span class='right grey size14'>Pick Now</span> <!-- <span class='right grey'>
-								<script type="text/javascript">
-									var currentTime = new Date();
-									var hours = currentTime.getHours() > 12 ? currentTime.getHours() - 12 : currentTime.getHours();
-									var am_pm = currentTime.getHours() >= 12 ? "PM" : "AM";
-									hours = hours < 10 ? "0" + hours : hours;
-									var minutes = currentTime.getMinutes() < 10 ? "0" + currentTime.getMinutes() : currentTime.getMinutes();
-									var seconds = currentTime.getSeconds() < 10 ? "0" + currentTime.getSeconds() : currentTime.getSeconds();
-									var time = hours + ":" + minutes+ " " + am_pm;
-									if((currentTime.getMonth()+1).toString().length == 1){
-										currentTime = currentTime.getDate()
-													+"/0"+(currentTime.getMonth()+1)
-													+"/"+currentTime.getFullYear();		
-									}else{
-										currentTime = currentTime.getDate()
-													+"/"+(currentTime.getMonth()+1)
-													+"/"+currentTime.getFullYear();	
-									}
-									currentTime = currentTime+" "+time;
-									document.write(currentTime);
-								</script>
-								</span> -->
-								<?php
-							}
-							?>
-					</label>
+						if($pick_date != ""){
+							echo $pick_date;
+						}else{
+							$pick_date = "Now";
+							echo $pick_date;
+						}
+						?>
+					</p>
 				</div>
 			</div>
 		</div>
 		<div class="line3"></div>	
 		<div class="padding20">
-			<table class="wh100percent size12 bold dark">
+			<!-- <table class="wh100percent size12 bold dark">
 				<tr>
 					<td>Total Distance</td>
-					<td class="textright"><?php echo $distance['distance']; ?></td>
+					<td class="textright"></td>
 				</tr>
-			</table>
-			<?php
-				$dist = explode(" ", $distance['distance']);
-				$price = $dist[0]*$rateperhour;
-			?>
-			<div class="fdash mt10"></div><br/>
+			</table> -->
+			<div>
+				<p class="size16 bold p-one text-left"><i class="fa fa-road" aria-hidden="true"></i>&nbsp;Distance</p>
+				<p class="size16 bold p-two text-right"><?php echo $distance['distance']; ?></p>
+			</div>
+			<div>
+				<script type="text/javascript">
+					function changeFare(id){
+						var distance = "<?php echo $distance['distance']; ?>";
+						var acFare = "<?php echo $acFare; ?>";
+						var nonacFare = "<?php echo $nonacFare; ?>";
+						if ($(id).is(':checked')) {
+							$("#ride-fare").text(acFare);
+						}else{
+							$("#ride-fare").text(nonacFare);
+						}
+					}
+				</script>
+				<div class="col-md-6 text-left paddingg">
+					<style>
+					  	.toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+					  	.toggle.ios .toggle-handle { border-radius: 20px; }
+					</style>
+					<label class="size16 bold">AC</label>&nbsp;
+					<input type="checkbox" data-toggle="toggle" data-style="ios" onchange="changeFare(this);">
+				</div>
+				<div class="col-md-6 text-right paddingg">
+					<p class="size14 bold" style="padding-top: 10px;">
+						<span id="ride-fare"><?php echo $distance['distance'] * $rateperhourwithoutAC; ?></span>
+						&nbsp;&nbsp;FCFA&nbsp;<i>per KM</i>
+					</p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<!-- <div class="fdash mt10"></div>
 			<span class="size14 dark bold">Total price:</span>
-			<span class="size24 green bold right margtop-5">Fcfa <?php echo $price; ?></span>
+			<span class="size24 green bold right margtop-5">Fcfa <?php echo $price; ?></span> -->
 		</div>
 		<?php
 	}else{
@@ -421,6 +442,64 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 	}
 ?>
 <div class="line3"></div>
+<script type="text/javascript">
+	function bookTrip() {
+		var pick = "<?php echo $trip; ?>";
+		var drop = "<?php echo $drop; ?>";
+		var pickLatLng = "<?php echo $pickLatLng; ?>";
+		var dropLatLng = "<?php echo $dropLatLng; ?>";
+		var pick_date = "<?php echo $pick_date; ?>";
+		var driverID = "<?php echo $driverID; ?>";
+		var distance = "<?php echo $distance['distance']; ?>";
+		var rideFare = $("#ride-fare").text();
+		rideFare = rideFare.split("  ");
+		rideFare = rideFare[0];
+		if(drop != ""){
+			var trip = {
+				pick: pick,
+			 	pickLatLng: pickLatLng,
+			 	drop: drop,
+			 	dropLatLng: dropLatLng,
+			 	pick_date: pick_date,
+			 	driverID: driverID,
+			 	distance: distance,
+			 	price: rideFare
+			}
+			/*$trip = array(
+				"pick" => $pick,
+				"pickLatLng" => $pickLatLng,
+				"drop" => $drop,
+				"dropLatLng" => $drpLatLng,
+				"pick_date" => $pick_date,
+				"driverID" => $driverID,
+				"distance" => $distance['distance'],
+				"price" => $price
+			);*/
+		}else{
+			/*$trip = array(
+				"pick" => $pick,
+				"pickLatLng" => $pickLatLng,
+				"pick_date" => $pick_date,
+				"drop" => $drop,
+				"dropLatLng" => "",
+				"driverID" => $driverID,
+				"distance" => "",
+				"price" => ""
+			);*/
+			var trip = {
+				pick: pick,
+			 	pickLatLng: pickLatLng,
+			 	drop: drop,
+			 	dropLatLng: "",
+			 	pick_date: pick_date,
+			 	driverID: driverID,
+			 	distance: "",
+			 	price: ""
+			}
+		}
+		sessionStorage.setItem("trip_confirm", trip);
+	}
+</script>
 <div class="clearfix"></div>
 	<div class="hpadding20">
 		<?php 
@@ -446,7 +525,8 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 			$_SESSION['id'] = $id;
 			$_SESSION['distance'] = $distance['distance'];
 			$_SESSION['price'] = $price;*/
-			if($drop != ""){
+
+			/*if($drop != ""){
 				$trip = array(
 					"pick" => $pick,
 					"pickLatLng" => $pickLatLng,
@@ -455,7 +535,7 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 					"pick_date" => $pick_date,
 					"driverID" => $driverID,
 					"distance" => $distance['distance'],
-					"price" => $price
+					//"price" => $price
 				);
 			}else{
 				$trip = array(
@@ -469,12 +549,12 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 					"price" => ""
 				);
 			}
-			$_SESSION['trip_confirm'] = $trip;
+			$_SESSION['trip_confirm'] = $trip;*/
 			$_session['timeout'] = time();
 			if(isset($_SESSION['customer_user_uname'])){
 				$_session['pickup_uname'] = $_SESSION['customer_user_uname'];
 				?>
-				<a href="cab_booking_confirmation_page.php" class="booknow margtop20 btnmarg">Book now</a><br/>
+				<a href="cab_booking_confirmation_page.php" class="booknow margtop20 btnmarg" onclick="bookTrip();" >Book now</a><br/>
 				<?php
 			}else{
 				?>
