@@ -47,12 +47,12 @@
 				  <span class="icon-bar"></span>
 				  <span class="icon-bar"></span>
 				</button>
-				<a href="../index.php" class="navbar-brand"><img src="../images/logo.png" alt="Travel Agency Logo" class="logo"/></a>
+				<a href="../../index.php" class="navbar-brand"><img src="../images/logo.png" alt="Travel Agency Logo" class="logo"/></a>
 			  </div>
 			  <div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 				  <li class="dropdown active">
-					<a href="../index.php">
+					<a href="../../index.php">
 						Home
 					</a>
 				  </li>

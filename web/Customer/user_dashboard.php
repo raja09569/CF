@@ -1,33 +1,33 @@
 <?php
-include '../Includes/db.php';
-include 'Includes/header.php';
-if(!isset($_SESSION['customer_user_uname'])){
-?>
-<script>window.location.href = "Login.php"</script>
-<?php
-}
+    include '../Includes/db.php';
+    include 'Includes/header.php';
+    if(!isset($_SESSION['customer_user_uname'])){
+        ?>
+        <script>window.location.href = "Login.php"</script>
+        <?php
+    }
 ?>
 <style>
-#write_review{
-opacity:0.92;
-position: absolute;
-top: 15%;
-left: 0%;
-padding: 5%;
-width: 90%;
-background: #000;
-display: none;
-}
+    #write_review{
+        opacity:0.92;
+        position: absolute;
+        top: 15%;
+        left: 0%;
+        padding: 5%;
+        width: 90%; 
+        background: #000;
+        display: none;
+    }
 </style>
 <script src="../assets/js/jquery.v2.0.3.js"></script>
 <script src="js/user_dashboard.js"></script>
 <div class="container breadcrub">
-<div>
-<a class="homebtn left" href="index.php"></a>
-<div class="left">
-<ul class="bcrumbs">
-<li>/</li>
-<li><a href="user_dashboard.php" class="active">User Admin</a></li>					
+    <div>
+        <a class="homebtn left" href="index.php"></a>
+        <div class="left">
+            <ul class="bcrumbs">
+                <li>/</li>
+                <li><a href="user_dashboard.php" class="active">User Admin</a></li>					
 </ul>				
 </div>
 <a class="backbtn right" href="../index.php"></a>
@@ -118,7 +118,7 @@ $count = $row2['count'];
 <?php 
 if($photo != ""){
 ?>
-<img src="<?php echo $photo; ?>" alt="<?php echo $name; ?>" width="40" class="left margright20"/>
+<img src="<?php echo "../".$photo; ?>" alt="<?php echo $name; ?>" width="40" class="left margright20"/>
 <?php
 }else{
 ?>

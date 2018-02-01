@@ -20,7 +20,7 @@
 	<div class="clearfix"></div>
 	<div class="brlines"></div>
 </div>	
-
+<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
 <!-- CONTENT -->
 <div class="container">
 	<div class="container mt25 offset-0">
@@ -82,83 +82,46 @@
 				</div>
 				<div class="col-md-4 textleft"></div>
 				<div class="clearfix"></div>
-				<script type="text/javascript">
-					<?php
-					/*//echo $_SESSION['pick_date'];
-					if(isset($_SESSION['pick_date'])){
-						$pickdate = $_SESSION['pick_date'];
-						//$picktime = $_SESSION['pick_time'];
-						if($pickdate != ""){
-							$dates = explode(" ", $pickdate);
-							$pickdate = $dates[0];
-							$picktime = $dates[1]." ".$dates[2];
-						}else{
-							$pickdate = "";
-							$picktime = "";
-						}
+				<?php
+					$pick = $_GET['pick'];
+					$pickLatLng = $_GET['pickLatLng'];
+					if(isset($_GET['drop'])){
+						$drop = $_GET['drop'];
 					}else{
-						$pickdate = "";
-						$picktime = "";
+						$drop = "";
 					}
-					if(isset($_SESSION['drop_date'])){
-						$dropdate = $_SESSION['drop_date'];
-						//$droptime = $_SESSION['drop_time'];
-						if($dropdate != ""){
-							$dates = explode(" ", $dropdate);
-							$dropdate = $dates[0];
-							$droptime = $dates[2]." ".$dates[3];
-						}else{
-							$dropdate = "";
-							$droptime = "";
-						}
+					if(isset($_GET['dropLatLng'])){
+						$dropLatLng = $_GET['dropLatLng'];
 					}else{
-						$dropdate = "";
-						$droptime = "";
-					}*/
-					//$trip_confirm = $_SESSION['trip_confirm'];
-					?>
+						$dropLatLng = "";
+					}
+					$pick_date = $_GET['pick_date'];
+					$driverID = $_GET['driverID'];
+					if(isset($_GET['distance'])){
+						$distance = $_GET['distance'];
+					}else{
+						$distance = "";
+					}
+					if(isset($_GET['price'])){
+						$price = $_GET['price'];
+					}else{
+						$price = "";
+					}
+					$isAc = $_GET['ac'];
+				?>
+				<script type="text/javascript">
 					function completeBook(){
-						alert("hello");
 						var cust_id = "<?php echo $custID; ?>";
-						var trip = sessionStorage.getItem("trip_confirm");
-						alert(trip);
-						//return;
-						/*var driver_id = "<?php echo $_trip_confirm['driverID']; ?>";
-						var pick = "<?php echo $_trip_confirm['pick']; ?>";
-						var pickLatLng = "<?php echo $_trip_confirm['pick_latlng']; ?>";
-						var pickdate= "<?php echo $_trip_confirm['pick_date']; ?>";
-						var drop = "<?php echo $_trip_confirm['drop']; ?>";
-						var dropLatLng = "<?php echo $_trip_confirm['drop_latlng']; ?>";
-						var total_distance = "<?php echo $_trip_confirm['distance']; ?>";
-						var total_fee = "<?php echo $_trip_confirm['price']; ?>";*/
-						
-						/*$("#loader-wrapper").show();
-						var maxTime = 30;
-						var x = setInterval(function(){
-							maxTime = maxTime - 1;
-							$("#loader-timer").text(maxTime+" seconds left");
-							if(maxTime == 0){
-								clearInterval(x);
-								$("#loader-wrapper").hide();
-							}
-						}, 1000);*/
-
-						/*$.ajax({
-							type: 'POST',
-							url: 'Admin/store_customer_trip.php',
-							data: {cust_id:cust_id,driver_id:driver_id,pick:pick,pick_date:pickdate,pick_time:picktime,drop:drop,drop_date:drop_date,drop_time:drop_time,total_distance:total_distance,total_fee:total_fee},
-							success: function(response) {
-								if(response == "You successfully booked this cab. we will get back to with confirmation."){
-									window.location = "../web/Customer/user_dashboard.php";
-								}else{
-									alert(response);
-								}
-							},
-							error: function(error){
-								alert(error);
-							}
-						});*/
-						/*$.ajax({
+						var driver_id = "<?php echo $driverID; ?>";
+						var pick = "<?php echo $pick; ?>";
+						var pickLatLng = "<?php echo $pickLatLng; ?>";
+						var pickdate= "<?php echo $pick_date; ?>";
+						var drop = "<?php echo $drop; ?>";
+						var dropLatLng = "<?php echo $dropLatLng; ?>";
+						var total_distance = "<?php echo $distance; ?>";
+						var total_fee = "<?php echo $price; ?>";
+						var isAcCab = "<?php echo $isAc; ?>";
+						$.ajax({
 							type: 'POST',
 							url: 'Admin/store_customer_trip.php',
 							data:{
@@ -167,23 +130,21 @@
 									pick: pick,
 									pickLatLng: pickLatLng,
 									pick_date: pickdate,
-									//pick_time: picktime,
 									drop: drop,
 									dropLatLng: dropLatLng,
-									total_distance: total_distance,
-									total_fee: total_fee
+									distance: total_distance,
+									isAcCab: isAcCab
 								},
 							success: function(response) {
+								alert(response);
 								if(response == "You successfully booked this cab. we will get back to with confirmation."){
 									window.location = "../web/Customer/user_dashboard.php";
-								}else{
-									alert(response);
 								}
 							},
 							error: function(error){
 								alert(error);
 							}
-						});*/
+						});
 					}
 				</script>
 				<br/>
@@ -202,19 +163,22 @@
 			</div>
 		</div>
 		<!-- END OF LEFT CONTENT -->			
-		<!-- <?php
-			$query = mysqli_query($conn, "select * from tbl_drivers where driver_id = '".$_SESSION['id']."'");
+		<?php
+			$query = mysqli_query($conn, "select vehicle_photo, vehicle_category, name, vehicle_no, mobile_number, driver_photo from tbl_drivers where driver_id = '".$_GET['driverID']."'");
 			$num = mysqli_num_rows($query);
-			//echo $num;
 			$row = mysqli_fetch_assoc($query);
-
-			$vehicle_photo = $row['vehicle_photo'];
-
-			$query2 = mysqli_query($conn, "select * from tbl_cab_categories where category_id='".$row['vehicle_category']."'");
+			$driverName = $row['name'];
+			$vehicleNo = $row['vehicle_no'];
+			$vehiclePhoto = $row['vehicle_photo'];
+			$vehicleCategory = $row['vehicle_category'];
+			$driverMobile = $row['mobile_number'];
+			$driverPhoto = $row['driver_photo'];
+			$query2 = mysqli_query($conn, "select name, per_km_without_ac, per_km_with_ac from tbl_cab_categories where category_id='".$vehicleCategory."'");
 			$row2 = mysqli_fetch_assoc($query2);
 			$vehicle_name = $row2['name'];
-			$rateperhour = $row2['per_km_without_ac'];
-		?> -->
+			$rateperhourwithoutAC = $row2['per_km_without_ac'];
+			$rateperhourwithAC = $row2['per_km_with_ac'];
+		?>
 		<!-- RIGHT CONTENT -->
 		<div class="col-md-4" >
 			<div class="pagecontainer2 paymentbox grey">
@@ -224,30 +188,34 @@
 				<div class="line3"></div>
 				<div class="hpadding30 margtop30" style="margin-bottom: 10px;">
 					<div class="wh30percent left">
-						<img src="<?php echo $vehicle_photo; ?>" class="fwimg" alt="<?php echo $vehicle_name; ?>" style="width: 80%;"/>
+						<img src="<?php echo $vehiclePhoto; ?>" class="fwimg" alt="<?php echo $vehicle_name; ?>" style="width: 80%;"/>
 					</div>
 					<div class="wh60percent right" style="margin-bottom: 10px;">
-						<!-- <span class="size16 bold dark"><?php echo $vehicle_name; ?></span><br/> -->
-						<!-- <span class="size13 bold grey"></span><br/>
-						<div class="fdash mt10"></div><br/>
-						<div class="fdash mt10"></div><br/> -->
+						<span class="size16 bold dark"><?php echo $vehicle_name; ?></span><br/>
+						<span class="size13 bold grey"></span>
+						<!-- <div class="fdash mt10">
+							
+						</div>
+						<div class="fdash mt10">
+							
+						</div> -->
 					</div>
 					<table class="wh100percent size12 bold grey2">
 						<tr>
-							<!-- <td><img src="<?php echo $row['driver_photo']; ?>" style="width:80%;"/></td>
+							<td><img src="<?php echo $driverPhoto; ?>" style="width:80%;"/></td>
 							<td class="textright">
-								<span class="size16 bold dark"><?php echo $row['name']."(".$row['vehicle_no'].")"; ?></span><br/>
-								<span class="size16 bold dark"><?php echo $row['mobile_number']; ?></span><br/>
-							</td> -->
+								<span class="size16 bold dark"><?php echo $driverName."(".$vehicleNo.")"; ?></span><br/>
+								<span class="size16 bold dark"><?php echo $driverMobile; ?></span><br/>
+							</td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 						</tr>
-						<!-- <tr>
+						<tr>
 							<td>Total Distance:</td>
-							<td class="textright"><?php echo $_SESSION['distance']; ?></td>
-						</tr> -->
+							<td class="textright"><?php echo $distance; ?></td>
+						</tr>
 					</table>
 					<div class="clearfix"></div>
 					<br/>
@@ -255,7 +223,7 @@
 				<div class="line3"></div>
 				<div class="padding30">					
 					<span class="left size14 dark">Trip Total:</span>
-					<!-- <span class="right lred2 bold size18"> Fcfa <?php echo $_SESSION['price']; ?></span> -->
+					<span class="right lred2 bold size18"> Fcfa <?php echo $price; ?></span>
 					<div class="clearfix"></div>
 				</div>
 			</div>

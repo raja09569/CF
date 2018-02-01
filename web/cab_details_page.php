@@ -131,11 +131,6 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 	$vehicleNo = $row['vehicle_no'];
 	$acFare = $distance['distance'] * $rateperhourwitAC;
 	$nonacFare = $distance['distance'] * $rateperhourwithoutAC;
-	/*if($rateperhourwitAC == ""){
-		$rateperhour = $rateperhourwithoutAC;
-	}else{
-		$rateperhour = $rateperhourwitAC;
-	}*/
 ?>
 <!-- SLIDER -->
 <div class="col-md-8 details-slider">
@@ -295,8 +290,10 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 						var acFare = "<?php echo $acFare; ?>";
 						var nonacFare = "<?php echo $nonacFare; ?>";
 						if ($(id).is(':checked')) {
+							$("#ride-fare").data("AC", "On");
 							$("#ride-fare").text(acFare);
 						}else{
+							$("#ride-fare").data("AC", "Off");
 							$("#ride-fare").text(nonacFare);
 						}
 					}
@@ -307,7 +304,7 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 					  	.toggle.ios .toggle-handle { border-radius: 20px; }
 					</style>
 					<label class="size16 bold">AC</label>&nbsp;
-					<input type="checkbox" data-toggle="toggle" data-style="ios" onchange="changeFare(this);">
+					<input type="checkbox" data-toggle="toggle" data-style="ios" onchange="changeFare(this);" data-AC="Off">
 				</div>
 				<div class="col-md-6 text-right paddingg">
 					<p class="size14 bold" style="padding-top: 10px;">
@@ -444,132 +441,47 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 <div class="line3"></div>
 <script type="text/javascript">
 	function bookTrip() {
-		var pick = "<?php echo $trip; ?>";
+		var pick = "<?php echo $pick; ?>";
 		var drop = "<?php echo $drop; ?>";
 		var pickLatLng = "<?php echo $pickLatLng; ?>";
 		var dropLatLng = "<?php echo $dropLatLng; ?>";
 		var pick_date = "<?php echo $pick_date; ?>";
 		var driverID = "<?php echo $driverID; ?>";
+		var isAc = $("#ride-fare").data("AC");
 		var distance = "<?php echo $distance['distance']; ?>";
 		var rideFare = $("#ride-fare").text();
 		rideFare = rideFare.split("  ");
 		rideFare = rideFare[0];
 		if(drop != ""){
-			var trip = {
-				pick: pick,
-			 	pickLatLng: pickLatLng,
-			 	drop: drop,
-			 	dropLatLng: dropLatLng,
-			 	pick_date: pick_date,
-			 	driverID: driverID,
-			 	distance: distance,
-			 	price: rideFare
-			}
-			/*$trip = array(
-				"pick" => $pick,
-				"pickLatLng" => $pickLatLng,
-				"drop" => $drop,
-				"dropLatLng" => $drpLatLng,
-				"pick_date" => $pick_date,
-				"driverID" => $driverID,
-				"distance" => $distance['distance'],
-				"price" => $price
-			);*/
+			var url = "cab_booking_confirmation_page.php?pick="+pick+"&pickLatLng="+pickLatLng+"&drop="+drop+"&dropLatLng="+dropLatLng+"&pick_date="+pick_date+"&driverID="+driverID+"&distance="+distance+"price="+rideFare+"&ac="+isAc;
 		}else{
-			/*$trip = array(
-				"pick" => $pick,
-				"pickLatLng" => $pickLatLng,
-				"pick_date" => $pick_date,
-				"drop" => $drop,
-				"dropLatLng" => "",
-				"driverID" => $driverID,
-				"distance" => "",
-				"price" => ""
-			);*/
-			var trip = {
-				pick: pick,
-			 	pickLatLng: pickLatLng,
-			 	drop: drop,
-			 	dropLatLng: "",
-			 	pick_date: pick_date,
-			 	driverID: driverID,
-			 	distance: "",
-			 	price: ""
-			}
+			var url = "cab_booking_confirmation_page.php?pick="+pick+"&pickLatLng="+pickLatLng+"&pick_date="+pick_date+"&driverID="+driverID+"&ac="+isAc;
 		}
-		sessionStorage.setItem("trip_confirm", trip);
+		window.location = url;
 	}
 </script>
-<div class="clearfix"></div>
-	<div class="hpadding20">
-		<?php 
-		if($type == "withLocation"){
-			/*$_SESSION['pick'] = $pick;
-			$_SESSION['drop'] = $drop;*/
-			//echo $pick_date;
-			/*if($pick_date != ""){
-				$dates = explode(" ", $pick_date);
-				//echo sizeof($dates);
-				$_SESSION['pick_date'] = $dates[0];
-				$_SESSION['pick_time'] = $dates[1]." ".$dates[2];
-			}
-			if($drop_date != ""){
-				$dates = explode(" ", $drop_date);
-				$_SESSION['drop_date'] = $dates[0];
-				$_SESSION['drop_time'] = $dates[2]." ".$dates[3];
-			}*/
-			/*$_SESSION['pick_latlng'] = $latlong;
-			$_SESSION['drop_latlng'] = $latlong2;
-			$_SESSION['pick_date'] = $pick_date;
-			$_SESSION['drop_date'] = $drop_date;
-			$_SESSION['id'] = $id;
-			$_SESSION['distance'] = $distance['distance'];
-			$_SESSION['price'] = $price;*/
-
-			/*if($drop != ""){
-				$trip = array(
-					"pick" => $pick,
-					"pickLatLng" => $pickLatLng,
-					"drop" => $drop,
-					"dropLatLng" => $drpLatLng,
-					"pick_date" => $pick_date,
-					"driverID" => $driverID,
-					"distance" => $distance['distance'],
-					//"price" => $price
-				);
-			}else{
-				$trip = array(
-					"pick" => $pick,
-					"pickLatLng" => $pickLatLng,
-					"pick_date" => $pick_date,
-					"drop" => $drop,
-					"dropLatLng" => "",
-					"driverID" => $driverID,
-					"distance" => "",
-					"price" => ""
-				);
-			}
-			$_SESSION['trip_confirm'] = $trip;*/
-			$_session['timeout'] = time();
-			if(isset($_SESSION['customer_user_uname'])){
-				$_session['pickup_uname'] = $_SESSION['customer_user_uname'];
-				?>
-				<a href="cab_booking_confirmation_page.php" class="booknow margtop20 btnmarg" onclick="bookTrip();" >Book now</a><br/>
-				<?php
-			}else{
-				?>
-				<a href="Customer/Login.php" class="booknow margtop20 btnmarg">Book now</a><br/>	
-				<?php
-			}
-		}else{
-			?>
-			<script type="text/javascript">
-				alert("Choose pickup location");
-			</script>
-			<?php
-		}
+<?php 
+if($type == "withLocation"){
+	$_session['timeout'] = time();
+	if(isset($_SESSION['customer_user_uname'])){
 		?>
-	</div>
+		<a class="booknow margtop20 btnmarg" onclick="bookTrip();" >Book now</a><br/>
+		<?php
+	}else{
+		?>
+		<a href="Customer/Login.php" class="booknow margtop20 btnmarg">Book now</a><br/>	
+		<?php
+	}
+}else{
+	?>
+	<script type="text/javascript">
+		alert("Choose pickup location");
+	</script>
+	<?php
+}
+?>
+<div class="clearfix"></div>
+	
 </div>
 <!-- END OF RIGHT INFO -->
 </div>
