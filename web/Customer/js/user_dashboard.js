@@ -38,7 +38,7 @@ function changePassword(){
 		});
 	}
 }
-function UpdateUserDtls(emailID){
+function UpdateUserDtls(custID){
 	var name = $("#name").val();
 	var email = $("#email").val();
 	var phoneno = $("#phoneno").val();
@@ -73,7 +73,7 @@ function UpdateUserDtls(emailID){
 		$.ajax({
 			type: 'POST',
 			url: 'update_userProfile.php',
-			data: {emailid:emailID,name:name,emailID:email,phoneno:phoneno,adrs:adrs},
+			data: {custID:custID, name:name, emailID:email, phoneno:phoneno, adrs:adrs},
 			success: function(response) {
 				//alert(response);
 				if(response == "success"){

@@ -263,23 +263,6 @@ function submit_search(){
 		alert("When you want to Go");
 	}else{
 		if(pick_now.checked == true){
-			/*pick_time = new Date();
-			var hours = pick_time.getHours() > 12 ? pick_time.getHours() - 12 : pick_time.getHours();
-			var am_pm = pick_time.getHours() >= 12 ? "PM" : "AM";
-			hours = hours < 10 ? "0" + hours : hours;
-			var minutes = pick_time.getMinutes() < 10 ? "0" + pick_time.getMinutes() : pick_time.getMinutes();
-			var seconds = pick_time.getSeconds() < 10 ? "0" + pick_time.getSeconds() : pick_time.getSeconds();
-			var time = hours + ":" + minutes+ " " + am_pm;
-			if((pick_time.getMonth()+1).toString().length == 1){
-				pick_time = pick_time.getDate()
-							+"/0"+(pick_time.getMonth()+1)
-							+"/"+pick_time.getFullYear();		
-			}else{
-				pick_time = pick_time.getDate()
-							+"/"+(pick_time.getMonth()+1)
-							+"/"+pick_time.getFullYear();	
-			}
-			pick_time = pick_time+" "+time;*/
 			var pickupType = "Now";
 			var url = "web/cab_list_page.php?pick="+pick_place+"&drop="+drop_place+"&pickType="+pickupType;
 			url = encodeURI(url);
@@ -293,8 +276,9 @@ function submit_search(){
 				alert("Select time!");
 			}else{
 				pick_date = pick_date.split("/");
-				pick_date = pick_date[1]+"/"+pick_date[0]+"/"+pick_date[2];
-				var drop_date = pick_date+" "+pick_t;
+				pick_date = pick_date[2]+"-"+pick_date[0]+"-"+pick_date[1];
+				pick_time = convertTo24Hour(pick_time);
+				var drop_date = pick_date+" "+pick_time;
 				pick_time = new Date();
 				var hours = pick_time.getHours() > 12 ? pick_time.getHours() - 12 : pick_time.getHours();
 				var am_pm = pick_time.getHours() >= 12 ? "PM" : "AM";
@@ -330,6 +314,18 @@ function submit_search(){
 			}			
 		}
 	}
+}
+
+function convertTo24Hour(time12h) {
+  const [time, modifier] = time12h.split(' ');
+  let [hours, minutes] = time.split(':');
+  if (hours === '12') {
+    hours = '00';
+  }
+  if (modifier === 'PM') {
+    hours = parseInt(hours, 10) + 12;
+  }
+  return hours + ':' + minutes;
 }
 </script>
 

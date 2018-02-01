@@ -121,6 +121,8 @@
 						var total_distance = "<?php echo $distance; ?>";
 						var total_fee = "<?php echo $price; ?>";
 						var isAcCab = "<?php echo $isAc; ?>";
+						//alert(isAcCab);
+						//return;
 						$.ajax({
 							type: 'POST',
 							url: 'Admin/store_customer_trip.php',
@@ -136,13 +138,22 @@
 									isAcCab: isAcCab
 								},
 							success: function(response) {
-								alert(response);
-								if(response == "You successfully booked this cab. we will get back to with confirmation."){
+								//alert(response);
+								var json = JSON.parse(response);
+								if(json.msg == "success"){
+									alert("You successfully booked this cab. we will get back to with confirmation.");
 									window.location = "../web/Customer/user_dashboard.php";
+								}else{
+									alert(json.msg);
 								}
 							},
 							error: function(error){
-								alert(error);
+								//alert(error);
+								if(error.status == "0"){
+									alert("Unable to connect to server, Try again");
+								}else{
+									alert("Something went wrong, Try again");
+								}
 							}
 						});
 					}

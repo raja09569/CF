@@ -5,6 +5,8 @@
         ?>
         <script>window.location.href = "Login.php"</script>
         <?php
+    }else{
+        $custID = $_SESSION['customer_user_ID'];
     }
 ?>
 <style>
@@ -94,8 +96,6 @@ Change password
 <div class="tab-pane padding40 active" id="profile">
 
 <?php
-$custID = $_SESSION['customer_user_ID'];
-
 $query = mysqli_query($conn, "select * from tbl_customers where cust_id='".$custID."'");
 $row = mysqli_fetch_assoc($query);
 $id = $row['cust_id'];
@@ -170,7 +170,7 @@ Address*:
 <input type="text" class="form-control" id="adrs" value="<?php echo $address; ?>" placeholder="">							
 <br/>
 
-<button type="submit" class="bluebtn margtop20" onclick="UpdateUserDtls('<?php echo $emailid; ?>');" >Update</button>	
+<button type="submit" class="bluebtn margtop20" onclick="UpdateUserDtls('<?php echo $custID; ?>');" >Update</button>	
 </div>
 <!-- END OF COL 1 -->
 

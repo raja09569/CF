@@ -2,12 +2,13 @@
 include "Includes/db.php";
 include "Includes/header.php";
 if(isset($_GET['pick'])){
-	$pick 	=   $_GET['pick'];
-	$drop 		=   $_GET['drop'];
-	$pickType 		=   $_GET['pickType'];
+	$pick = $_GET['pick'];
+	$drop = $_GET['drop'];
+	$pickType = $_GET['pickType'];
 	if($pickType == "Later"){
 		if(isset($_GET['pick_date'])){
 			$pick_date = $_GET['pick_date'];
+			$pick_date = urldecode($pick_date);
 		}else{
 			?>
 			<script type="text/javascript">
@@ -477,9 +478,9 @@ while($row1 = mysqli_fetch_assoc($query1)){
 <div class="itemscontainer offset-1">
 	<script>
 		//Popover tooltips
-		$(function (){
+		/*$(function (){
 			$("#username").popover({placement:'top', trigger:'hover'});
-		});
+		});*/
 	</script>
 	<?php
 		if(isset($_GET['startIndex'])){

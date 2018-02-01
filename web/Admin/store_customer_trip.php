@@ -1,11 +1,11 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 include '../Includes/db.php';
-include '../../../Includes/functions.php';
+include '../Includes/functions.php';
 
 if(isset($_POST['cust_id'])){
 	$cust_id = $_POST['cust_id'];
-	$driver_id = $_POST['driver_id'];
+	$driverID = $_POST['driver_id'];
 	$pick = $_POST['pick'];
 	$pickLatLng = $_POST['pickLatLng'];
 	$pick_date = $_POST['pick_date'];
@@ -20,14 +20,29 @@ if(isset($_POST['cust_id'])){
 		$drop = "";
 	}
 	
-	if($pick_date == "Now"){
-		date_default_timezone_set("Asia/Kolkata");
-		$date = date('m/d/Y h:i:s a', time());
+	if($isAcCab == "On"){
+		$isAcCab = "true";
+	}else{
+		$isAcCab = "false";
 	}
 
-	$query3 = mysqli_query($conn, "select reg_id, vehicle_category, duty_status from tbl_drivers where driver_id='".$driver_id."'");
+	if($pick_date == "Now"){
+		date_default_timezone_set("Asia/Kolkata");
+		$pick_date = date("Y-m-d", time());
+		$pick_time = date("H:i:s", time());
+		$RIDE_LATER = "false";
+	}else{
+		$pick_date = explode(" ", $pick_date);
+		$pick_date = $pick_date[0];
+		$pick_time = $pick_date[1];
+		$RIDE_LATER = "true";
+	}
+
+	$query3 = mysqli_query($conn, "select reg_id, vehicle_category, duty_status from tbl_drivers where driver_id='".$driverID."'");
 	$row3 = mysqli_fetch_assoc($query3);
-	$query4 = mysqli_query($conn, "select owner_comm_per_trip, min_charge_without_ac, min_charge_with_ac, tax, per_km_with_ac, per_km_without_ac,  from tbl_cab_categories where category_id='".$row3['vehicle_category']."'");
+	$vehicleCategory = $row3['vehicle_category'];
+	$query4 = mysqli_query($conn, "select owner_comm_per_trip, min_charge_without_ac, min_charge_with_ac, tax, per_km_with_ac, per_km_without_ac, min_km_to_charge from tbl_cab_categories where category_id='".$vehicleCategory."'");
+	$num4 = mysqli_num_rows($query4);
 	$row4 = mysqli_fetch_assoc($query4);
 	$status = "Requested";
 
@@ -51,7 +66,7 @@ if(isset($_POST['cust_id'])){
 			$Charge = $row4['per_km_without_ac'];
 		}
 		$tax = $row4['tax'];
-		$Charge = $dist*$Charge;
+		$Charge = $distance * $Charge;
 		$tax = $tax/100*$Charge + 0.5/100*$Charge + 0.5/100*$Charge;
 		$total = $Charge + $tax;
 		$owner_commission = $total*($owner_commission/100);
@@ -69,7 +84,7 @@ if(isset($_POST['cust_id'])){
 		$bookid = "CFCR0001";
 	}
 	
-	$query = mysqli_query($conn, "select booking_id from tbl_customer_trips where driver_id='".$driver_id."' and cust_id='".$cust_id."' and start_place='".$pick."' and start_date='".$pick_date."' and start_time='".$pick_time."' and end_place='".$drop."'");
+	$query = mysqli_query($conn, "select booking_id from tbl_customer_trips where driver_id='".$driverID."' and cust_id='".$cust_id."' and start_place='".$pick."' and start_date='".$pick_date."' and start_time='".$pick_time."' and end_place='".$drop."'");
 	$num = mysqli_num_rows($query);
 	if($num != 0){
 		echo '{"msg":"you alreay booked this trip"}';
@@ -78,11 +93,11 @@ if(isset($_POST['cust_id'])){
 		if($randomNum == ""){
 			$randomNum = generateRandomString();
 		}
+
 		$query2 = mysqli_query($conn, "insert into tbl_customer_trips (booking_id, driver_id, cust_id, start_place,
-		startPlace_latlng,start_date,start_time,end_place,endPlace_latlng,end_date,end_time,isAcAvailable,
-		isRideLater,ride_month,ride_year,total_distance,rideFare,tax,total_fee,verification_code, owner_commission, status, feedback, booked_date) values ('".$bookid."', '".$driver_id."','".$cust_id."','".$pick."','".$pickLatLng."','".$pick_date."','".$pick_time."','".$drop."', '".$dropLatLng."','','','".$isAcCab."','".$RIDE_LATER."','".$trip_month."','".$trip_year."','".$dist."','".$Charge."','".$tax."','".$total."', '".$randomNum."','".$owner_commission."','','', now())");
+		startPlace_latlng, start_date, start_time, end_place, endPlace_latlng, end_date, end_time, isAcAvailable, isRideLater, ride_month, ride_year, total_distance, rideFare, tax,total_fee, verification_code, owner_commission, status, feedback, booked_date) values ('".$bookid."', '".$driverID."', '".$cust_id."', '".$pick."', '".$pickLatLng."', '".$pick_date."', '".$pick_time."', '".$drop."', '".$dropLatLng."', '', '', '".$isAcCab."', '".$RIDE_LATER."', '".$trip_month."', '".$trip_year."', '".$distance."', '".$Charge."', '".$tax."', '".$total."', '".$randomNum."', '".$owner_commission."', '', '',  now())");
 		if($query2){					
-			$query6 = mysqli_query($conn, "select * from tbl_customer_trips where driver_id='".$driver_id."' and cust_id='".$cust_id."' and start_date='".$pick_date."' and start_time='".$pick_time."'");
+			$query6 = mysqli_query($conn, "select * from tbl_customer_trips where driver_id='".$driverID."' and cust_id='".$cust_id."' and start_date='".$pick_date."' and start_time='".$pick_time."'");
 			$row6 = mysqli_fetch_assoc($query6);
 			$bokid = $row6['booking_id'];
 			
@@ -142,7 +157,7 @@ if(isset($_POST['cust_id'])){
 				$emailID = $row1['email_id'];
 				$mobileNumber = $row1['mobile_number'];
 				$message = "Your request has been received. We will get back to you with confirmation.";
-				sendSMS($message, $mobileNumber);
+				//sendSMS($message, $mobileNumber);
 			}else{
 
 			}

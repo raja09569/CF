@@ -90,6 +90,10 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 }
 
 ?>  
+<!-- <script type="text/javascript">
+	$("#ride-fare").attr("data-AC", "Off");
+	alert($("#ride-fare").data("AC"));
+</script> -->
 <!-- Updates -->
 <link href="updates/update1/css/style01.css" rel="stylesheet" media="screen">
 <link href="assets/css/bootstrap-toggle.min.css" rel="stylesheet">
@@ -290,10 +294,8 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 						var acFare = "<?php echo $acFare; ?>";
 						var nonacFare = "<?php echo $nonacFare; ?>";
 						if ($(id).is(':checked')) {
-							$("#ride-fare").data("AC", "On");
 							$("#ride-fare").text(acFare);
 						}else{
-							$("#ride-fare").data("AC", "Off");
 							$("#ride-fare").text(nonacFare);
 						}
 					}
@@ -304,11 +306,11 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 					  	.toggle.ios .toggle-handle { border-radius: 20px; }
 					</style>
 					<label class="size16 bold">AC</label>&nbsp;
-					<input type="checkbox" data-toggle="toggle" data-style="ios" onchange="changeFare(this);" data-AC="Off">
+					<input type="checkbox" data-toggle="toggle" data-style="ios" id="ac-toggle" onchange="changeFare(this);">
 				</div>
 				<div class="col-md-6 text-right paddingg">
 					<p class="size14 bold" style="padding-top: 10px;">
-						<span id="ride-fare"><?php echo $distance['distance'] * $rateperhourwithoutAC; ?></span>
+						<span id="ride-fare" ><?php echo $distance['distance'] * $rateperhourwithoutAC; ?></span>
 						&nbsp;&nbsp;FCFA&nbsp;<i>per KM</i>
 					</p>
 				</div>
@@ -447,13 +449,18 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 		var dropLatLng = "<?php echo $dropLatLng; ?>";
 		var pick_date = "<?php echo $pick_date; ?>";
 		var driverID = "<?php echo $driverID; ?>";
-		var isAc = $("#ride-fare").data("AC");
+		var isAc = $("#ac-toggle").is(":checked");
+		if(isAc == false){
+			isAc = "Off";
+		}else{
+			isAc = "On";
+		}
 		var distance = "<?php echo $distance['distance']; ?>";
 		var rideFare = $("#ride-fare").text();
 		rideFare = rideFare.split("  ");
 		rideFare = rideFare[0];
 		if(drop != ""){
-			var url = "cab_booking_confirmation_page.php?pick="+pick+"&pickLatLng="+pickLatLng+"&drop="+drop+"&dropLatLng="+dropLatLng+"&pick_date="+pick_date+"&driverID="+driverID+"&distance="+distance+"price="+rideFare+"&ac="+isAc;
+			var url = "cab_booking_confirmation_page.php?pick="+pick+"&pickLatLng="+pickLatLng+"&drop="+drop+"&dropLatLng="+dropLatLng+"&pick_date="+pick_date+"&driverID="+driverID+"&distance="+distance+"&price="+rideFare+"&ac="+isAc;
 		}else{
 			var url = "cab_booking_confirmation_page.php?pick="+pick+"&pickLatLng="+pickLatLng+"&pick_date="+pick_date+"&driverID="+driverID+"&ac="+isAc;
 		}
