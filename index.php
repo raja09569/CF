@@ -277,8 +277,7 @@ function submit_search(){
 			}else{
 				pick_date = pick_date.split("/");
 				pick_date = pick_date[2]+"-"+pick_date[0]+"-"+pick_date[1];
-				pick_time = convertTo24Hour(pick_time);
-				var drop_date = pick_date+" "+pick_time;
+				var drop_date = pick_date+" "+convertTo24Hour(pick_time);
 				pick_time = new Date();
 				var hours = pick_time.getHours() > 12 ? pick_time.getHours() - 12 : pick_time.getHours();
 				var am_pm = pick_time.getHours() >= 12 ? "PM" : "AM";
@@ -287,21 +286,16 @@ function submit_search(){
 				var seconds = pick_time.getSeconds() < 10 ? "0" + pick_time.getSeconds() : pick_time.getSeconds();
 				var time = hours + ":" + minutes+ " " + am_pm;
 				if((pick_time.getMonth()+1).toString().length == 1){
-					pick_time = pick_time.getDate()
-								+"/0"+(pick_time.getMonth()+1)
-								+"/"+pick_time.getFullYear()
-								+" ";		
+					pick_time = pick_time.getFullYear()+"-0"+(pick_time.getMonth()+1)+"-"+pick_time.getDate();		
 				}else{
-					pick_time = pick_time.getDate()
-								+"/"+(pick_time.getMonth()+1)
-								+"/"+pick_time.getFullYear()
-								+" ";	
+					pick_time = pick_time.getFullYear()+"-"+(pick_time.getMonth()+1)+"-"+pick_time.getDate();			
 				}
 				pick_time = pick_time+" "+time;
 				var dateOne = new Date(drop_date);
 				dateOne = dateOne.getTime();
 				var dateTwo = new Date(pick_time);
 				dateTwo = dateTwo.getTime();
+				//alert("Date one "+dateOne+"& Date two is "+dateTwo);
 				if (dateOne < dateTwo) {
 					alert("Please select Greater current date & time");
 				}else {

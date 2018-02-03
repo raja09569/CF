@@ -97,6 +97,7 @@ function UpdateUserDtls(custID){
 		});
 	}
 }
+
 function LoadReviews(email){
 	$.ajax({
 		type: 'POST',
@@ -109,7 +110,7 @@ function LoadReviews(email){
 				for(i=0; i<a.length; i++){
 					var data = '<div class="wh10percent left textleft">';
 					data += '<div class="circlewrap2">';
-					data += '<img width="50" alt="" class="circleimg" src="'+a[i].driver_photo+'">';
+					data += '<img width="50" alt="" class="circleimg" src="../'+a[i].driver_photo+'">';
 					data += '</div>';
 					data += '</div>';
 					data += '<div class="wh80percent right">';

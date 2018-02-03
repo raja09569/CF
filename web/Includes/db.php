@@ -1,7 +1,11 @@
 <?php
 session_start();
-$conn = mysqli_connect('localhost', 'root', '', 'db_travel');
-//$conn = mysqli_connect('blush.mysitehosted.com', 'crescom_travel', 'travel123', 'db_travel');
+$local = true;
+if($local == true){
+	$conn = mysqli_connect('localhost', 'root', '', 'db_travel');
+}else{
+	$conn = mysqli_connect('blush.mysitehosted.com', 'crescom_travel', 'travel123', 'db_travel');
+}
 
 $inactive = 120; 
 if(isset($_SESSION['timeout'])){

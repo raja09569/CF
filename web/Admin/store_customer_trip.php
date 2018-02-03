@@ -29,15 +29,14 @@ if(isset($_POST['cust_id'])){
 	if($pick_date == "Now"){
 		date_default_timezone_set("Asia/Kolkata");
 		$pick_date = date("Y-m-d", time());
-		$pick_time = date("H:i:s", time());
+		$pick_time = date("H:i", time());
 		$RIDE_LATER = "false";
 	}else{
-		$pick_date = explode(" ", $pick_date);
-		$pick_date = $pick_date[0];
-		$pick_time = $pick_date[1];
+		$pd = explode(" ", $pick_date);
+		$pick_date = $pd[0];
+		$pick_time = $pd[1];
 		$RIDE_LATER = "true";
 	}
-
 	$query3 = mysqli_query($conn, "select reg_id, vehicle_category, duty_status from tbl_drivers where driver_id='".$driverID."'");
 	$row3 = mysqli_fetch_assoc($query3);
 	$vehicleCategory = $row3['vehicle_category'];

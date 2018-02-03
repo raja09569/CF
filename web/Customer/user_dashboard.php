@@ -1,6 +1,6 @@
 <?php
     include '../Includes/db.php';
-    include 'Includes/header.php';
+    include '../Includes/header.php';
     if(!isset($_SESSION['customer_user_uname'])){
         ?>
         <script>window.location.href = "Login.php"</script>

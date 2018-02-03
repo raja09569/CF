@@ -59,9 +59,10 @@
 				}
 				$_SESSION['customer_user_uname'] = $username;
 				$_SESSION['customer_user_ID'] = $row['cust_id'];
-				if(isset($_SESSION['pick'])){
+				if(isset($_SESSION['from_booking'])){
+					unset($_SESSION['from_booking']);
 					?>
-					<script>window.location.href = "../cab_booking_confirmation_page.php"</script>
+					<script>window.location.href = "../cab_details_page.php"</script>
 					<?php
 				}else{
 					?>

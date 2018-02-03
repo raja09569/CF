@@ -265,7 +265,7 @@ function GetDrivingDistance($lat1, $lat2, $long1, $long2){
 					<p class="size14">
 						<?php
 						if($pick_date != ""){
-							echo $pick_date;
+							echo date("D d M y h:i A", strtotime($pick_date));
 						}else{
 							$pick_date = "Now";
 							echo $pick_date;
@@ -475,6 +475,7 @@ if($type == "withLocation"){
 		<a class="booknow margtop20 btnmarg" onclick="bookTrip();" >Book now</a><br/>
 		<?php
 	}else{
+		$_SESSION['from_booking'] = "Yes";
 		?>
 		<a href="Customer/Login.php" class="booknow margtop20 btnmarg">Book now</a><br/>	
 		<?php
