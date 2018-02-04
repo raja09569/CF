@@ -43,7 +43,7 @@
 }
 
 #div_drivers {
-	display: none;
+	/*display: none;*/
 }
 
 #drivers_list tr td {
@@ -117,5 +117,8 @@
 	width: 100%;
 }
 #updateButton {
+	display: none;
+}
+#chooseDrImage, #choosevhclImage {
 	display: none;
 }
