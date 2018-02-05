@@ -2,18 +2,19 @@
 	include 'header.php';
 	include 'side_menu.php';
 ?>
+<link rel="stylesheet" type="text/css" href="../css/custom.css">
 <!-- RIGHT CPNTENT -->
 <div class="dashboard-right  offset-0" id="main_content">
 	<!-- Tab panes from left menu -->
 	<div class="tab-content5">		
 		<!-- AD Categories TAB -->
 		<div id="ad_categories">
-			<div style="height:93vh;overflow:auto;">
+			<div>
 				<table class="flatTable">
 					<tr class="titleTr">
 						<td class="titleTd">List of AD Categories</td>
 						<td></td>
-						<td class="plusTd button"></td>
+						<td class="plusTd button" onclick="openForm()"></td>
 					</tr>
 					<tr class="headingTr">
 						<td></td>
@@ -24,25 +25,20 @@
 				</table>
 				
 				<div id="sForm" class="sForm sFormPadding">
-					<span class="button close" id="cls_ad">
+					<span class="button close" onclick="closeForm()">
 						<img src="https://i.imgur.com/nnzONel.png" alt="X"  class="" />
 					</span>
 					<h2 class="title">
-						Add a New Record
+						Add/Edit Record
 					</h2>  
 					<div>
 						<div class="fields">
-							
 							<label>Category Name(upto 15 characters): </label><br/>
-							<input type="text" placeholder="Enter name" id="ad_category"
-							class="form-control" maxlength="15" required />
-							
+							<input type="text" placeholder="Enter name" id="ad_category" class="form-control" maxlength="15" required />
 							<label>Choose Icon: </label><br/>
 							<div id="my-icon-select"></div>
-							
 							<button style="margin-top:140px;" id="btn_AddadCat" onclick="addadCat();" class="form-control">ADD</button>
 							<button style="margin-top:140px;" id="btn_UpdtadCat" class="form-control">UPDATE</button>
-			
 						</div>
 					</div>
 				</div>
@@ -90,6 +86,20 @@
 		<!-- End of AD Categories TAB -->
 		
 <script type="text/javascript">
+	
+	function openForm(){
+		$(".sForm").addClass("open");
+		LoadIcons();
+	}
+
+	function closeForm(){
+		$(".fields input").val("");
+		LoadIcons();
+		$("#sForm button:contains('ADD')").show();
+		$("#sForm button:contains('UPDATE')").hide();
+		$(".sForm").removeClass("open");
+	}
+
 	var iconSelect = new IconSelect("my-icon-select", 
 		{'selectedIconWidth':48,
 		'selectedIconHeight':48,
@@ -99,24 +109,29 @@
 		'boxIconSpace':3,
 		'vectoralIconNumber':8,
 		'horizontalIconNumber':1});
-	var icons = [];
-	icons.push({'iconFilePath':'../images/icons/1.png', 'iconValue':'../images/icons/1.png'});
-	icons.push({'iconFilePath':'../images/icons/2.png', 'iconValue':'../images/icons/2.png'});
-	icons.push({'iconFilePath':'../images/icons/3.png', 'iconValue':'../images/icons/3.png'});
-	icons.push({'iconFilePath':'../images/icons/4.png', 'iconValue':'../images/icons/4.png'});
-	icons.push({'iconFilePath':'../images/icons/5.png', 'iconValue':'../images/icons/5.png'});
-	icons.push({'iconFilePath':'../images/icons/6.png', 'iconValue':'../images/icons/6.png'});
-	icons.push({'iconFilePath':'../images/icons/7.png', 'iconValue':'../images/icons/7.png'});
-	icons.push({'iconFilePath':'../images/icons/8.png', 'iconValue':'../images/icons/8.png'});
-	icons.push({'iconFilePath':'../images/icons/9.png', 'iconValue':'../images/icons/9.png'});
-	icons.push({'iconFilePath':'../images/icons/10.png', 'iconValue':'../images/icons/10.png'});
-	icons.push({'iconFilePath':'../images/icons/11.png', 'iconValue':'../images/icons/11.png'});
-	icons.push({'iconFilePath':'../images/icons/12.png', 'iconValue':'../images/icons/12.png'});
-	icons.push({'iconFilePath':'../images/icons/13.png', 'iconValue':'../images/icons/13.png'});
-	icons.push({'iconFilePath':'../images/icons/14.png', 'iconValue':'../images/icons/14.png'});
-	iconSelect.refresh(icons);
 
-	LoadCategories();
+	function LoadIcons(){
+		var icons = [];
+		icons.push({'iconFilePath':'../images/icons/1.png', 'iconValue':'../images/icons/1.png'});
+		icons.push({'iconFilePath':'../images/icons/2.png', 'iconValue':'../images/icons/2.png'});
+		icons.push({'iconFilePath':'../images/icons/3.png', 'iconValue':'../images/icons/3.png'});
+		icons.push({'iconFilePath':'../images/icons/4.png', 'iconValue':'../images/icons/4.png'});
+		icons.push({'iconFilePath':'../images/icons/5.png', 'iconValue':'../images/icons/5.png'});
+		icons.push({'iconFilePath':'../images/icons/6.png', 'iconValue':'../images/icons/6.png'});
+		icons.push({'iconFilePath':'../images/icons/7.png', 'iconValue':'../images/icons/7.png'});
+		icons.push({'iconFilePath':'../images/icons/8.png', 'iconValue':'../images/icons/8.png'});
+		icons.push({'iconFilePath':'../images/icons/9.png', 'iconValue':'../images/icons/9.png'});
+		icons.push({'iconFilePath':'../images/icons/10.png', 'iconValue':'../images/icons/10.png'});
+		icons.push({'iconFilePath':'../images/icons/11.png', 'iconValue':'../images/icons/11.png'});
+		icons.push({'iconFilePath':'../images/icons/12.png', 'iconValue':'../images/icons/12.png'});
+		icons.push({'iconFilePath':'../images/icons/13.png', 'iconValue':'../images/icons/13.png'});
+		icons.push({'iconFilePath':'../images/icons/14.png', 'iconValue':'../images/icons/14.png'});
+		iconSelect.refresh(icons);
+	}
+
+	(function(){
+		LoadCategories();
+	})();
 	
 	$("#btn_UpdtadCat").on("click", function(){
 		alert(iconSelect.getSelectedValue());
@@ -137,7 +152,7 @@
 					//alert(response);
 					if(response == "Category Updated!"){
 						alert(response);
-						$("#cls_ad").click(); 
+						closeForm();
 						$(".fields input[type=text]").val("");
 						showTab("ad_categories");
 						document.getElementById('ad_category').value = "";
@@ -171,10 +186,10 @@
 						$("#listadCategories").append("<tr>"
 						+ "<td><img src='"+a[i].icon+"' /></td>"
 						+ "<td>"+a[i].name+"</td>"
-						+ '<td onclick="openSetings()" class="controlTd">'
+						+ '<td onclick="openSetings(this)" class="controlTd">'
 						+ '<div class="settingsIcons">'
 						+ '<span class="settingsIcon" data-toggle="modal" data-target="#modal_deleteAdCategory" onclick="DeleteAdCat(&quot;'+a[i].categoryID+'&quot;);"><img src="../images/nnzONel.png" alt="X" /></span>'
-						+ '<span class="settingsIcon" onclick="EditAdCat(&quot;'+a[i].categoryID+'&quot;,&quot;'+a[i].name+'&quot;);"><img src="../../images/edit_white_20.png" alt="placeholder icon" /></span>'
+						+ '<span class="settingsIcon" onclick="EditAdCat(&quot;'+a[i].categoryID+'&quot;,&quot;'+a[i].name+'&quot;,&quot;'+a[i].icon+'&quot;);"><img src="../../images/edit_white_20.png" alt="placeholder icon" /></span>'
 						//+ '<div class="settingsIcon"><img src="https://i.imgur.com/UAdSFIg.png" alt="placeholder icon" /></div>'
 						+ '</div>'
 						+ '</td>'
@@ -210,7 +225,7 @@
 					//alert(response);
 					if(response == "Category Added!"){
 						alert(response);
-						$("#cls_ad").click(); 
+						closeForm();
 						$(".fields input[type=text]").val("");
 						showTab("ad_categories");
 						document.getElementById('ad_category').value = "";
@@ -229,16 +244,21 @@
 			});
 		}
 	}
-	function EditAdCat(catID, name){
+
+	function EditAdCat(catID, name, icon){
 		$("#ad_category").val(name);
 		$("#btn_UpdtadCat").data("id", catID);
 		$("#btn_AddadCat").hide();
 		$("#btn_UpdtadCat").show();
+		LoadIcons();
+		$(".selected-icon img").attr("src", icon);
 		$(".sForm").toggleClass("open");
 	}
+
 	function DeleteAdCat(catID){
 		$("#deleteadcatID").val(catID);
 	}
+
 	function DeleteAdCategory(){
 		var catID = $("#deleteadcatID").val();
 		$.ajax({
