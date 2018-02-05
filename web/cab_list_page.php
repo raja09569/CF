@@ -39,6 +39,7 @@ if(isset($_GET['pick'])){
 	$pickLong    =   0;
 	$radius = 50;
 }
+
 // function to get  the address
 function get_lat_long($address){
 	$address = str_replace(" ", "+", $address);
@@ -256,6 +257,7 @@ function submit_search(){
 		}
 	}
 }
+
 function filtering(){
 	var cab_type = document.getElementById('cab_list');
 	var selected = cab_type.options[cab_type.selectedIndex].value;
