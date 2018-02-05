@@ -64,6 +64,7 @@ body {
   transition: width 1s, right .3s;
   padding: 0px;
   box-sizing: border-box;
+  display: none;
 }
 .sForm .close {
   float: right;
@@ -85,6 +86,7 @@ body {
 .open {
   right: 0;
   width: 400px !important;
+  display: block;
 }
 .settingsIcons {
   position: absolute;
