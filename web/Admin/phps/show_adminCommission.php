@@ -5,28 +5,138 @@ include '../../Includes/db.php';
 }else{
 	$query12 = mysqli_query($conn, "select * from tbl_customer_trips");
 }*/
-$query12 = mysqli_query($conn, "select * from tbl_customer_trips");
-$num12 = mysqli_num_rows($query12);
+
+$offset = $_POST['offset'];
+$year = $_POST['year'];
+$month = $_POST['month'];
+
 $outp = '[';
-if($num12 != 0){
-	$s_no = 1;
-	while($row12 = mysqli_fetch_assoc($query12)){
-		$ride_month = $row12['ride_month'];
-		$driverid = $row12['driver_id'];
-		$query13 = mysqli_query($conn, "select * from tbl_drivers where driver_id='".$driverid."'");
-		$num13 = mysqli_num_rows($query13);
-		$row13 = mysqli_fetch_assoc($query13);
-		$drivername = $row13['name'];
-		$vehicle_no = $row13['vehicle_no'];
-		$place = $row13['city'];
-		$mobile = $row13['mobile_number'];
-		$cab_type = $row13['vehicle_category'];
-		$query14 = mysqli_query($conn, "select * from tbl_cab_categories where category_id='".$cab_type."'");
-		$num14 = mysqli_num_rows($query14);
-		$row14 = mysqli_fetch_assoc($query14);
-		$cabname = $row14['name'];
+$limit = 10;
+
+if($year != "" && $month != ""){
+	$query4 = mysqli_query($conn, "select count(s_no) as count from tbl_customer_trips where ride_month='".$month."' and ride_year='".$year."'");
+	$row4 = mysqli_fetch_assoc($query4);
+	$count = $row4['count'];
+	if($count > 0){
+		$query1 = mysqli_query($conn, "select driver_id, count(booking_id) as count, sum(total_distance) as distance, sum(total_fee) as total, sum(owner_commission) as commission from tbl_customer_trips where ride_month='".$month."' and ride_year='".$year."' limit ".$offset.", ".$limit);
+		$pages = ceil($count / $limit);
+		$outp .= '{"pages": "'.$pages.'"}';
+	}else{
+		$outp = '[]';
+		echo $outp;
+		exit();
+	}
+}else if($year == "" && $month != ""){
+	$query4 = mysqli_query($conn, "select count(s_no) as count from tbl_customer_trips where ride_month='".$month."'");
+	$row4 = mysqli_fetch_assoc($query4);
+	$count = $row4['count'];
+	if($count > 0){
+		$query1 = mysqli_query($conn, "select driver_id, count(booking_id) as count, sum(total_distance) as distance, sum(total_fee) as total, sum(owner_commission) as commission from tbl_customer_trips where ride_month='".$month."' limit ".$offset.", ".$limit);	
+		$pages = ceil($count / $limit);
+		$outp .= '{"pages": "'.$pages.'"}';
+	}else{
+		$outp = '[]';
+		echo $outp;
+		exit();
+	}
+}else if($year != "" && $month == ""){
+	$query4 = mysqli_query($conn, "select count(s_no) as count from tbl_customer_trips where ride_year='".$year."'");
+	$row4 = mysqli_fetch_assoc($query4);
+	$count = $row4['count'];
+	if($count > 0){
+		$query1 = mysqli_query($conn, "select driver_id, count(booking_id) as count, sum(total_distance) as distance, sum(total_fee) as total, sum(owner_commission) as commission from tbl_customer_trips where ride_year='".$year."' limit ".$offset.", ".$limit);
+		$pages = ceil($count / $limit);
+		$outp .= '{"pages": "'.$pages.'"}';
+	}else{
+		$outp = '[]';
+		echo $outp;
+		exit();
+	}
+}else{
+	$month = date('m');
+	$year = date('Y');
+	$query4 = mysqli_query($conn, "select count(s_no) as count from tbl_customer_trips where ride_month='".$month."' and ride_year='".$year."'");
+	$row4 = mysqli_fetch_assoc($query4);
+	$count = $row4['count'];
+	if($count > 0){
+		$query1 = mysqli_query($conn, "select driver_id, count(booking_id) as count, sum(total_distance) as distance, sum(total_fee) as total, sum(owner_commission) as commission from tbl_customer_trips where ride_month='".$month."' and ride_year='".$year."' limit ".$offset.", ".$limit);
+		$pages = ceil($count / $limit);
+		$outp .= '{"pages": "'.$pages.'"}';
+	}else{
+		$outp = '[]';
+		echo $outp;
+		exit();
+	}
+}
+$num1 = mysqli_num_rows($query1);
+if($num1 > 0){
+	while($row1 = mysqli_fetch_assoc($query1)){
+		$driverID = $row1['driver_id'];
+		$trips = $row1['count'];
+		$distance = $row1['distance'];
+		$total = $row1['total'];
+		$commission = $row1['commission'];
+
+		$query2 = mysqli_query($conn, "select name from tbl_drivers where driver_id='".$driverID."'");
+		$num2 = mysqli_num_rows($query2);
+		if($num2 > 0){
+			$row2 = mysqli_fetch_assoc($query2);	
+			$driverName = $row2['name'];
+		}else{
+			$driverName = "";
+		}
+		
+		if($year != "" && $month != ""){
+			$query3 = mysqli_query($conn, "select sum(amount_collected) as paid from tbl_amount_collection_from_driver where driver_id='".$driverID."' and on_collected_month='".$year."' and on_collected_year='".$month."'");
+		}else if($year == "" && $month != ""){
+			$query3 = mysqli_query($conn, "select sum(amount_collected) as paid from tbl_amount_collection_from_driver where driver_id='".$driverID."' and on_collected_month='".$month."'");
+		}else if($year != "" && $month == ""){
+			$query3 = mysqli_query($conn, "select sum(amount_collected) as paid from tbl_amount_collection_from_driver where driver_id='".$driverID."' and on_collected_year='".$year."'");
+		}else{
+			$month = date('m');
+			$year = date('Y');	
+			$query3 = mysqli_query($conn, "select sum(amount_collected) as paid from tbl_amount_collection_from_driver where driver_id='".$driverID."' and on_collected_month='".$month."' and on_collected_year='".$year."'");
+		}
+		$num3 = mysqli_num_rows($query3);
+		if($num3 > 0){
+			$row3 = mysqli_fetch_assoc($query3);
+			$paid = $row3['paid'];
+			if($paid != ""){
+				$due = $commission - $paid." FCFA";
+				$paid = $paid." FCFA";
+			}else{
+				$paid = " - ";
+				$due = $commission." FCFA";
+			}
+		}else{
+			$paid = " - ";
+			$due = $commission." FCFA";
+		}
+
+		if($outp != '['){
+			$outp .= ',';
+		}
+
+		$outp .= '{"driverName":"'.$driverName.'",';
+		$outp .= '"trips":"'.$trips.'",';
+		$outp .= '"distance":"'.$distance.'",';
+		$outp .= '"total":"'.$total.'",';
+		$outp .= '"paid":"'.$paid.'",';
+		$outp .= '"due":"'.$due.'",';
+		$outp .= '"commission":"'.$commission.'"}';
+		
+		//$vehicle_no = $row13['vehicle_no'];
+		//$place = $row13['city'];
+		//$mobile = $row13['mobile_number'];
+		//$cab_type = $row13['vehicle_category'];
+		
+		//$query14 = mysqli_query($conn, "select * from tbl_cab_categories where category_id='".$cab_type."'");
+		//$num14 = mysqli_num_rows($query14);
+		//$row14 = mysqli_fetch_assoc($query14);
+		//$cabname = $row14['name'];
 		//$fee_per_hour = $row15['customer_fee_per_km'];
-		$query16 = mysqli_query($conn, "SELECT sum(total_distance) as total FROM `tbl_customer_trips`
+		
+		/*$query16 = mysqli_query($conn, "SELECT sum(total_distance) as total FROM `tbl_customer_trips`
 					   where ride_month in (select distinct ride_month from tbl_customer_trips) and driver_id in
 					   (select distinct s_no from tbl_drivers)");
 		$num16 = mysqli_num_rows($query16);
@@ -66,9 +176,9 @@ if($num12 != 0){
 			$totalcollectioninmonth = "0";
 		}
 		
-		$balance = $totalcommissioninmonth-$totalcollectioninmonth;
-		
-		if($outp != '['){$outp .= ',';}
+		$balance = $totalcommissioninmonth - $totalcollectioninmonth;
+		*/
+		/*if($outp != '['){$outp .= ',';}
 		$outp .= '{"sno":"'.$s_no.'",';
 		$outp .= '"driver_id":"'.$driverid.'",';
 		$outp .= '"month":"'.$ride_month.'",';
@@ -82,9 +192,7 @@ if($num12 != 0){
 		$outp .= '"total_fee":"'.$totalamountinmonth.'",';
 		$outp .= '"owner_commission":"'.$totalcommissioninmonth.'",';
 		$outp .= '"received_amount":"'.$totalcollectioninmonth.'",';
-		$outp .= '"balance":"'.$balance.'"}';
-		
-		$s_no=$s_no+1;
+		$outp .= '"balance":"'.$balance.'"}';*/
 	}
 }
 $outp .= ']'; 
