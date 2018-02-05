@@ -523,7 +523,7 @@ function addCabType(){
 		});
 	}
 }
-function openSetings(){
-	$(".settingsIcons").toggleClass("display"); 
-	$(".settingsIcon").toggleClass("openIcon"); 
+function openSetings(e){
+	$(e+" .settingsIcons").toggleClass("display"); 
+	$(e+" .settingsIcon").toggleClass("openIcon"); 
 }
