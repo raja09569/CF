@@ -8,7 +8,7 @@
 	<div class="tab-content5">		
 		<!-- List of CabTypes Tab -->					  
 		<div id="cabtypes">
-			<div style="height:100vh;overflow:auto;">
+			<div style="/*height:100vh;*/overflow:auto;">
 				<table class="flatTable">
 					<tr class="titleTr">
 						<td colspan="2" class="titleTd">List of Cab Types</td>
@@ -132,7 +132,7 @@
 		<img src="https://i.imgur.com/nnzONel.png" alt="X"  class="" />
 	</span>
 	<h2 class="title">
-		Add a New Record
+		Add/Edit Record
 	</h2>  
 	<div style="height: 80vh;overflow-y: auto;">
 		<div class="fields">
@@ -301,7 +301,6 @@
 		}else{
 			return;
 		}
-		
 		if(cabType == ""){
 			alert("Enter cab name!");
 			$("#div_cbName input[type='text']").focus();
@@ -404,15 +403,17 @@
 			contentType: false,
 			processData: false,
 			success: function(msg){
-				//alert(msg);
+				alert(msg);
 				if(msg == "success"){
-					closeForm();
 					if(postType == "ADD"){
+						closeForm();
 						alert("Cab Added Successfully!");
+						showCabs();
 					}else{
+						closeForm();
 						alert("Cab Updated Successfully!");	
+						showCabs();
 					}
-					showCabs();
 				}else{
 					alert(msg);
 				}
