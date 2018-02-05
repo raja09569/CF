@@ -7,7 +7,7 @@
 	<!-- Tab panes from left menu -->
 	<div class="tab-content5">		
 		<!-- ADMIN COMMISSION TAB -->					  
-		<div class="tab-pane" id="admin_commisson">
+		<div id="admin_commisson">
 			<div style="height:95vh;overflow:auto;">
 				<table class="flatTable">
 					<tr class="titleTr">
@@ -220,4 +220,54 @@
 	<!-- End of Tab panes from left menu -->	
 </div>
 <!-- END OF RIGHT CPNTENT -->
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		LoadCommissions(0);
+	});
+
+	function LoadCommissions(index){
+		var offset = index * 10;
+		$.ajax({
+			type: 'POST',
+			url: '../phps/show_adminCommission.php',
+			data: {offset: offset},
+			success: function(response) {
+				alert(response);
+				var a = JSON.parse(response);
+				$("#listownerCommission").empty();
+				if(a.length != 0){
+					for(i=0; i<a.length; i++){
+						var data = "<tr>";
+						data += "<td>"+a[i].sno+"</td>";
+						data += "<td>"+a[i].month+"</td>";
+						data += "<td>"+a[i].driver_name+"</td>";
+						data += "<td>"+a[i].vehicle_no+"</td>";
+						data += "<td>"+a[i].place+"</td>";
+						data += "<td>"+a[i].phone_no+"</td>";
+						data += "<td>"+a[i].cab_type+"</td>";
+						data += "<td>"+a[i].fee_per_km+" Fcfa</td>";
+						data += "<td>"+a[i].total_distance+" Km</td>";
+						data += "<td>"+a[i].total_fee+" Fcfa</td>";
+						data += "<td>"+a[i].owner_commission+" Fcfa</td>";
+						data += "<td>"+a[i].received_amount+" Fcfa</td>";
+						data += "<td>"+a[i].balance+" Fcfa</td>";
+						data += "<td><a onclick='openreceiveAmount(&quot;"+a[i].driver_id+"&quot;,&quot;"+a[i].total_fee+"&quot;);' data-toggle='modal' data-target='#modal_receiveAmount'>Enter fee paid</a></td>";
+						data += "<td><a onclick='LoadamountReceived("+a[i].driver_id+");' data-toggle='modal' data-target='#modal_feeDetailsview'>View paid details</a></td>";
+						data += "</tr>";
+						
+						$("#listownerCommission").append(data);
+					}
+				}else{
+					$("#listownerCommission").append("<tr><td colspan='16' align='center'>No Records Found!</td></tr>");
+				}
+			},
+			error: function(error){
+				alert(error);
+			}
+		});
+	}
+</script>
+
 <?php include 'footer.php'; ?>

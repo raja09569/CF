@@ -1,10 +1,11 @@
 <?php
 include '../../Includes/db.php';
-if(isset($_POST['filter'])){
+/*if(isset($_POST['filter'])){
 	$query12 = mysqli_query($conn, "select * from tbl_customer_trips");
 }else{
 	$query12 = mysqli_query($conn, "select * from tbl_customer_trips");
-}
+}*/
+$query12 = mysqli_query($conn, "select * from tbl_customer_trips");
 $num12 = mysqli_num_rows($query12);
 $outp = '[';
 if($num12 != 0){
