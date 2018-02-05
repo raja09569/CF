@@ -2,36 +2,67 @@
 	include 'header.php';
 	include 'side_menu.php';
 ?>
+<link rel="stylesheet" type="text/css" href="../css/custom.css">
 <!-- RIGHT CPNTENT -->
 <div class="dashboard-right  offset-0" id="main_content">
 	<!-- Tab panes from left menu -->
 	<div class="tab-content5">		
 		<!-- ADMIN COMMISSION TAB -->					  
 		<div id="admin_commisson">
-			<div style="height:95vh;overflow:auto;">
+			<div>
+				<div class="row search-div">
+					<div class="col-md-4 col-sm-4">
+						<select class="form-control" name="trip-month">
+							<option value="0">Select Month</option>
+							<option value="01">January</option>
+							<option value="02">February</option>
+							<option value="03">March</option>
+							<option value="04">April</option>
+							<option value="05">May</option>
+							<option value="06">June</option>
+							<option value="07">July</option>
+							<option value="08">August</option>
+							<option value="09">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>
+						</select>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<input type="text" name="trip-year" class="form-control" placeholder="Enter Year">
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<button class="btn btn-success" onclick="searchCommissions();">SEARCH</button>
+					</div>
+				</div>
+				<div class="clear"></div>
 				<table class="flatTable">
 					<tr class="titleTr">
-						<td colspan="2" class="titleTd">Owner Commission</td>
-						<td colspan="12"></td>
+						<td colspan="3" class="titleTd">Owner Commission</td>
+						<td colspan="9"></td>
 					</tr>
 					<tr class="headingTr">
-						<td>Month</td>
-						<td>Driver Name</td>
-						<td>Vehicle number</td>
+						<!-- <td>Month</td> -->
+						<!-- <td>Vehicle number</td> -->
 						<!--<td>Place</td>
 						<td>Phone</td>-->
-						<td>Cab Type</td>
+						<!-- <td>Cab Type</td> -->
 						<!--<td>Fee/KM</td>-->
-						<td>Total distance travelled</td>
-						<td>Total Fee</td>
-						<td>Owner Commission</td>
-						<td>Received amount</td>
+						<td>Driver</td>
+						<td>Trips</td>
+						<td>Distance</td>
+						<td>Amount</td>
+						<td>Commission</td>
+						<td>Received</td>
 						<td>Balance</td>
 						<td></td>
 						<td></td>
 					</tr>
 					<tbody id="listownerCommission"></tbody>
 				</table>
+				<div class="pagination">
+					<ul></ul>
+				</div>
 			</div>
 			<!-- Enter fee paid modal -->
 			<div class="modal fade" id="modal_receiveAmount" tabindex="-1" role="dialog" 
@@ -224,40 +255,67 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
-		LoadCommissions(0);
+		LoadCommissions(0, "", "");
 	});
 
-	function LoadCommissions(index){
+	function searchCommissions() {
+		var month = $("select[name='trip-month']").val();
+		var year = $("input[name='trip-year']").val();
+		if(month == "0" && year == ""){
+			alert("Select Month or Enter Year");
+		}else{
+			LoadCommissions(0, month, year);
+		}
+	}
+
+	function LoadCommissions(index, month, year){
 		var offset = index * 10;
 		$.ajax({
 			type: 'POST',
 			url: '../phps/show_adminCommission.php',
-			data: {offset: offset},
+			data: {offset: offset, month: month, year: year},
 			success: function(response) {
-				alert(response);
+				//alert(response);
 				var a = JSON.parse(response);
 				$("#listownerCommission").empty();
-				if(a.length != 0){
-					for(i=0; i<a.length; i++){
+				if(a.length > 1){
+					for(i=1; i<a.length; i++){
 						var data = "<tr>";
-						data += "<td>"+a[i].sno+"</td>";
-						data += "<td>"+a[i].month+"</td>";
-						data += "<td>"+a[i].driver_name+"</td>";
-						data += "<td>"+a[i].vehicle_no+"</td>";
-						data += "<td>"+a[i].place+"</td>";
-						data += "<td>"+a[i].phone_no+"</td>";
-						data += "<td>"+a[i].cab_type+"</td>";
-						data += "<td>"+a[i].fee_per_km+" Fcfa</td>";
-						data += "<td>"+a[i].total_distance+" Km</td>";
-						data += "<td>"+a[i].total_fee+" Fcfa</td>";
-						data += "<td>"+a[i].owner_commission+" Fcfa</td>";
-						data += "<td>"+a[i].received_amount+" Fcfa</td>";
-						data += "<td>"+a[i].balance+" Fcfa</td>";
-						data += "<td><a onclick='openreceiveAmount(&quot;"+a[i].driver_id+"&quot;,&quot;"+a[i].total_fee+"&quot;);' data-toggle='modal' data-target='#modal_receiveAmount'>Enter fee paid</a></td>";
-						data += "<td><a onclick='LoadamountReceived("+a[i].driver_id+");' data-toggle='modal' data-target='#modal_feeDetailsview'>View paid details</a></td>";
+						data += "<td>"+a[i].driverName+"</td>";
+						data += "<td>"+a[i].trips+"</td>";
+						data += "<td>"+a[i].distance+" KM</td>";
+						data += "<td>"+a[i].total+" FCFA</td>";
+						data += "<td>"+a[i].commission+" FCFA</td>";
+						data += "<td>"+a[i].paid+"</td>";
+						data += "<td>"+a[i].due+"</td>";
+						data += "<td><a onclick='openreceiveAmount(&quot;"+a[i].driver_id+"&quot;,&quot;"+a[i].total_fee+"&quot;);' data-toggle='modal' data-target='#modal_receiveAmount'>PAY</a></td>";
+						data += "<td><a onclick='LoadamountReceived("+a[i].driver_id+");' data-toggle='modal' data-target='#modal_feeDetailsview'>Details</a></td>";
 						data += "</tr>";
 						
 						$("#listownerCommission").append(data);
+					}
+					var pages = a[0].pages;
+					if(pages > 1){
+						var pageData = '';
+						if(index != 0){
+							pageData += '<li class="double-sym" onclick="LoadCommissions(0, '+month+', '+year+')">&#xab;</li>';
+							var previous = index - 1;
+							pageData += '<li onclick="LoadCommissions('+previous+', '+month+', '+year+')">&#x276E;</li>';
+						}
+						for(var j=1; j<=pages; j++){
+							if((index + 1) == j){
+								pageData += '<li class="active" onclick="LoadCommissions('+(j-1)+', '+month+', '+year+')">'+j+'</li>';
+							}else{
+								pageData += '<li onclick="LoadCommissions('+(j-1)+', '+month+', '+year+')">'+j+'</li>';
+							}
+						}
+						if(index != (pages - 1)){
+							var next = index + 1;
+							pageData += '<li onclick="LoadCommissions('+next+', '+month+', '+year+')">&#x276F;</li>';
+							var lastIndex = pages - 1;
+							pageData += '<li class="double-sym" onclick="LoadCommissions('+lastIndex+', '+month+', '+year+')">&#xbb;</li>'
+						}
+						$(".pagination ul").append(pageData);
 					}
 				}else{
 					$("#listownerCommission").append("<tr><td colspan='16' align='center'>No Records Found!</td></tr>");
