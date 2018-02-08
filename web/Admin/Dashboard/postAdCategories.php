@@ -21,7 +21,7 @@
 						<td>Category Name</td>
 						<td></td>
 					</tr>
-					<tbody id="listadCategories"></tbody>
+					<tbody id="listadCategories" class="list-values"></tbody>
 				</table>
 				
 				<div id="sForm" class="sForm sFormPadding">
@@ -134,7 +134,7 @@
 	})();
 	
 	$("#btn_UpdtadCat").on("click", function(){
-		alert(iconSelect.getSelectedValue());
+		//alert(iconSelect.getSelectedValue());
 		var catID = $("#btn_UpdtadCat").data("id");
 		var ad_category = $("#ad_category").val();
 		if(ad_category == ""){
@@ -154,7 +154,7 @@
 						alert(response);
 						closeForm();
 						$(".fields input[type=text]").val("");
-						showTab("ad_categories");
+						//showTab("ad_categories");
 						document.getElementById('ad_category').value = "";
 						LoadCategories();
 					}else{
@@ -186,7 +186,7 @@
 						$("#listadCategories").append("<tr>"
 						+ "<td><img src='"+a[i].icon+"' /></td>"
 						+ "<td>"+a[i].name+"</td>"
-						+ '<td onclick="openSetings(this)" class="controlTd">'
+						+ '<td onclick="openSetings()" class="controlTd">'
 						+ '<div class="settingsIcons">'
 						+ '<span class="settingsIcon" data-toggle="modal" data-target="#modal_deleteAdCategory" onclick="DeleteAdCat(&quot;'+a[i].categoryID+'&quot;);"><img src="../images/nnzONel.png" alt="X" /></span>'
 						+ '<span class="settingsIcon" onclick="EditAdCat(&quot;'+a[i].categoryID+'&quot;,&quot;'+a[i].name+'&quot;,&quot;'+a[i].icon+'&quot;);"><img src="../../images/edit_white_20.png" alt="placeholder icon" /></span>'
@@ -227,7 +227,7 @@
 						alert(response);
 						closeForm();
 						$(".fields input[type=text]").val("");
-						showTab("ad_categories");
+						//showTab("ad_categories");
 						document.getElementById('ad_category').value = "";
 						LoadCategories();
 					}else{
@@ -272,7 +272,7 @@
 				if(response == "Category Removed!"){
 					$('#modal_deleteAdCategory').modal('toggle');
 					alert(response);
-					showTab("ad_categories");
+					//showTab("ad_categories");
 					LoadCategories();
 				}else{
 					alert(response);

@@ -524,6 +524,6 @@ function addCabType(){
 	}
 }
 function openSetings(e){
-	$(e+" .settingsIcons").toggleClass("display"); 
-	$(e+" .settingsIcon").toggleClass("openIcon"); 
+	$(".settingsIcons").toggleClass("display"); 
+	$(".settingsIcon").toggleClass("openIcon"); 
 }

@@ -2,6 +2,7 @@
 	include 'header.php';
 	include 'side_menu.php';
 ?>
+<link rel="stylesheet" type="text/css" href="../css/custom.css">
 <!-- RIGHT CPNTENT -->
 <div class="dashboard-right  offset-0" id="main_content">
 	<!-- Tab panes from left menu -->
@@ -17,16 +18,16 @@
 					<tr class="headingTr">
 						<td>Driver name</td>
 						<td>cab type</td>
-						<td>Cab no</td>
+						<!-- <td>Cab no</td> -->
 						<td>Start place</td>
 						<td>date</td>
 						<td>End place</td>
 						<td>Date</td>
-						<td>Total distance</td>
-						<td>Total fee</td>
-						<td>Owner commission</td>
+						<td>Distance</td>
+						<td>Fee</td>
+						<td>Commission</td>
 					</tr>
-					<tbody id="listcabRides"></tbody>
+					<tbody id="listcabRides" class="list-values"></tbody>
 				</table>
 				<div class="pagination">
 					<ul>
@@ -62,7 +63,7 @@
 						var data = "<tr>";
 						data += "<td>"+a[i].drName+"</td>";
 						data += "<td>"+a[i].cabtype+"</td>";
-						data += "<td>"+a[i].cabno+"</td>";
+						//data += "<td>"+a[i].cabno+"</td>";
 						data += "<td>"+a[i].pick_place+"</td>"; 
 						data += "<td>"+a[i].pick_date+"</td>"; 
 						data += "<td>"+a[i].drop_place+"</td>"; 

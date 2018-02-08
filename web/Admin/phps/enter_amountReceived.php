@@ -1,7 +1,7 @@
 <?php
-include 'db.php';
+include '../../Includes/db.php';
 
-$driver_id = $_POST['driver_id'];
+$driverID = $_POST['driver_id'];
 $total_amount = $_POST['total_amount'];
 $amount_received = $_POST['amount_received'];
 $received_date = $_POST['received_date'];
@@ -12,10 +12,7 @@ $on_collected_year = date('Y');
 $due_amount = floatval($total_amount) - floatval($amount_received);
 
 
-$query = "insert into collection_frm_driver (driver_id,total_amount,amount_collected,on_collected_date,";
-$query .= "received_by,reference_no,on_collected_month,on_collected_year,due_amount) values ('$driver_id'";
-$query .= ",'$total_amount','$amount_received','$received_date','$received_by','$reference_no',";
-$query .= "'$on_collected_month','$on_collected_year','$due_amount')";
+$query = "insert into tbl_amount_collection_from_driver (driver_id, total_amount, amount_collected, on_collected_date, received_by, reference_no, on_collected_month, on_collected_year, due_amount) values ('".$driverID."' ,'".$total_amount."', '".$amount_received."', '".$received_date."', '".$received_by."', '".$reference_no."', '".$on_collected_month."', '".$on_collected_year."', '".$due_amount."')";
 $result = mysqli_query($conn, $query);
 if($result){
 	echo "success";

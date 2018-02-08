@@ -97,8 +97,8 @@ function get_lat_long($address){
 								$num = mysqli_num_rows($query);
 								if($num != 0){
 									$row = mysqli_fetch_assoc($query);
-									echo $row['count'];
-									if($row['count'] == 1){
+									echo $num;
+									if($num == 1){
 										?>
 										</b> vehicle found</p>
 										<?php
@@ -422,11 +422,9 @@ function filtering(){
 <div class="col-md-4 offset-0">
 
 <div class="left mt7"><b>Sort by:</b></div>
-
 <div class="right wh70percent">
 <select class="form-control mySelectBoxClass " id="cab_list">
 <?php
-require_once 'db.php';
 $query1 = mysqli_query($conn, "select name, category_id from tbl_cab_categories");
 $num1 = mysqli_num_rows($query1);
 if($num1 != 0){
@@ -503,6 +501,7 @@ while($row1 = mysqli_fetch_assoc($query1)){
 			$query3 = mysqli_query($conn, "SELECT *, ( 3959 * acos( cos( radians($pickLat) ) * cos( radians( lattitude )) * cos( radians( longitude ) - radians($pickLong) ) + sin( radians($pickLat) ) * sin( radians( lattitude ) ) ) ) AS distance FROM tbl_drivers where is_activated='yes' and duty_status='on' HAVING distance < 50 ORDER BY distance asc limit $startIndex, $limit");	
 		}
 		$num3 = mysqli_num_rows($query3);
+		//echo "Number is ".$num3;
 		if($num3 != 0){
 			while($row3 = mysqli_fetch_assoc($query3)){
 				$driverID = $row3['driver_id'];

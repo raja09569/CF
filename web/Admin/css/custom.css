@@ -126,7 +126,8 @@
 	padding: 10px;
 	/*float: right;*/
 }
-#listownerCommission td {
+/*#listownerCommission td {*/
+#listownerCommission td, .list-values td {
     padding: 2px;
     font-size: 14px;
     text-align: center;
@@ -136,4 +137,28 @@
 #admin_commisson {
     /*overflow: auto;*/
     padding: 10px;
+}
+.dv-paid-dtls {
+	overflow-y:auto;
+	max-height:calc(100% - 150px);
+}
+.tbl-paid-dtls thead {
+	border-bottom: 1px solid #EEE;
+}
+.tbl-paid-dtls thead tr td, #amount_received_dts tr td {
+	padding: 10px;
+	font-size: 14px;
+	text-align: center;
+	font-weight: bold;
+}
+#amount_received_dts tr td {
+	padding: 5px;
+	font-size: 13px;
+	text-align: center;
+}
+#amount_received_dts tr {
+	border-bottom: 1px solid #CCC;
+}
+#amount_received_dts tr:last-child {
+	border: none;
 }

@@ -29,7 +29,7 @@ if($num1 > 0){
 				$move = move_uploaded_file($_FILES["file"]["tmp_name"] ,
 				 $destination.$url);
     			if($move){
-    				$filename = compressImage($destination.$url, $destination.$url);
+    				/*$filename = compressImage($destination.$url, $destination.$url);
     				$buffer = file_get_contents($destination.$url);
 	    			header("Content-Type: application/force-download");
 	    			header("Content-Type: application/octet-stream");
@@ -38,7 +38,7 @@ if($num1 > 0){
 	    			header("Content-Type: application/octet-stream");
 	    			header("Content-Transfer-Encoding: binary");
 	    			header("Content-Length: " . strlen($buffer));
-	    			header("Content-Disposition: attachment; filename=$url");
+	    			header("Content-Disposition: attachment; filename=$url");*/
 	    			$path = "cab-pics/".$url;
 
 	    			$query2 = mysqli_query($conn, "update tbl_cab_categories set name = '".$name."', icon = '".$path."', no_of_seats = '".$no_of_seats."', per_km_with_ac = '".$per_km_with_ac."', per_km_without_ac = '".$per_km_without_ac."', min_km_to_charge = '".$min_km_to_charge."', min_charge_with_ac = '".$min_charge_with_ac."', min_charge_without_ac = '".$min_charge_without_ac."', owner_comm_per_trip = '".$owner_comm_per_trip."', isRideLaterAvailable = '".$isRideLater."', tax = '".$tax."' where category_id='".$categoryID."'");

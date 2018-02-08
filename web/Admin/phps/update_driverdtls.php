@@ -23,39 +23,43 @@ $bankLocation = $_POST['bankLocation'];
 $otherDetails = $_POST['otherDetails'];
 $condition = $_POST['condition'];
 
-$query1 = mysqli_query($conn, "select driver_id from tbl_drivers where driver_id='".$driverID."'");
+$query1 = mysqli_query($conn, "select driver_id, driver_photo, vehicle_photo from tbl_drivers where driver_id='".$driverID."'");
 $num1 = mysqli_num_rows($query1);
 if($num1 > 0){
-	/*$row1 = mysqli_fetch_assoc($query1);
+	$row1 = mysqli_fetch_assoc($query1);
 	$driverImage = $row1['driver_photo'];
-	$vhclImage = $row1['vehicle_photo'];*/
+	$vhclImage = $row1['vehicle_photo'];
 	if(isset($_FILES['drImage'])){
 		$drDir = '../../Driver/pics/';
 		$fileName = $_FILES["drImage"]["name"];
 		$ext = pathinfo($fileName, PATHINFO_EXTENSION);
-		$target_file = $drDir.$driverID."PC.".$ext;
-		if(move_uploaded_file($_FILES['drImage']['tmp_name'], $target_file)){
-
+		$drFile = $drDir.$driverID."PC.".$ext;
+		if(move_uploaded_file($_FILES['drImage']['tmp_name'], $drFile)){
+			$drFile = "Driver/pics/".$driverID."PC.".$ext;
 		}else{
 			echo "Something wrong while uploading Driver image, try again!";
 			exit;
 		}
+	}else{
+		$drFile = $driverImage;
 	}
 	
 	if(isset($_FILES['vhclImage'])){
 		$vhclDir = '../../Driver/vehicle_pics/';	
 		$fileName = $_FILES["vhclImage"]["name"];
 		$ext = pathinfo($fileName, PATHINFO_EXTENSION);
-		$target_file = $vhclDir.$driverID."VCL.".$ext;
-		if(move_uploaded_file($_FILES['vhclImage']['tmp_name'], $target_file)){
-
+		$vhclFile = $vhclDir.$driverID."VCL.".$ext;
+		if(move_uploaded_file($_FILES['vhclImage']['tmp_name'], $vhclFile)){
+			$vhclFile = "Driver/vehicle_pics/".$driverID."VCL.".$ext;
 		}else{
 			echo "Something wrong while uploading Driver image, try again!";
 			exit;
 		}
+	}else{
+		$vhclFile = $vhclImage;
 	}
 	
-	$query = mysqli_query($conn, "update tbl_drivers set name='".$name."', mobile_number='".$mobile."', email_id='".$email."', address='".$address."', locality='".$locality."', city='".$city."', state='".$state."', country='".$country."', pincode='".$zipCode."', licence_no='".$Licence."', vehicle_category='".$vehicleType."', vehicle_no='".$vehicleNumber."', vehicle_name='".$vehicleName."', is_ac_available='".$condition."', bank_name='".$bankName."', bank_ac_no='".$bankAcNo."', IFSCcode='".$bankIFSC."', bank_location='".$bankLocation."', owner_name='".$ownerName."', other_details='".$otherDetails."' where driver_id='".$driverID."'");
+	$query = mysqli_query($conn, "update tbl_drivers set name='".$name."', mobile_number='".$mobile."', email_id='".$email."', address='".$address."', locality='".$locality."', city='".$city."', state='".$state."', country='".$country."', pincode='".$zipCode."', licence_no='".$Licence."', vehicle_category='".$vehicleType."', vehicle_no='".$vehicleNumber."', vehicle_name='".$vehicleName."', is_ac_available='".$condition."', bank_name='".$bankName."', bank_ac_no='".$bankAcNo."', IFSCcode='".$bankIFSC."', bank_location='".$bankLocation."', owner_name='".$ownerName."', other_details='".$otherDetails."', driver_photo='".$drFile."', vehicle_photo='".$vhclFile."' where driver_id='".$driverID."'");
 	if($query){
 		echo "success";
 	}else{

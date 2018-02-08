@@ -223,7 +223,7 @@
 				<div class="sctn-1 row">
 					<div class="col-md-6 text-center">
 						<button class="btn btn-primary" id="editButton" onclick="editDriver();">EDIT</button>
-						<button class="btn btn-success" id="updateButton" onclick="updateDriver(this);">UPDATE</button>
+						<button class="btn btn-success" id="updateButton" onclick="updateDriver();">UPDATE</button>
 					</div>
 					<div class="col-md-6 text-center">
 						<button class="btn btn-danger" id="cancelButton" onclick="cancelEdit();">CANCEL</button>
@@ -385,9 +385,10 @@
 		LoadDrivers(0);
 	}
 
-	function updateDriver(id) {
+	function updateDriver() {
 		var driverID = $("#input_driveID").val();
 		//alert(driverID);
+		//return;
 		var dirverName = $(".child-dv input[name='dirverName']").val();
 		var dirverEmail = $(".child-dv input[name='dirverEmail']").val();
 		var dirverPhone = $(".child-dv input[name='dirverPhone']").val();

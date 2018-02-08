@@ -2,6 +2,7 @@
 	include 'header.php';
 	include 'side_menu.php';
 ?>
+<link rel="stylesheet" type="text/css" href="../css/custom.css">
 <!-- RIGHT CPNTENT -->
 <div class="dashboard-right  offset-0" id="main_content">
 	<!-- Tab panes from left menu -->
@@ -24,9 +25,9 @@
 						<td>Sub Category Name</td>
 						<td></td>
 					</tr>
-					<tbody id="listadsubCategories">
+					<tbody id="listadsubCategories" class="list-values">
 						<tr>
-							<td colspan="3" style="text-align:center;">
+							<td colspan="3">
 								Select Ad Category
 							</td>
 						</tr>
@@ -102,9 +103,12 @@
 		</div>
 		<!-- End of AD Sub Categories TAB -->
 		<script type="text/javascript">
-			$(".plusTd").on("click", function(){
-				$("#btn_UpdtadSubCat").hide();
-				$("#btn_AddadSubCat").show();
+
+			(function(){
+				LoadCategories();
+			})();
+
+			function LoadCategories(){
 				$.ajax({
 					type: 'POST',
 					url: '../PostAD/get_categories.php',
@@ -112,14 +116,15 @@
 					success: function(response) {
 						//alert(response);			
 						var a = JSON.parse(response);
-						$('#slct_ctgy').empty();
+						$('#slct_cts').empty();
 						if(a.length != 0){
-							$("#slct_ctgy").append("<option value='0' selected disabled>Select Category</option>");
+							$("#slct_cts").append("<option value='0' selected disabled>Select Category</option>");
 							for(i=0; i<a.length; i++){	
-								$("#slct_ctgy").append("<option value='"+a[i].categoryID+"'>"+ a[i].name +"</option>");					
+								$("#slct_cts").append("<option value='"+a[i].categoryID+"'>"+ a[i].name +"</option>");					
 							}
+							Loadsubcategoris($("#slct_cts").val());
 						}else{
-							$("#slct_ctgy").append("<option value='0' selected disabled>No Categories</option>");
+							$("#slct_cts").append("<option value='0' selected disabled>No Categories</option>");
 						}
 					},
 					error: function(error){
@@ -130,41 +135,9 @@
 						}
 					}
 				});
-			});
-			$("#cls_ad").on("click", function(){
-				$('#slct_ctgy').empty();
-				$("#ad_subcategory").val("");
-				$("#subcatID").val("");
-				$("#btn_UpdtadSubCat").hide();
-				$("#btn_AddadSubCat").show();
-			});
-			$.ajax({
-				type: 'POST',
-				url: '../PostAD/get_categories.php',
-				data:{},
-				success: function(response) {
-					//alert(response);			
-					var a = JSON.parse(response);
-					$('#slct_cts').empty();
-					if(a.length != 0){
-						$("#slct_cts").append("<option value='0' selected disabled>Select Category</option>");
-						for(i=0; i<a.length; i++){	
-							$("#slct_cts").append("<option value='"+a[i].categoryID+"'>"+ a[i].name +"</option>");					
-						}
-					}else{
-						$("#slct_cts").append("<option value='0' selected disabled>No Categories</option>");
-					}
-				},
-				error: function(error){
-					if(error.status == "0"){
-						alert("Unable to connect server, Try again.");
-					}else{
-						alert("Something went wrong, Try again.");
-					}
-				}
-			});
-			$("#slct_cts").on("change", function(){
-				var catID = $("#slct_cts").val();
+			}
+
+			function LoadsubCategories(catID){
 				$.ajax({
 					type: 'POST',
 					url: '../PostAD/get_subcategories.php',
@@ -199,11 +172,59 @@
 						}
 					}
 				});
+			}
+
+			$(".plusTd").on("click", function(){
+				$("#btn_UpdtadSubCat").hide();
+				$("#btn_AddadSubCat").show();
+				
+				$.ajax({
+					type: 'POST',
+					url: '../PostAD/get_categories.php',
+					data:{},
+					success: function(response) {
+						//alert(response);			
+						var a = JSON.parse(response);
+						$('#slct_ctgy').empty();
+						if(a.length != 0){
+							$("#slct_ctgy").append("<option value='0' selected disabled>Select Category</option>");
+							for(i=0; i<a.length; i++){	
+								$("#slct_ctgy").append("<option value='"+a[i].categoryID+"'>"+ a[i].name +"</option>");					
+							}
+						}else{
+							$("#slct_ctgy").append("<option value='0' selected disabled>No Categories</option>");
+						}
+					},
+					error: function(error){
+						if(error.status == "0"){
+							alert("Unable to connect server, Try again.");
+						}else{
+							alert("Something went wrong, Try again.");
+						}
+					}
+				});
 			});
+			
+			$("#cls_ad").on("click", function(){
+				$('#slct_ctgy').empty();
+				$("#ad_subcategory").val("");
+				$("#subcatID").val("");
+				$("#btn_UpdtadSubCat").hide();
+				$("#btn_AddadSubCat").show();
+			});
+			
+			
+			
+			$("#slct_cts").on("change", function(){
+				var catID = $("#slct_cts").val();
+				Loadsubcategoris(catID);
+			});
+			
 			function DeleteAdSubCat(catID, subcatID){
 				$("#deleteadcatID").val(catID);
 				$("#deleteadsubcatID").val(subcatID);
 			}
+			
 			function DeleteAdSubCategory(){
 				var catID = $("#deleteadcatID").val();
 				var subcatID = $("#deleteadsubcatID").val();
@@ -214,7 +235,7 @@
 					success: function(msg){
 						if(msg == "Category Removed!"){
 							$('#modal_deleteAdCategory').modal('toggle');
-							location.reload();
+							Loadsubcategoris($("#slct_cts").val());
 						}else{
 							alert(msg);
 						}
@@ -228,6 +249,7 @@
 					}
 				})
 			}
+			
 			function Edit(catID, subcatID, name){
 				//alert(catID);
 				$.ajax({
@@ -266,6 +288,7 @@
 				$("#btn_UpdtadSubCat").show();
 				$(".sForm").toggleClass("open");
 			}
+			
 			$("#btn_AddadSubCat").on("click", function(){
 				var slct_ctgy = document.getElementById('slct_ctgy').value;
 				var ad_subcategory = document.getElementById('ad_subcategory').value;
@@ -288,7 +311,7 @@
 								$("#cls_ad").click(); 
 								$(".fields input[type=text]").val("");
 								$('#slct_ctgy').prop('selectedIndex',0);
-								location.reload();
+								Loadsubcategoris($("#slct_cts").val());
 							}else{
 								alert(response);
 							}
@@ -303,6 +326,7 @@
 					});
 				}
 			});
+			
 			$("#btn_UpdtadSubCat").on("click", function(){
 				var slct_ctgy = document.getElementById('slct_ctgy').value;
 				var ad_subcategory = document.getElementById('ad_subcategory').value;
@@ -327,7 +351,7 @@
 								$("#cls_ad").click(); 
 								$(".fields input[type=text]").val("");
 								$('#slct_ctgy').prop('selectedIndex',0);
-								location.reload();
+								Loadsubcategoris($("#slct_cts").val());
 							}else{
 								alert(response);
 							}

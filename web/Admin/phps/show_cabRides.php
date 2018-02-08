@@ -47,6 +47,7 @@ if($num8 > 0){
 		if($startdt != ""){
 			$startdt = $startdt;
 			$startdt = $startdt." ".$starttm;
+			$startdt = date("d D m Y, h:i A", strtotime($startdt));
 		}else{
 			$startdt = "";
 		}
@@ -55,6 +56,7 @@ if($num8 > 0){
 			$enddt = $enddt;
 			//$enddt = date("d M y", strtotime($enddt));
 			$enddt = $enddt." ".$endtm;
+			$enddt = date("d D m Y, h:i A", strtotime($enddt));
 		}else{
 			$enddt = "";
 		}
@@ -63,15 +65,15 @@ if($num8 > 0){
 
 		$outp .= '{"bookingID":"'.$bookingID.'",';
 		$outp .= '"drName":"'.$name.'",';
-		$outp .= '"cabtype":"'.$cabtype.'",';
-		$outp .= '"cabno":"'.$cabno.'",';
+		$outp .= '"cabtype":"'.$cabname.'",';
+		//$outp .= '"cabno":"'.$cabno.'",';
 		$outp .= '"pick_place":"'.$startplace.'",';
 		$outp .= '"pick_date":"'.$startdt.'",';
 		$outp .= '"drop_place":"'.$endplace.'",';
 		$outp .= '"drop_date":"'.$enddt.'",';
 		$outp .= '"distance":"'.$totaldistance.'",';
-		$outp .= '"fee":"'.$totalfee.'",';
-		$outp .= '"commission":"'.$ownercommission.'"}';
+		$outp .= '"fee":"'.$totalfee.' FCFA",';
+		$outp .= '"commission":"'.$ownercommission.' FCFA"}';
 	}
 }
 $outp .= ']';

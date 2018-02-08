@@ -118,6 +118,7 @@ if($num1 > 0){
 		}
 
 		$outp .= '{"driverName":"'.$driverName.'",';
+		$outp .= '"driverID":"'.$driverID.'",';
 		$outp .= '"trips":"'.$trips.'",';
 		$outp .= '"distance":"'.$distance.'",';
 		$outp .= '"total":"'.$total.'",';

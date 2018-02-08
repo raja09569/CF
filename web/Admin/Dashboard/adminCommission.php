@@ -83,7 +83,6 @@
 						
 						<!-- Modal Body -->
 						<div class="modal-body">
-							
 							<form class="form-horizontal" role="form">
 							<input type="hidden" id="receiveamountID" />
 							<input type="hidden" id="totalAmount" />
@@ -197,10 +196,9 @@
 			<!-- Close Enter fee paid modal -->
 
 			<!-- Fee details modal -->
-			<div class="modal fade" id="modal_feeDetailsview" tabindex="-1" role="dialog" 
-				 aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" style="height:100% !important;width:100% !important;">
-					<div class="modal-content" style="height:100% !important;width:100% !important;">
+			<div class="modal fade" id="modal_feeDetailsview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" style="">
+					<div class="modal-content" style="">
 						<!-- Modal Header -->
 						<div class="modal-header">
 							<button type="button" class="close" 
@@ -214,20 +212,20 @@
 						</div>
 						
 						<!-- Modal Body -->
-						<div class="modal-body" style="overflow-y:auto !important;max-height:calc(100% - 150px) !important;">
-							<table>
-							<thead>
-							<tr><th></th></tr>
-							<tr>
-							<th>S.No</th>
-							<th>Date</th>
-							<th>Amount Received</th>
-							<th>Received by</th>
-							<th>Reference no</th>
-							</tr>
-							</thead>
-							<tbody id="amount_received_dts">
-							</tbody>
+						<div class="modal-body dv-paid-dtls" style="">
+							<table class="tbl-paid-dtls">
+								<thead>
+									<tr>
+										<td>S.No</th>
+										<td>Date</th>
+										<td>Amount Received</th>
+										<td>Received by</th>
+										<td>Reference no</th>
+									</tr>
+								</thead>
+								<tbody id="amount_received_dts">
+									
+								</tbody>
 							</table>
 						</div>
 						
@@ -253,8 +251,18 @@
 <!-- END OF RIGHT CPNTENT -->
 
 <script type="text/javascript">
-	
+	var presentYear;
+	var presentMnth;
 	$(document).ready(function(){
+    	var date = new Date();
+    	presentMnth = date.getMonth();
+    	presentMnth = presentMnth + 1;
+    	if(presentMnth < 10){
+    		presentMnth = "0"+presentMnth;
+    	}
+    	presentYear = date.getFullYear();
+    	$("input[name='trip-year']").val(presentYear);
+    	$("select[name='trip-month']").val(presentMnth);
 		LoadCommissions(0, "", "");
 	});
 
@@ -266,6 +274,102 @@
 		}else{
 			LoadCommissions(0, month, year);
 		}
+	}
+
+	function openreceiveAmount(id,total){
+		$('#receiveamountID').val(id);
+		$('#totalAmount').val(total);
+		$("#dateofreceipt").datepicker();
+		$("#modal_receiveAmount").modal('toggle');
+	}
+
+	function receiveAmount(){
+		var id = $('#receiveamountID').val();
+		var total = $('#totalAmount').val();
+		var amountreceived = $('#amountreceived').val();
+		var dateofreceipt = $('#dateofreceipt').val();
+		var timeofreceipt = $('#timeofreceipt').val();
+		var received_by = $('#received_by').val();
+		var referenceno = $('#referenceno').val();
+		dateofreceipt = dateofreceipt+" "+timeofreceipt;
+		$.ajax({
+			type: 'POST',
+			url: '../phps/enter_amountReceived.php',
+			data: {driver_id:id,total_amount:total,amount_received:amountreceived,received_date:dateofreceipt,
+			received_by:received_by,reference_no:referenceno},
+			success: function(response) {
+				//alert(response);
+				if(response == "success"){
+					alert("Amount Received");
+					$('#receiveamountID').val("");
+					$('#totalAmount').val("");
+					$('#amountreceived').val("");
+					$('#dateofreceipt').val("");
+					$('#timeofreceipt').val("");
+					$('#received_by').val("");
+					$('#referenceno').val("");
+					$('#modal_receiveAmount').modal('toggle');	
+					LoadCommissions("0", presentMnth, presentYear);
+				}else{
+					alert(response);
+				}
+				
+			},
+			error: function(error){
+				//alert(error);
+				if(error.status == "0"){
+					alert("Unable to connect to server, Try again");
+				}else{
+					alert("Something went wrong, Try again");
+				}
+			}
+		});
+	}
+
+	function LoadamountReceived(id){
+		$.ajax({
+			type: 'POST',
+			url: '../phps/amountReceive.php',
+			data: {driver_id: id},
+			success: function(response) {
+				//alert(response);
+				var a = JSON.parse(response);
+				$('#amount_received_dts').empty();
+				if(a.length > 0){
+					for(i=0; i<a.length; i++){
+						var data = "<tr>";
+						data += "<td>";
+						data += a[i].sno;
+						data += "</td>";
+						data += "<td>";
+						data += a[i].date;
+						data += "</td>";
+						data += "<td>";
+						data += a[i].amount_received+" Fcfa";
+						data += "</td>";
+						data += "<td>";
+						data += a[i].received_by;
+						data += "</td>";
+						data += "<td>";
+						data += a[i].reference_no;
+						data += "</td>";
+						data += "</tr>";
+						$('#amount_received_dts').append(data);
+					}
+					$("#modal_feeDetailsview").modal('toggle');
+				}else{
+					$('#amount_received_dts').append('<tr><td colspan="5">No Records Found!</td></tr>');
+					$("#modal_feeDetailsview").modal('toggle');
+				}
+			},
+			error: function(error){
+				if(error.status == "0"){
+					alert("Unable to connect to server, Try again");
+				}else{
+					alert("Something went wrong, Try again");
+				}
+			}
+		});
 	}
 
 	function LoadCommissions(index, month, year){
@@ -288,8 +392,8 @@
 						data += "<td>"+a[i].commission+" FCFA</td>";
 						data += "<td>"+a[i].paid+"</td>";
 						data += "<td>"+a[i].due+"</td>";
-						data += "<td><a onclick='openreceiveAmount(&quot;"+a[i].driver_id+"&quot;,&quot;"+a[i].total_fee+"&quot;);' data-toggle='modal' data-target='#modal_receiveAmount'>PAY</a></td>";
-						data += "<td><a onclick='LoadamountReceived("+a[i].driver_id+");' data-toggle='modal' data-target='#modal_feeDetailsview'>Details</a></td>";
+						data += "<td><a onclick='openreceiveAmount(&quot;"+a[i].driverID+"&quot;,&quot;"+a[i].total+"&quot;);'>PAY</a></td>";
+						data += "<td><a onclick='LoadamountReceived(&quot;"+a[i].driverID+"&quot;);' >Details</a></td>";
 						data += "</tr>";
 						
 						$("#listownerCommission").append(data);
@@ -322,7 +426,11 @@
 				}
 			},
 			error: function(error){
-				alert(error);
+				if(error.status == "0"){
+					alert("Unable to connect to server, Try again");
+				}else{
+					alert("Something went wrong, Try again");
+				}
 			}
 		});
 	}

@@ -11,10 +11,9 @@ $address = $_POST['address'];
 $country = $_POST['country'];
 $password = $_POST['password'];
 
-$outp = [];
 if($fname == ""){
 	//$outp = '{"msg": "Parameters should not be empty"}';
-	$outp['msg'] = "Parameters should not be empty";
+	$outp = '{"msg": "Parameters should not be empty"}';
 	echo json_encode($outp);
 	exit();
 }

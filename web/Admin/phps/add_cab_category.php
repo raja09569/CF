@@ -39,20 +39,20 @@ if($num1 != 0){
 				$move = move_uploaded_file($_FILES["file"]["tmp_name"] ,
 				 $destination.$url);
     			if($move){
-    				$filename = compressImage($destination.$url, $destination.$url);
+    				/*$filename = compressImage($destination.$url, $destination.$url);
     				$buffer = file_get_contents($destination.$url);
 	    			header("Content-Type: application/force-download");
 	    			header("Content-Type: application/octet-stream");
 	    			header("Content-Type: application/download");
 					/* Live24u.com Don't allow simple caching... */
-	    			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	    			//header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 	    			/*Live24u.com  Set data type simple, size simple and simple filename */
-	    			header("Content-Type: application/octet-stream");
-	    			header("Content-Transfer-Encoding: binary");
-	    			header("Content-Length: " . strlen($buffer));
-	    			header("Content-Disposition: attachment; filename=$url");
+	    			//header("Content-Type: application/octet-stream");
+	    			//header("Content-Transfer-Encoding: binary");
+	    			//header("Content-Length: " . strlen($buffer));
+	    			//header("Content-Disposition: attachment; filename=$url");
 	    			/*Live24u.com  Send our file... */
-	    			//echo $buffer;
+	    			//echo $buffer;*/
     				$path = "cab-pics/".$url;
     			}else{
     				echo "Unable to upload image, Try again.";
