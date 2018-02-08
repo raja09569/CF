@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2018 at 08:51 AM
+-- Generation Time: Feb 08, 2018 at 07:22 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `tbl_ad_categories` (
 
 INSERT INTO `tbl_ad_categories` (`s_no`, `category_id`, `name`, `icon`, `is_deleted`, `created_date`) VALUES
 (1, 'ADCT0001', 'Mobiles', 'images/icons/9.png', 'yes', '2017-07-22 09:55:01'),
-(2, 'ADCT0002', 'Apple', '../images/icons/2.png', 'no', '2017-08-26 06:37:05'),
+(2, 'ADCT0002', 'Apple', '../images/icons/6.png', 'no', '2017-08-26 06:37:05'),
 (3, 'ADCT0003', 'Court', '../images/icons/14.png', 'no', '2017-08-26 06:37:30');
 
 -- --------------------------------------------------------
@@ -192,7 +192,7 @@ INSERT INTO `tbl_ad_subcategories` (`s_no`, `category_id`, `subcategory_id`, `na
 
 CREATE TABLE IF NOT EXISTS `tbl_amount_collection_from_driver` (
 `s_no` int(11) NOT NULL,
-  `driver_id` int(11) NOT NULL,
+  `driver_id` varchar(100) NOT NULL,
   `total_amount` varchar(100) NOT NULL,
   `amount_collected` varchar(100) NOT NULL,
   `on_collected_date` varchar(100) NOT NULL,
@@ -201,7 +201,16 @@ CREATE TABLE IF NOT EXISTS `tbl_amount_collection_from_driver` (
   `on_collected_month` varchar(100) NOT NULL,
   `on_collected_year` varchar(100) NOT NULL,
   `due_amount` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `tbl_amount_collection_from_driver`
+--
+
+INSERT INTO `tbl_amount_collection_from_driver` (`s_no`, `driver_id`, `total_amount`, `amount_collected`, `on_collected_date`, `received_by`, `reference_no`, `on_collected_month`, `on_collected_year`, `due_amount`) VALUES
+(1, 'CBDR0009', '1300.67', '20', '02/05/2018 06:00 AM', 'cash', '1234', '02', '2018', '1280.67'),
+(2, 'CBDR0009', '1300.67', '100', '02/08/2018 06:30 AM', 'cash', '1234', '02', '2018', '1200.67'),
+(3, 'CBDR0009', '1300.67', '50', '02/09/2018 06:30 AM', 'cash', '1234', '02', '2018', '1250.67');
 
 -- --------------------------------------------------------
 
@@ -275,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `tbl_customers` (
 --
 
 INSERT INTO `tbl_customers` (`s_no`, `cust_id`, `first_name`, `last_name`, `isd_code`, `mobile_number`, `email_id`, `picture`, `address`, `city`, `state`, `country`, `reg_id`, `device_id`, `notification_status`, `web_login_status`, `web_logged_in_at`, `app_login_status`, `app_login_at`, `password`, `is_deleted`, `ip_address`, `registered_date`) VALUES
-(1, 'CUST0001', 'Srikanth', 'Vishwakarma', '91', '9441294890', 'test@gmail.com', '', 'test address', '', '', 'India', '', '', '', '', '', '', '', 'test123', '', '', '2018-01-31 02:43:30');
+(1, 'CUST0001', 'Test ', 'Name', '91', '9441294890', 'test@gmail.com', 'pics/CUST0001', 'test address', '', '', 'India', '', '', '', '', '', '', '', 'test123', '', '', '2018-02-06 08:08:43');
 
 -- --------------------------------------------------------
 
@@ -366,23 +375,15 @@ CREATE TABLE IF NOT EXISTS `tbl_drivers` (
   `device_id` varchar(150) NOT NULL,
   `is_deleted` varchar(10) NOT NULL,
   `registered_date` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `tbl_drivers`
 --
 
 INSERT INTO `tbl_drivers` (`s_no`, `driver_id`, `name`, `mobile_number`, `email_id`, `password`, `driver_photo`, `address`, `locality`, `city`, `state`, `country`, `pincode`, `licence_no`, `vehicle_category`, `vehicle_no`, `vehicle_photo`, `vehicle_name`, `is_ac_available`, `bank_name`, `bank_ac_no`, `IFSCcode`, `bank_location`, `owner_name`, `other_details`, `current_location`, `lattitude`, `longitude`, `is_activated`, `duty_status`, `is_onRide`, `reg_id`, `device_id`, `is_deleted`, `registered_date`) VALUES
-(1, 'CBDR0001', 'Test Name', '9441294890', 'test@gmail.com', 'test123', 'Driver/pics/CBDR0001PC.png', 'test address', 'test location', 'test city', 'Test State', 'India', '562288', 'LC223369', 'CBCT0003', 'AP22AJ0258', 'Driver/vehicle_pics/CBDR0001VCL.png', 'APE', 'nonAC', 'ICICI', 'AC224598', 'ICIC002', 'test Location', 'Self', '', 'Bandlaguda X Road, Shivani Nagar Colony, Vijaya Gardens, Nagole, Hyderabad, Telangana 500068, India', '17.37147333333333', '78.5695', 'yes', 'on', '', '', 'e9333795d5a30d87', 'no', '2017-07-19 11:16:44'),
-(2, 'CBDR0002', 'Test Name2', '9441294890', 'test@gmail.com', 'test123', 'Driver/pics/CBDR0001PC.png', 'test address', 'test location', 'test city', 'Test State', 'India', '562288', 'LC223369', 'CBCT0001', 'AP22AJ0258', 'Driver/vehicle_pics/CBDR0001VCL.png', 'APE', 'no', 'ICICI', 'AC224598', 'ICIC002', 'test Location', 'Self', '', 'Bandlaguda X Road, Shivani Nagar Colony, Vijaya Gardens, Nagole, Hyderabad, Telangana 500068, India', '17.37147333333333', '78.5695', 'yes', 'on', '', '', 'e9333795d5a30d87', 'no', '2017-07-19 11:16:44'),
-(3, 'CBDR0003', 'Test Name3', '9441294890', 'test@gmail.com', 'test123', 'Driver/pics/CBDR0001PC.png', 'test address', 'test location', 'test city', 'Test State', 'India', '562288', 'LC223369', 'CBCT0001', 'AP22AJ0258', 'Driver/vehicle_pics/CBDR0001VCL.png', 'APE', 'no', 'ICICI', 'AC224598', 'ICIC002', 'test Location', 'Self', '', 'Bandlaguda X Road, Shivani Nagar Colony, Vijaya Gardens, Nagole, Hyderabad, Telangana 500068, India', '17.37147333333333', '78.5695', 'yes', 'on', '', '', 'e9333795d5a30d87', 'no', '2017-07-19 11:16:44'),
-(4, 'CBDR0004', 'Test Name4', '9441294890', 'test@gmail.com', 'test123', 'Driver/pics/CBDR0001PC.png', 'test address', 'test location', 'test city', 'Test State', 'India', '562288', 'LC223369', 'CBCT0001', 'AP22AJ0258', 'Driver/vehicle_pics/CBDR0001VCL.png', 'APE', 'no', 'ICICI', 'AC224598', 'ICIC002', 'test Location', 'Self', '', 'Bandlaguda X Road, Shivani Nagar Colony, Vijaya Gardens, Nagole, Hyderabad, Telangana 500068, India', '17.37147333333333', '78.5695', 'yes', 'on', '', '', 'e9333795d5a30d87', 'no', '2017-07-19 11:16:44'),
-(5, 'CBDR0005', 'Test Name5', '9441294890', 'test@gmail.com', 'test123', 'Driver/pics/CBDR0001PC.png', 'test address', 'test location', 'test city', 'Test State', 'India', '562288', 'LC223369', 'CBCT0001', 'AP22AJ0258', 'Driver/vehicle_pics/CBDR0001VCL.png', 'APE', 'no', 'ICICI', 'AC224598', 'ICIC002', 'test Location', 'Self', '', 'Bandlaguda X Road, Shivani Nagar Colony, Vijaya Gardens, Nagole, Hyderabad, Telangana 500068, India', '17.37147333333333', '78.5695', 'yes', 'on', '', '', 'e9333795d5a30d87', 'no', '2017-07-19 11:16:44'),
-(6, 'CBDR0006', 'Test Name6', '9441294890', 'test@gmail.com', 'test123', 'Driver/pics/CBDR0001PC.png', 'test address', 'test location', 'test city', 'Test State', 'India', '562288', 'LC223369', 'CBCT0001', 'AP22AJ0258', 'Driver/vehicle_pics/CBDR0001VCL.png', 'APE', 'no', 'ICICI', 'AC224598', 'ICIC002', 'test Location', 'Self', '', 'Bandlaguda X Road, Shivani Nagar Colony, Vijaya Gardens, Nagole, Hyderabad, Telangana 500068, India', '17.37147333333333', '78.5695', 'yes', 'on', '', '', 'e9333795d5a30d87', 'no', '2017-07-19 11:16:44'),
-(7, 'CBDR0007', 'Test Name7', '9441294890', 'test@gmail.com', 'test123', 'Driver/pics/CBDR0001PC.png', 'test address', 'test location', 'test city', 'Test State', 'India', '562288', 'LC223369', 'CBCT0001', 'AP22AJ0258', 'Driver/vehicle_pics/CBDR0001VCL.png', 'APE', 'no', 'ICICI', 'AC224598', 'ICIC002', 'test Location', 'Self', '', 'Bandlaguda X Road, Shivani Nagar Colony, Vijaya Gardens, Nagole, Hyderabad, Telangana 500068, India', '17.37147333333333', '78.5695', 'yes', 'on', '', '', 'e9333795d5a30d87', 'no', '2017-07-19 11:16:44'),
-(8, 'CBDR0008', 'Test Name8', '9441294890', 'test@gmail.com', 'test123', 'Driver/pics/CBDR0001PC.png', 'test address', 'test location', 'test city', 'Test State', 'India', '562288', 'LC223369', 'CBCT0001', 'AP22AJ0258', 'Driver/vehicle_pics/CBDR0001VCL.png', 'APE', 'no', 'ICICI', 'AC224598', 'ICIC002', 'test Location', 'Self', '', 'Bandlaguda X Road, Shivani Nagar Colony, Vijaya Gardens, Nagole, Hyderabad, Telangana 500068, India', '17.37147333333333', '78.5695', 'yes', 'on', '', '', 'e9333795d5a30d87', 'no', '2017-07-19 11:16:44'),
-(9, 'CBDR0009', 'Test Name9', '9441294890', 'test@gmail.com', 'test123', 'Driver/pics/CBDR0001PC.png', 'test address', 'test location', 'test city', 'Test State', 'India', '562288', 'LC223369', 'CBCT0001', 'AP22AJ0258', 'Driver/vehicle_pics/CBDR0001VCL.png', 'APE', 'no', 'ICICI', 'AC224598', 'ICIC002', 'test Location', 'Self', '', 'Bandlaguda X Road, Shivani Nagar Colony, Vijaya Gardens, Nagole, Hyderabad, Telangana 500068, India', '17.37147333333333', '78.5695', 'yes', 'on', '', '', 'e9333795d5a30d87', 'no', '2017-07-19 11:16:44'),
-(10, 'CBDR0010', 'Test Name10', '9441294890', 'test@gmail.com', 'test123', 'Driver/pics/CBDR0001PC.png', 'test address', 'test location', 'test city', 'Test State', 'India', '562288', 'LC223369', 'CBCT0001', 'AP22AJ0258', 'Driver/vehicle_pics/CBDR0001VCL.png', 'APE', 'no', 'ICICI', 'AC224598', 'ICIC002', 'test Location', 'Self', '', 'Bandlaguda X Road, Shivani Nagar Colony, Vijaya Gardens, Nagole, Hyderabad, Telangana 500068, India', '17.37147333333333', '78.5695', 'yes', 'on', '', '', 'e9333795d5a30d87', 'no', '2017-07-19 11:16:44');
+(1, 'CBDR0001', 'Test', '1234567895', 'test@gmail.com', '', 'Driver/pics/CBDR0001PC.png', 'test address', 'test locaiton', 'test city', 'test state', 'india', '526985528', '123456789', 'CBCT0001', '325698741', 'Driver/vehicle_pics/CBDR0001VCL.png', 'Maruthi', 'yes', 'ICICI', 'AC1236547895', 'IC1234569', 'Bank Location', 'Self', '', '', '', '', '', '', '', '', '', 'no', '2018-02-06 07:59:46'),
+(2, 'CBDR0002', 'Test User Two', '7894561235', 'test2@gmail.com', '', 'Driver/pics/CBDR0002PC.png', 'test address', 'test location', 'test city', 'test state', 'india', '5699875', '98745621', 'CBCT0003', '321456', 'Driver/vehicle_pics/CBDR0002VCL.png', 'Test Vechicl', 'yes', 'SBI', 'AC265974', '9874526', 'Bank Location', 'Self', '', '', '', '', '', '', '', '', '', 'no', '2018-02-06 08:05:35');
 
 -- --------------------------------------------------------
 
@@ -521,7 +522,7 @@ CREATE TABLE IF NOT EXISTS `tbl_verification_codes` (
 `s_no` int(11) NOT NULL,
   `mobile` varchar(15) NOT NULL,
   `verification_code` varchar(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `tbl_verification_codes`
@@ -529,7 +530,8 @@ CREATE TABLE IF NOT EXISTS `tbl_verification_codes` (
 
 INSERT INTO `tbl_verification_codes` (`s_no`, `mobile`, `verification_code`) VALUES
 (1, '1234567890', '927949'),
-(2, '8143668149', '');
+(2, '8143668149', ''),
+(3, '9441294890', '');
 
 --
 -- Indexes for dumped tables
@@ -664,7 +666,7 @@ MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `tbl_amount_collection_from_driver`
 --
 ALTER TABLE `tbl_amount_collection_from_driver`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tbl_cab_categories`
 --
@@ -684,7 +686,7 @@ MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `tbl_drivers`
 --
 ALTER TABLE `tbl_drivers`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbl_driver_activation_tracking`
 --
@@ -714,7 +716,7 @@ MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `tbl_verification_codes`
 --
 ALTER TABLE `tbl_verification_codes`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
