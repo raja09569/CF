@@ -34,6 +34,11 @@ if(isset($_SESSION['trip'])){
 		}
 	}else{
 		$dirverID = $trip['driverID'];
+		?>
+		<script type="text/javascript">
+			alert("<?php echo $driverID; ?>");
+		</script>
+		<?php
 	}
 }else{
 	?>

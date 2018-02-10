@@ -7,7 +7,7 @@
     <!-- Bootstrap -->
     <?php
     $fileName = basename($_SERVER['PHP_SELF']);
-    if($fileName == "user_dashboard.php"){
+    if($fileName?"user_dashboard.php":"Ads.php"){
     	?>
 		<link rel="shortcut icon" type="image/png" href="../images/favicon.png"/>
     	<link href="../dist/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -25,6 +25,7 @@
 		<link rel="stylesheet" type="text/css" href="../rs-plugin/css/settings.css" media="screen" />
 	    <!-- Picker UI-->	
 		<link rel="stylesheet" href="../assets/css/jquery-ui.css" />		
+		<link rel="stylesheet" href="../updates/update1/css/style01.css" />		
 	    <!-- jQuery -->	
 	    <!-- <script src="assets/js/jquery-3.1.1.js"></script> -->
 		<script src="../assets/js/jquery.v2.0.3.js"></script>
@@ -70,7 +71,7 @@
 				  <span class="icon-bar"></span>
 				</button>
 				<?php
-				if($fileName == "user_dashboard.php"){
+				if($fileName?"user_dashboard.php":"Ads.php"){
 					?>
 					<a href="../../index.php" class="navbar-brand">
 						<img src="../images/logo.png" alt="Travel Agency Logo" class="logo" />
@@ -137,13 +138,13 @@
 				  	</li>
 					<?php
 					}
-					if($fileName == "ads.php"){
+					if($fileName == "Ads.php"){
 					?>
-				  	<li class="active"><a href="ads.php">Post AD</a></li>			  
+				  	<li class="active"><a href="Ads.php">Post AD</a></li>			  
 					<?php
 					}else{
 					?>
-					<li><a href="ads.php">Post AD</a></li>			  
+					<li><a href="Adv/Ads.php">Post AD</a></li>			  
 					<?php
 					}
 					if($fileName == "aboutus.php"){

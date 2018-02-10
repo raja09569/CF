@@ -119,10 +119,10 @@
 						$('#slct_cts').empty();
 						if(a.length != 0){
 							$("#slct_cts").append("<option value='0' selected disabled>Select Category</option>");
-							for(i=0; i<a.length; i++){	
-								$("#slct_cts").append("<option value='"+a[i].categoryID+"'>"+ a[i].name +"</option>");					
+							for(i=0; i<a.length; i++){
+								$("#slct_cts").append("<option value='"+a[i].categoryID+"'>"+ a[i].name +"</option>");			
 							}
-							Loadsubcategoris($("#slct_cts").val());
+							LoadsubCategories($("#slct_cts").val());
 						}else{
 							$("#slct_cts").append("<option value='0' selected disabled>No Categories</option>");
 						}
@@ -177,7 +177,6 @@
 			$(".plusTd").on("click", function(){
 				$("#btn_UpdtadSubCat").hide();
 				$("#btn_AddadSubCat").show();
-				
 				$.ajax({
 					type: 'POST',
 					url: '../PostAD/get_categories.php',
@@ -191,11 +190,14 @@
 							for(i=0; i<a.length; i++){	
 								$("#slct_ctgy").append("<option value='"+a[i].categoryID+"'>"+ a[i].name +"</option>");					
 							}
+							$(".sForm").addClass("open");
 						}else{
 							$("#slct_ctgy").append("<option value='0' selected disabled>No Categories</option>");
+							$(".sForm").addClass("open");
 						}
 					},
 					error: function(error){
+						$(".sForm").addClass("open");
 						if(error.status == "0"){
 							alert("Unable to connect server, Try again.");
 						}else{
@@ -211,13 +213,12 @@
 				$("#subcatID").val("");
 				$("#btn_UpdtadSubCat").hide();
 				$("#btn_AddadSubCat").show();
+				$(".sForm").removeClass("open");
 			});
-			
-			
 			
 			$("#slct_cts").on("change", function(){
 				var catID = $("#slct_cts").val();
-				Loadsubcategoris(catID);
+				LoadsubCategories(catID);
 			});
 			
 			function DeleteAdSubCat(catID, subcatID){
@@ -235,7 +236,7 @@
 					success: function(msg){
 						if(msg == "Category Removed!"){
 							$('#modal_deleteAdCategory').modal('toggle');
-							Loadsubcategoris($("#slct_cts").val());
+							LoadsubCategories($("#slct_cts").val());
 						}else{
 							alert(msg);
 						}
@@ -311,7 +312,7 @@
 								$("#cls_ad").click(); 
 								$(".fields input[type=text]").val("");
 								$('#slct_ctgy').prop('selectedIndex',0);
-								Loadsubcategoris($("#slct_cts").val());
+								LoadsubCategories($("#slct_cts").val());
 							}else{
 								alert(response);
 							}
@@ -351,7 +352,7 @@
 								$("#cls_ad").click(); 
 								$(".fields input[type=text]").val("");
 								$('#slct_ctgy').prop('selectedIndex',0);
-								Loadsubcategoris($("#slct_cts").val());
+								LoadsubCategories($("#slct_cts").val());
 							}else{
 								alert(response);
 							}

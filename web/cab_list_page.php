@@ -66,9 +66,6 @@ function get_lat_long($address){
 				<li>/</li>
 				<li><a href="../index.php">Home</a></li>
 				<li>/</li>
-				<!--<li><a href="#">U.S.A.</a></li>
-				<li>/</li>					
-				<li><a href="#" class="active">New York</a></li>-->
 			</ul>				
 		</div>
 		<a class="backbtn right" href="#"></a>
@@ -88,14 +85,23 @@ function get_lat_long($address){
 					<p class="size13" style="margin-bottom: 15px;">
 						<b>
 							<?php
-								if(isset($_GET['type'])){
-									$type = $_GET['type'];	
-									$query = mysqli_query($conn, "SELECT *,count(s_no) as count, ( 3959 * acos( cos( radians($pickLat) ) * cos( radians( lattitude )) * cos( radians( longitude ) - radians($pickLong) ) + sin( radians($pickLat) ) * sin( radians( lattitude ) ) ) ) AS distance FROM tbl_drivers where is_activated='yes' and duty_status='on' and vehicle_category='$type' HAVING distance < 50 ORDER BY distance asc");
+								if(isset($_GET['pick'])){
+									if(isset($_GET['type'])){
+										$type = $_GET['type'];	
+										$query = mysqli_query($conn, "SELECT s_no, ( 3959 * acos( cos( radians($pickLat) ) * cos( radians( lattitude )) * cos( radians( longitude ) - radians($pickLong) ) + sin( radians($pickLat) ) * sin( radians( lattitude ) ) ) ) AS distance FROM tbl_drivers where is_activated='yes' and duty_status='on' and vehicle_category='$type' HAVING distance < 50 ORDER BY distance asc");
+									}else{
+										$query = mysqli_query($conn, "SELECT s_no, ( 3959 * acos( cos( radians($pickLat) ) * cos( radians( lattitude )) * cos( radians( longitude ) - radians($pickLong) ) + sin( radians($pickLat) ) * sin( radians( lattitude ) ) ) ) AS distance FROM tbl_drivers where is_activated='yes' and duty_status='on' HAVING distance < 50 ORDER BY distance asc");
+									}
 								}else{
-									$query = mysqli_query($conn, "SELECT *,count(s_no) as count, ( 3959 * acos( cos( radians($pickLat) ) * cos( radians( lattitude )) * cos( radians( longitude ) - radians($pickLong) ) + sin( radians($pickLat) ) * sin( radians( lattitude ) ) ) ) AS distance FROM tbl_drivers where is_activated='yes' and duty_status='on' HAVING distance < 50 ORDER BY distance asc");
+									if(isset($_GET['type'])){
+										$type = $_GET['type'];	
+										$query = mysqli_query($conn, "SELECT s_no FROM tbl_drivers where is_activated='yes' and duty_status='on' and vehicle_category='$type'");
+									}else{
+										$query = mysqli_query($conn, "SELECT s_no FROM tbl_drivers where is_activated='yes' and duty_status='on'");
+									}
 								}
 								$num = mysqli_num_rows($query);
-								if($num != 0){
+								if($num > 0){
 									$row = mysqli_fetch_assoc($query);
 									echo $num;
 									if($num == 1){
@@ -107,14 +113,15 @@ function get_lat_long($address){
 										</b> vehicles found</p>
 										<?php
 									}
-									?>
+									/*?>
 									<p class="size30 bold">
 										<span class="size13 normal darkblue">
 											Starting
 										</span>Fcfa
 										<?php
 										$vehicle_type = $row['vehicle_category'];
-										$query2 = mysqli_query($conn, "SELECT * FROM `tbl_cab_categories` where category_id='$vehicle_type'");
+										echo $vehicle_type;
+										$query2 = mysqli_query($conn, "SELECT per_km_with_ac, per_km_without_ac FROM `tbl_cab_categories` where category_id='$vehicle_type'");
 										$row2 = mysqli_fetch_assoc($query2);
 										$withAc = $row2['per_km_with_ac'];
 										if($withAc != ""){
@@ -141,7 +148,7 @@ function get_lat_long($address){
 										}
 									?>
 									</p>
-									<?php
+									<?php*/
 								}else{
 									echo "NO";
 									?>
@@ -494,14 +501,22 @@ while($row1 = mysqli_fetch_assoc($query1)){
 			$startIndex = 0;
 		}
 		$limit = 9;
-		if(isset($_GET['type'])){
-			$type = $_GET['type'];
-			$query3 = mysqli_query($conn, "SELECT *, ( 3959 * acos( cos( radians($pickLat) ) * cos( radians( lattitude )) * cos( radians( longitude ) - radians($pickLong) ) + sin( radians($pickLat) ) * sin( radians( lattitude ) ) ) ) AS distance FROM tbl_drivers where vehicle_category='$type' and is_activated='yes' and duty_status='on' HAVING distance < 50 ORDER BY distance asc limit $startIndex, $limit");
+		if(isset($_GET['pick'])){
+			if(isset($_GET['type'])){
+				$type = $_GET['type'];
+				$query3 = mysqli_query($conn, "SELECT *, ( 3959 * acos( cos( radians($pickLat) ) * cos( radians( lattitude )) * cos( radians( longitude ) - radians($pickLong) ) + sin( radians($pickLat) ) * sin( radians( lattitude ) ) ) ) AS distance FROM tbl_drivers where vehicle_category='$type' and is_activated='yes' and duty_status='on' HAVING distance < 50 ORDER BY distance asc limit $startIndex, $limit");
+			}else{
+				$query3 = mysqli_query($conn, "SELECT *, ( 3959 * acos( cos( radians($pickLat) ) * cos( radians( lattitude )) * cos( radians( longitude ) - radians($pickLong) ) + sin( radians($pickLat) ) * sin( radians( lattitude ) ) ) ) AS distance FROM tbl_drivers where is_activated='yes' and duty_status='on' HAVING distance < 50 ORDER BY distance asc limit $startIndex, $limit");	
+			}
 		}else{
-			$query3 = mysqli_query($conn, "SELECT *, ( 3959 * acos( cos( radians($pickLat) ) * cos( radians( lattitude )) * cos( radians( longitude ) - radians($pickLong) ) + sin( radians($pickLat) ) * sin( radians( lattitude ) ) ) ) AS distance FROM tbl_drivers where is_activated='yes' and duty_status='on' HAVING distance < 50 ORDER BY distance asc limit $startIndex, $limit");	
+			if(isset($_GET['type'])){
+				$type = $_GET['type'];
+				$query3 = mysqli_query($conn, "SELECT * FROM tbl_drivers where vehicle_category='$type' and is_activated='yes' and duty_status='on' limit $startIndex, $limit");
+			}else{
+				$query3 = mysqli_query($conn, "SELECT * FROM tbl_drivers where is_activated='yes' and duty_status='on' limit $startIndex, $limit");
+			}
 		}
 		$num3 = mysqli_num_rows($query3);
-		//echo "Number is ".$num3;
 		if($num3 != 0){
 			while($row3 = mysqli_fetch_assoc($query3)){
 				$driverID = $row3['driver_id'];
@@ -554,6 +569,7 @@ while($row1 = mysqli_fetch_assoc($query1)){
 										"type" => "withoutLocation",
 										"driverID" => $driverID
 									);
+									//print_r($trip);
 									$_SESSION['trip'] = $trip;
 								}
 							?>

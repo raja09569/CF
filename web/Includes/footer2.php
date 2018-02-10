@@ -9,16 +9,61 @@
 			<div class="col-md-3">
 				<span class="ftitleblack">Let's socialize</span>
 				<div class="scont">
-					<a href="#" class="social1b"><img src="images/icon-facebook.png" alt=""/></a>
-					<a href="#" class="social2b"><img src="images/icon-twitter.png" alt=""/></a>
-					<a href="#" class="social3b"><img src="images/icon-gplus.png" alt=""/></a>
-					<a href="#" class="social4b"><img src="images/icon-youtube.png" alt=""/></a>
+					<?php
+					if($fileName?"user_dashboard.php":"Ads.php"){
+					?>
+					<a href="#" class="social1b">
+						<img src="../images/icon-facebook.png" alt=""/>
+					</a>
+					<a href="#" class="social2b">
+						<img src="../images/icon-twitter.png" alt=""/>
+					</a>
+					<a href="#" class="social3b">
+						<img src="../images/icon-gplus.png" alt=""/>
+					</a>
+					<a href="#" class="social4b">
+						<img src="../images/icon-youtube.png" alt=""/>
+					</a>
 					<br/><br/><br/>
-					<a href="#"><img src="images/logosmal2.png" alt="" /></a><br/>
-					<span class="grey2">&copy; 2013  |  <a href="#">Privacy Policy</a><br/>
-					All Rights Reserved </span>
+					<a href="#">
+						<img src="../images/logosmal2.png" alt="" />
+					</a>
+					<br/>
+					<span class="grey2">
+						&copy; 2013  |  <a href="#">Privacy Policy</a>
+						<br/>
+						All Rights Reserved 
+					</span>
 					<br/><br/>
-					
+					<?php
+					}else{
+					?>
+					<a href="#" class="social1b">
+						<img src="images/icon-facebook.png" alt=""/>
+					</a>
+					<a href="#" class="social2b">
+						<img src="images/icon-twitter.png" alt=""/>
+					</a>
+					<a href="#" class="social3b">
+						<img src="images/icon-gplus.png" alt=""/>
+					</a>
+					<a href="#" class="social4b">
+						<img src="images/icon-youtube.png" alt=""/>
+					</a>
+					<br/><br/><br/>
+					<a href="#">
+						<img src="images/logosmal2.png" alt="" />
+					</a>
+					<br/>
+					<span class="grey2">
+						&copy; 2013  |  <a href="#">Privacy Policy</a>
+						<br/>
+						All Rights Reserved 
+					</span>
+					<br/><br/>	
+					<?php
+					}
+					?>
 				</div>
 			</div>
 			<!-- End of column 1-->
@@ -55,7 +100,17 @@
 				<span class="ftitleblack">Newsletter</span>
 				<div class="relative">
 					<input type="email" class="form-control fccustom2black" id="exampleInputEmail1" placeholder="Enter email">
-					<button type="submit" class="btn btn-default btncustom">Submit<img src="images/arrow.png" alt=""/></button>
+					<?php
+					if($fileName?"user_dashboard.php":"Ads.php"){
+						?>
+						<button type="submit" class="btn btn-default btncustom">Submit<img src="../images/arrow.png" alt=""/></button>
+						<?php
+					}else{
+						?>
+						<button type="submit" class="btn btn-default btncustom">Submit<img src="images/arrow.png" alt=""/></button>
+						<?php
+					}
+					?>
 				</div>
 				<br/><br/>
 				<span class="ftitleblack">Customer support</span><br/>
@@ -77,40 +132,87 @@
 		<a href="#">Special offers</a> | 
 		<a href="#">Blog</a> | 
 		<a href="#">Contact</a>
-		<a href="#top" class="gotop scroll"><img src="images/spacer.png" alt=""/></a>
+		<?php
+		if($fileName?"user_dashboard.php":"Ads.php"){
+			?>
+			<a href="#top" class="gotop scroll">
+				<img src="../images/spacer.png" alt=""/>
+			</a>
+			<?php
+		}else{
+			?>
+			<a href="#top" class="gotop scroll">
+				<img src="images/spacer.png" alt=""/>
+			</a>
+			<?php
+		}
+		?>
 		</div>
 	</div>
 	
 	
 	
 
-	
-    <!-- Javascript -->	
-    <script src="assets/js/js-list.js"></script>	
+	<?php
+	if($fileName?"user_dashboard.php":"Ads.php"){
+		?>
+		<!-- Javascript -->	
+	    <script src="../assets/js/js-list.js"></script>	
 
-    <!-- Custom Select -->
-	<script type='text/javascript' src='assets/js/jquery.customSelect.js'></script>
-	
-    <!-- JS Ease -->	
-    <script src="assets/js/jquery.easing.js"></script>
-	
-    <!-- Custom functions -->
-    <script src="assets/js/functions.js"></script>
-	
-    <!-- jQuery KenBurn Slider  -->
-    <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+	    <!-- Custom Select -->
+		<script type='text/javascript' src='../assets/js/jquery.customSelect.js'></script>
+		
+	    <!-- JS Ease -->	
+	    <script src="../assets/js/jquery.easing.js"></script>
+		
+	    <!-- Custom functions -->
+	    <script src="../assets/js/functions.js"></script>
+		
+	    <!-- jQuery KenBurn Slider  -->
+	    <script type="text/javascript" src="../rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 
-    <!-- Counter -->	
-    <script src="assets/js/counter.js"></script>	
-	
-    <!-- Nicescroll  -->	
-	<script src="assets/js/jquery.nicescroll.min.js"></script>
-	
-    <!-- Picker -->	
-	<script src="assets/js/jquery-ui.js"></script>
-	
-    <!-- Bootstrap -->	
-    <script src="dist/js/bootstrap.min.js"></script>
-	
+	    <!-- Counter -->	
+	    <script src="../assets/js/counter.js"></script>	
+		
+	    <!-- Nicescroll  -->	
+		<script src="../assets/js/jquery.nicescroll.min.js"></script>
+		
+	    <!-- Picker -->	
+		<script src="../assets/js/jquery-ui.js"></script>
+		
+	    <!-- Bootstrap -->	
+	    <script src="../dist/js/bootstrap.min.js"></script>
+		<?php
+	}else{
+		?>
+		<!-- Javascript -->	
+	    <script src="assets/js/js-list.js"></script>	
+
+	    <!-- Custom Select -->
+		<script type='text/javascript' src='assets/js/jquery.customSelect.js'></script>
+		
+	    <!-- JS Ease -->	
+	    <script src="assets/js/jquery.easing.js"></script>
+		
+	    <!-- Custom functions -->
+	    <script src="assets/js/functions.js"></script>
+		
+	    <!-- jQuery KenBurn Slider  -->
+	    <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+	    <!-- Counter -->	
+	    <script src="assets/js/counter.js"></script>	
+		
+	    <!-- Nicescroll  -->	
+		<script src="assets/js/jquery.nicescroll.min.js"></script>
+		
+	    <!-- Picker -->	
+		<script src="assets/js/jquery-ui.js"></script>
+		
+	    <!-- Bootstrap -->	
+	    <script src="dist/js/bootstrap.min.js"></script>
+		<?php
+	}
+	?>
   </body>
 </html>

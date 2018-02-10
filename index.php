@@ -66,7 +66,7 @@ include 'web/includes/db.php';
 				  </li>
 				  <!-- <li><a href="web/hotels.php">Hotels</a></li> -->
 				  <li><a href="web/bus.php">Bus</a></li>
-				  <li><a href="web/ads.php">Post AD</a></li>			  
+				  <li><a href="web/Adv/Ads.php">Post AD</a></li>			  
 				  <li><a href="web/aboutus.php">About us</a></li>			  
 				  <li><a href="web/contactus.php">Contact us</a></li>	
 				  <?php

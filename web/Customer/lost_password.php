@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Travel Agency - HTML5 Booking template</title>
+<title>CamerounFacile</title>
 
 <!-- Bootstrap -->
 <link href="../dist/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -68,7 +68,7 @@ function sendMail(){
 </div>
 </div>	
 <div class="login-c3" style="margin-top:230px!important;">
-<div class="left"><a href="../index.php" class="whitelink"><span></span>Website</a></div>
+<div class="left"><a href="../../index.php" class="whitelink"><span></span>Website</a></div>
 <div class="right"><a href="Login.php" class="whitelink">Login here</a></div>
 </div>			
 </div>
