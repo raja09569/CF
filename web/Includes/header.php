@@ -7,7 +7,7 @@
     <!-- Bootstrap -->
     <?php
     $fileName = basename($_SERVER['PHP_SELF']);
-    if($fileName?"user_dashboard.php":"Ads.php"){
+    if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php"){
     	?>
 		<link rel="shortcut icon" type="image/png" href="../images/favicon.png"/>
     	<link href="../dist/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -71,7 +71,7 @@
 				  <span class="icon-bar"></span>
 				</button>
 				<?php
-				if($fileName?"user_dashboard.php":"Ads.php"){
+				if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php"){
 					?>
 					<a href="../../index.php" class="navbar-brand">
 						<img src="../images/logo.png" alt="Travel Agency Logo" class="logo" />
@@ -99,13 +99,23 @@
 				  	</li>
 				  	<?php
 				  	}else{
-				  	?>
-				  	<li class="dropdown">
-						<a href="../index.php">
-							Home
-						</a>
-				  	</li>
-				  	<?php
+				  		if($fileName == "Ads.php" || $fileName == "Ad-Dtls.php"){
+				  			?>
+						  	<li class="dropdown">
+								<a href="../../index.php">
+									Home
+								</a>
+						  	</li>
+						  	<?php
+				  		}else{
+				  			?>
+						  	<li class="dropdown">
+								<a href="../index.php">
+									Home
+								</a>
+						  	</li>
+						  	<?php
+				  		}
 				  	}
 					if($fileName == "cab_list_page.php"){
 					?>
@@ -138,7 +148,7 @@
 				  	</li>
 					<?php
 					}
-					if($fileName == "Ads.php"){
+					if($fileName?"Ads.php":"Ad-Dtls.php"){
 					?>
 				  	<li class="active"><a href="Ads.php">Post AD</a></li>			  
 					<?php

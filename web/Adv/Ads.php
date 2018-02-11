@@ -207,7 +207,7 @@ include '../Includes/header.php';
 											</p>
 										</li>
 										<li class="ft5">
-											<button class="lightbtn more-btn">
+											<button class="lightbtn more-btn" onclick="(function(){window.location = 'Ad-Dtls.php?id=<?php echo base64_encode($adID);?>';})()">
 												More
 											</button>
 										</li>
@@ -234,7 +234,7 @@ include '../Includes/header.php';
 											</p>
 										</li>
 										<li class="ft5">
-											<button class="lightbtn more-btn">
+											<button class="lightbtn more-btn" onclick="(function(){window.location = 'Ad-Dtls.php?id=<?php echo base64_encode($adID);?>';})()">
 												More
 											</button>
 										</li>
