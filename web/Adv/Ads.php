@@ -36,11 +36,11 @@ include '../Includes/header.php';
 				<div class="hpadding20">
 					<!-- Top filters -->
 					<div class="topsortby topsortby2">
-						<div class="col-md-12 offset-0">	
+						<div class="col-md-8 offset-0">	
 							<!-- <div class="left mt7">
 								<b>Search :</b>
 							</div> -->
-							<div class="left wh40percent">
+							<div class="left wh60percent ml20">
 								<?php
 								if(isset($_GET['q'])){
 									$query = $_GET['q'];
@@ -57,8 +57,15 @@ include '../Includes/header.php';
 							<button class="btn btn-warning ml20" onclick="searchAd();">
 								Search
 							</button>
-						</div>			
+						</div>
+						<div class="col-md-4 offset-0 text-right">
+							<a href="post-ad.php" class="btn btn-primary wh60percent">
+								POST AD
+							</a>
+						</div>
+						<div class="clearfix"></div>
 					</div>
+					<div class="clearfix"></div>
 					<!-- End of topfilters-->
 				</div>
 				<!-- End of padding -->

@@ -10,7 +10,7 @@
 				<span class="ftitleblack">Let's socialize</span>
 				<div class="scont">
 					<?php
-					if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php"){
+					if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php" || $fileName == "post-ad.php"){
 					?>
 					<a href="#" class="social1b">
 						<img src="../images/icon-facebook.png" alt=""/>
@@ -101,7 +101,7 @@
 				<div class="relative">
 					<input type="email" class="form-control fccustom2black" id="exampleInputEmail1" placeholder="Enter email">
 					<?php
-					if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php"){
+					if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php" || $fileName == "post-ad.php"){
 						?>
 						<button type="submit" class="btn btn-default btncustom">Submit<img src="../images/arrow.png" alt=""/></button>
 						<?php
@@ -133,7 +133,7 @@
 		<a href="#">Blog</a> | 
 		<a href="#">Contact</a>
 		<?php
-		if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php"){
+		if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php" || $fileName == "post-ad.php"){
 			?>
 			<a href="#top" class="gotop scroll">
 				<img src="../images/spacer.png" alt=""/>
@@ -154,7 +154,7 @@
 	
 
 	<?php
-	if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php"){
+	if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php" || $fileName == "post-ad.php"){
 		?>
 		<!-- Javascript -->	
 	    <script src="../assets/js/js-list.js"></script>	

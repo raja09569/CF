@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2018 at 07:22 AM
+-- Generation Time: Feb 21, 2018 at 07:35 AM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -78,9 +78,9 @@ CREATE TABLE IF NOT EXISTS `tbl_ads` (
 INSERT INTO `tbl_ads` (`s_no`, `ad_id`, `category_id`, `subcategory_id`, `name`, `company_name`, `address1`, `address2`, `location`, `location_latlng`, `territory`, `territory_latlng`, `country`, `email_id`, `dialCode`, `mobile_number`, `heading`, `comp_profile`, `product_dtls`, `photos`, `created_by`, `is_deleted`, `created_at`) VALUES
 (1, 'CFAD0001', 'ADCT0001', 'ADSBCT0001', 'test person', 'test company', 'test address', 'test address two', 'Chandapura', '', 'Karnataka', '', 'India', 'test@gmail.com', '91', '9441294890', 'Test heading of ads', 'test compan profile', 'tst productdeails', '', 'CUST0001', '', '2017-07-22 11:38:26'),
 (2, 'CFAD0002', 'ADCT0001', 'ADSBCT0001', 'test person', 'test company', 'address line 1', 'address line 2', 'Kothapet', '', 'Telangana', '', 'India', 'test@gmail.com', '91', '919441294890', 'test ad heading ', 'test compan profile', 'test product details', '', '', '', '2017-07-30 00:29:08'),
-(3, 'CFAD0003', 'ADCT0001', 'ADSBCT0001', 'test namet', 'est companyte', 'line onelin', 'etwo', 'Kothapet', '', 'Telangana', '', 'India', 'st@gmail.com', '91', '9441294890', 'test ad headingte', 'st ocmpany profilete', 'st produc', '', '', '', '2017-07-30 00:40:02'),
-(4, 'CFAD0004', 'ADCT0001', 'ADSBCT0001', 'test ad headintest', ' comany', 'line oneli', 'ne teo', 'Kothapet', '', 'Telangana', '', 'India', 'test@gmail.com', '91', '8990303456', 'f', 'fafsadsf', 'ssdfs', '', '', '', '2017-07-30 00:42:04'),
-(5, 'CFAD0005', 'ADCT0001', 'ADSBCT0001', 'khkhlhgj', 'hgkh', 'line one', 'line two', 'Kothapet', '', 'Telangana', '', 'India', 'k8@j.com', '91', '9789876543', 'hrggkhh', 'jljaslkk;', 'sakdf;', '', '', '', '2017-07-30 00:59:01'),
+(3, 'CFAD0003', 'ADCT0001', 'ADSBCT0002', 'test namet', 'est companyte', 'line onelin', 'etwo', 'Kothapet', '', 'Telangana', '', 'India', 'st@gmail.com', '91', '9441294890', 'test ad headingte', 'st ocmpany profilete', 'st produc', '', '', '', '2017-07-30 00:40:02'),
+(4, 'CFAD0004', 'ADCT0001', 'ADSBCT0002', 'test ad headintest', ' comany', 'line oneli', 'ne teo', 'Kothapet', '', 'Telangana', '', 'India', 'test@gmail.com', '91', '8990303456', 'f', 'fafsadsf', 'ssdfs', '', '', '', '2017-07-30 00:42:04'),
+(5, 'CFAD0005', 'ADCT0002', 'ADSBCT0001', 'khkhlhgj', 'hgkh', 'line one', 'line two', 'Kothapet', '', 'Telangana', '', 'India', 'k8@j.com', '91', '9789876543', 'hrggkhh', 'jljaslkk;', 'sakdf;', '', '', '', '2017-07-30 00:59:01'),
 (6, 'CFAD0006', 'ADCT0001', 'ADSBCT0001', 'dsjflksdsfsf', 'dsfs', 'line oneli', 'neotow', 'Chandapur', '', 'Karnataka', '', 'India', 'd@d.com', '91', '7895367790', 'asdfsafds', 'ffasadf', 'safds', '', '', '', '2017-07-30 01:04:57'),
 (7, 'CFAD0007', 'ADCT0001', 'ADSBCT0001', 'kkk', 'klk', 'one', 'two', 'jj', '', 'jkj', '', 'jkju', 't@t.com', '', '9456789987', 'jhukj', 'hn', 'oo', '', 'CUST0001', '', '2017-08-05 17:54:24'),
 (8, 'CFAD0008', 'ADCT0001', 'ADSBCT0001', 'kk', 'lkj', 'kkl', 'lkij', 'kiu', '', 'jf', '', 'jfik', 't@t.com', '91', '9876543250', 'hdfg', 'ujhgy', 'ujhu', '', 'CUST0001', '', '2017-08-05 18:05:17'),
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `tbl_ad_subcategories` (
   `icon` varchar(100) NOT NULL,
   `is_deleted` varchar(10) NOT NULL,
   `created_date` varchar(150) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `tbl_ad_subcategories`
@@ -182,7 +182,8 @@ INSERT INTO `tbl_ad_subcategories` (`s_no`, `category_id`, `subcategory_id`, `na
 (2, 'ADCT0001', 'ADSBCT0002', 'Used', '', 'yes', '2017-08-23 07:45:21'),
 (5, 'ADCT0001', 'ADSBCT0003', 'New', '', 'yes', '2017-08-23 08:06:34'),
 (6, 'ADCT0001', 'ADSBCT0004', 'Box', '', 'yes', '2017-08-23 08:07:01'),
-(7, 'ADCT0001', 'ADSBCT0005', 'New', '', 'no', '2017-08-23 08:37:24');
+(7, 'ADCT0001', 'ADSBCT0005', 'New', '', 'no', '2017-08-23 08:37:24'),
+(8, 'ADCT0002', 'ADSBCT0001', 'tet2', '', 'yes', '2018-02-09 00:49:28');
 
 -- --------------------------------------------------------
 
@@ -382,8 +383,8 @@ CREATE TABLE IF NOT EXISTS `tbl_drivers` (
 --
 
 INSERT INTO `tbl_drivers` (`s_no`, `driver_id`, `name`, `mobile_number`, `email_id`, `password`, `driver_photo`, `address`, `locality`, `city`, `state`, `country`, `pincode`, `licence_no`, `vehicle_category`, `vehicle_no`, `vehicle_photo`, `vehicle_name`, `is_ac_available`, `bank_name`, `bank_ac_no`, `IFSCcode`, `bank_location`, `owner_name`, `other_details`, `current_location`, `lattitude`, `longitude`, `is_activated`, `duty_status`, `is_onRide`, `reg_id`, `device_id`, `is_deleted`, `registered_date`) VALUES
-(1, 'CBDR0001', 'Test', '1234567895', 'test@gmail.com', '', 'Driver/pics/CBDR0001PC.png', 'test address', 'test locaiton', 'test city', 'test state', 'india', '526985528', '123456789', 'CBCT0001', '325698741', 'Driver/vehicle_pics/CBDR0001VCL.png', 'Maruthi', 'yes', 'ICICI', 'AC1236547895', 'IC1234569', 'Bank Location', 'Self', '', '', '', '', '', '', '', '', '', 'no', '2018-02-06 07:59:46'),
-(2, 'CBDR0002', 'Test User Two', '7894561235', 'test2@gmail.com', '', 'Driver/pics/CBDR0002PC.png', 'test address', 'test location', 'test city', 'test state', 'india', '5699875', '98745621', 'CBCT0003', '321456', 'Driver/vehicle_pics/CBDR0002VCL.png', 'Test Vechicl', 'yes', 'SBI', 'AC265974', '9874526', 'Bank Location', 'Self', '', '', '', '', '', '', '', '', '', 'no', '2018-02-06 08:05:35');
+(1, 'CBDR0001', 'Test', '1234567895', 'test@gmail.com', '', 'Driver/pics/CBDR0001PC.png', 'test address', 'test locaiton', 'test city', 'test state', 'india', '526985528', '123456789', 'CBCT0001', '325698741', 'Driver/vehicle_pics/CBDR0001VCL.png', 'Maruthi', 'yes', 'ICICI', 'AC1236547895', 'IC1234569', 'Bank Location', 'Self', '', '', '', '', 'yes', '', '', '', '', 'no', '2018-02-06 07:59:46'),
+(2, 'CBDR0002', 'Test User Two', '7894561235', 'test2@gmail.com', '', 'Driver/pics/CBDR0002PC.png', 'test address', 'test location', 'test city', 'test state', 'india', '5699875', '98745621', 'CBCT0003', '321456', 'Driver/vehicle_pics/CBDR0002VCL.png', 'Test Vechicl', 'yes', 'SBI', 'AC265974', '9874526', 'Bank Location', 'Self', '', '', '', '', 'yes', '', '', '', '', 'no', '2018-02-06 08:05:35');
 
 -- --------------------------------------------------------
 
@@ -396,7 +397,7 @@ CREATE TABLE IF NOT EXISTS `tbl_driver_activation_tracking` (
   `driver_id` varchar(10) NOT NULL,
   `activation_status` varchar(100) NOT NULL,
   `on_date` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `tbl_driver_activation_tracking`
@@ -424,7 +425,9 @@ INSERT INTO `tbl_driver_activation_tracking` (`s_no`, `driver_id`, `activation_s
 (19, 'CBDR0001', 'no', '2018-02-04 12:55:31'),
 (20, 'CBDR0001', 'yes', '2018-02-04 12:55:36'),
 (21, 'CBDR0001', 'no', '2018-02-04 12:56:21'),
-(22, 'CBDR0001', 'yes', '2018-02-04 12:56:25');
+(22, 'CBDR0001', 'yes', '2018-02-04 12:56:25'),
+(23, 'CBDR0001', 'yes', '2018-02-10 20:54:53'),
+(24, 'CBDR0002', 'yes', '2018-02-10 20:54:57');
 
 -- --------------------------------------------------------
 
@@ -661,7 +664,7 @@ MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 -- AUTO_INCREMENT for table `tbl_ad_subcategories`
 --
 ALTER TABLE `tbl_ad_subcategories`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `tbl_amount_collection_from_driver`
 --
@@ -691,7 +694,7 @@ MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `tbl_driver_activation_tracking`
 --
 ALTER TABLE `tbl_driver_activation_tracking`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `tbl_driver_comments`
 --

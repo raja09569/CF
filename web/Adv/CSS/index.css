@@ -27,3 +27,10 @@ ul.flightstable li.ft2{
 .border-none {
 	border: none;
 }
+
+.post-ad-form textarea {
+	resize: none;
+}
+.mandatory {
+	color: #e74c3c;
+}

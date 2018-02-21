@@ -1,5 +1,4 @@
 <!-- FOOTER -->
-
 <div class="footerbg sfix">
 <div class="container">		
 <footer>
@@ -31,6 +30,8 @@ Copyright &copy; 2013 <a href="#">CamerounFacile</a> All rights reserved. <a hre
 
 <!-- This page JS -->
 <script src="assets/js/js-index.js"></script>	
+
+<script src="assets/js/initialize-google-map-contact.js"></script>
 
 <!-- Custom functions -->
 <script src="assets/js/functions.js"></script>

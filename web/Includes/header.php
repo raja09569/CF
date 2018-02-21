@@ -7,7 +7,7 @@
     <!-- Bootstrap -->
     <?php
     $fileName = basename($_SERVER['PHP_SELF']);
-    if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php"){
+    if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php"  || $fileName == "post-ad.php"){
     	?>
 		<link rel="shortcut icon" type="image/png" href="../images/favicon.png"/>
     	<link href="../dist/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -71,7 +71,7 @@
 				  <span class="icon-bar"></span>
 				</button>
 				<?php
-				if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php"){
+				if($fileName == "user_dashboard.php" || $fileName == "Ads.php" || $fileName == "Ad-Dtls.php" || $fileName == "post-ad.php"){
 					?>
 					<a href="../../index.php" class="navbar-brand">
 						<img src="../images/logo.png" alt="Travel Agency Logo" class="logo" />
@@ -99,7 +99,7 @@
 				  	</li>
 				  	<?php
 				  	}else{
-				  		if($fileName == "Ads.php" || $fileName == "Ad-Dtls.php"){
+				  		if($fileName == "Ads.php" || $fileName == "Ad-Dtls.php" || $fileName == "post-ad.php"){
 				  			?>
 						  	<li class="dropdown">
 								<a href="../../index.php">
@@ -126,13 +126,23 @@
 				  	</li>
 					<?php
 					}else{
-					?>
-					<li class="dropdown">
-						<a href="cab_list_page.php">
-							Cab
-						</a>
-				  	</li>
-					<?php
+						if($fileName == "Ads.php" || $fileName == "Ad-Dtls.php" || $fileName == "post-ad.php"){
+				  			?>
+							<li class="dropdown">
+								<a href="../cab_list_page.php">
+									Cab
+								</a>
+						  	</li>
+							<?php
+				  		}else{
+				  			?>
+							<li class="dropdown">
+								<a href="cab_list_page.php">
+									Cab
+								</a>
+						  	</li>
+							<?php
+				  		}
 					}
 					if($fileName == "bus.php"){
 					?>
@@ -142,13 +152,21 @@
 				  	</li>
 					<?php
 					}else{
-					?>
-					<li>
-				  		<a href="bus.php">Bus</a>
-				  	</li>
-					<?php
+						if($fileName == "Ads.php" || $fileName == "Ad-Dtls.php" || $fileName == "post-ad.php"){
+				  			?>
+							<li>
+						  		<a href="../bus.php">Bus</a>
+						  	</li>
+							<?php
+				  		}else{
+				  			?>
+							<li>
+						  		<a href="bus.php">Bus</a>
+						  	</li>
+							<?php
+				  		}
 					}
-					if($fileName?"Ads.php":"Ad-Dtls.php"){
+					if($fileName == "Ads.php" || $fileName == "Ad-Dtls.php" || $fileName == "post-ad.php"){
 					?>
 				  	<li class="active"><a href="Ads.php">Post AD</a></li>			  
 					<?php
@@ -159,12 +177,18 @@
 					}
 					if($fileName == "aboutus.php"){
 					?>
-				  	<li class="active"><a href="aboutus.php">About us</a></li>			  
+				  	<li class="active"><a href="aboutus.php">About us</a></li>
 					<?php
 					}else{
-					?>
-					<li><a href="aboutus.php">About us</a></li>			  
-					<?php
+						if($fileName == "Ads.php"|| $fileName == "Ad-Dtls.php" || $fileName == "post-ad.php"){
+						?>
+				  			<li><a href="../aboutus.php">About us</a></li>
+						<?php
+						}else{
+						?>
+							<li><a href="aboutus.php">About us</a></li>
+						<?php
+						}
 					}
 					if($fileName == "contactus.php"){
 					?>

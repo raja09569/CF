@@ -3,13 +3,15 @@ include '../Includes/db.php';
 if(isset($_GET['id'])){
 	$adID = $_GET['id'];
 	$adID = base64_decode($adID);
-	$query = mysqli_query($conn, "select heading, location, territory from tbl_ads where ad_id='".$adID."'");
+	$query = mysqli_query($conn, "select heading, location, territory, comp_profile, product_dtls, name, company_name, address1, address2, country from tbl_ads where ad_id='".$adID."'");
 	$num = mysqli_num_rows($query);
 	if($num > 0){
 		$row = mysqli_fetch_assoc($query);
 		$heading = $row['heading'];
 		$adLocation = $row['location'];
 		$adTerritory = $row['territory'];
+		$comp_profile = $row['comp_profile'];
+		$product_dtls = $row['product_dtls'];
 	}else{
 		?>
 		<script type="text/javascript">
@@ -168,7 +170,7 @@ include '../Includes/header.php';
 		<div class="cstyle10"></div>
 		<ul class="nav nav-tabs" id="myTab">
 			<li onclick="mySelectUpdate()" class="active">
-				<a data-toggle="tab" href="#summary">
+				<a data-toggle="tab" href="#comp_profile">
 					<!-- <span class="summary"></span> -->
 					<span class="hidetext">
 						<i class="fa fa-building" aria-hidden="true"></i> &nbsp; Company Profile
@@ -176,15 +178,15 @@ include '../Includes/header.php';
 				</a>
 			</li>
 			<li onclick="mySelectUpdate()">
-				<a data-toggle="tab" href="#roomrates">
+				<a data-toggle="tab" href="#product_dtls">
 					<!-- <span class="rates"></span> -->
 					<span class="hidetext">
 						<i class="fa fa-info-circle" aria-hidden="true"></i> &nbsp; Product/Service Details
 					</span>
 				</a>
 			</li>
-			<li onclick="loadScript()" class="">
-				<a data-toggle="tab" href="#maps">
+			<li onclick="mySelectUpdate()" class="">
+				<a data-toggle="tab" href="#provider_dtls">
 					<!-- <span class="maps"></span> -->
 					<span class="hidetext">
 						<i class="fa fa-user" aria-hidden="true"></i> &nbsp; Service Provider Details
@@ -200,11 +202,11 @@ include '../Includes/header.php';
 		</ul>			
 		<div class="tab-content4" >
 			<!-- TAB 1 -->				
-			<!-- <div id="summary" class="tab-pane fade "> -->
-				<!-- <p class="hpadding20">
-					Have a fun filled adventure in Atlantis, The Palm. Blast off our water coasters, be catapulted into shark filled lagoon, and relax on our private beach in the Aquaventure, No.1 waterpark in the Middle East and Europe. Then wander off to explore The Lost Chambers Aquarium, while coming face to face with over 65,000 animals. Explore the mystery of the lost city of Atlantis through 20 unique exhibits, including touch tank and Aquatheatre show.	
+			<div id="comp_profile" class="tab-pane fade ">
+				<p class="hpadding20">
+					<?php echo $comp_profile; ?>
 				</p>
-				<div class="line4"></div> -->
+				<!-- <div class="line4"></div> -->
 				<!-- Collapse 1 -->	
 				<!-- <button type="button" class="collapsebtn2" data-toggle="collapse" data-target="#collapse1">
 					Inclusions <span class="collapsearrow"></span>
@@ -250,9 +252,9 @@ include '../Includes/header.php';
 					<div class="hpadding20">
 						Text
 					</div>
-				<div class="clearfix"></div> -->
-			<!-- </div> -->
-			<!-- End of collapse 4 -->	
+					<div class="clearfix"></div>
+				</div>-->
+				<!-- End of collapse 4 -->	
 			<!-- <div class="line4"></div>								 -->
 			<!-- Collapse 5 -->	
 			<!-- <button type="button" class="collapsebtn2 collapsed" data-toggle="collapse" data-target="#collapse5">
@@ -280,12 +282,15 @@ include '../Includes/header.php';
 			<!-- End of collapse 6 -->								
 		</div>
 		<!-- TAB 2 -->
-		<!-- <div id="roomrates" class="tab-pane fade active in">
-		    <div class="hpadding20">
+		<div id="product_dtls" class="tab-pane fade active in">
+		    <p class="hpadding20">
+				<?php echo $product_dtls; ?>
+			</p>
+		    <!-- <div class="hpadding20">
 				<p class="dark bold">Pricing and availability</p>
 				Trip dates: Wed Mar-5-2014 to Sat Mar-8-2014  (<a href="#" class="lblue">Select new trip dates</a>)
-			</div>
-			<br/>
+			</div> -->
+			<!-- <br/>
 			<div class="line2"></div>
 			<div class="padding20">
 				<div class="col-md-2">
@@ -353,8 +358,42 @@ include '../Includes/header.php';
 			<br/>
 			<br/>
 			<br/>
-			<br/>
-		</div> -->
+			<br/> -->
+		</div>
+
+		<!-- TAB 3 -->
+		<div id="provider_dtls" class="tab-pane fade">
+			<div class="hpadding20">
+				<div>
+					<label>Name</label>
+					<input type="text" class="form-control" value="<?php echo $row['name']; ?>" readonly />
+				</div>
+				<div>
+					<label>Company Name</label>
+					<input type="text" class="form-control" value="<?php echo $row['company_name']; ?>" readonly />
+				</div>
+				<div>
+					<label>Address </label>
+					<input type="text" class="form-control" value="<?php echo $row['address1']; ?>" readonly />
+				</div>
+				<div>
+					<label>Address2</label>
+					<input type="text" class="form-control" value="<?php echo $row['address2']; ?>" readonly />
+				</div>
+				<div>
+					<label>Location</label>
+					<input type="text" class="form-control" value="<?php echo $row['location']; ?>" readonly />
+				</div>
+				<div>
+					<label>Territory</label>
+					<input type="text" class="form-control" value="<?php echo $row['territory']; ?>" readonly />
+				</div>
+				<div>
+					<label>Country</label>
+					<input type="text" class="form-control" value="<?php echo $row['country']; ?>" readonly />
+				</div>
+			</div>
+		</div>
 
 		<!-- TAB 4 -->					
 		<!-- <div id="maps" class="tab-pane fade">
@@ -603,6 +642,6 @@ include '../Includes/header.php';
 </div>
 </div>
 <!-- END OF CONTENT -->
-	
+	</div>	
 <!-- FOOTER -->
 <?php include '../Includes/footer2.php'; ?>
