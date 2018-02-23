@@ -9,13 +9,13 @@ $num = mysqli_num_rows($query);
 $outp = '[';
 if($num > 0){
 	while ($row = mysqli_fetch_assoc($query)) {
-		$categoryID = $row['category_id'];
-		$catName = $row['name'];
+		$subcatID = $row['subcategory_id'];
+		$subcatName = $row['name'];
 		if($outp != '['){
 			$outp .= ',';
 		}
-		$outp .= '{"catID":"'.$categoryID.'",';
-		$outp .= '"catName": "'.$catName.'"}';
+		$outp .= '{"subcatID":"'.$subcatID.'",';
+		$outp .= '"subcatName": "'.$subcatName.'"}';
 	}
 }
 $outp .= ']';

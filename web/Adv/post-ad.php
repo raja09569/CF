@@ -32,15 +32,15 @@ include '../Includes/header.php';
 			<div class="padding20 post-ad-form">
 				<div class="row">
 					<div class="hpadding20 col-sm-6 col-md-6">
-						<label>Select Category</label>
+						<label>Select Category<span class="mandatory">*</span></label>
 						<select class="form-control" name="ad-categories" onchange="loadSubCat(this)">
 							<option value="select">Select Category</option>
 						</select>
 					</div>
 					<div class="hpadding20 col-sm-6 col-md-6">
-						<label>Select Sub Category</label>
-						<select class="form-control">
-							<option value="select">Select Category</option>
+						<label>Select Sub Category<span class="mandatory">*</span></label>
+						<select class="form-control" name="ad-sub-categories">
+							<option value="select">Select Sub Category</option>
 						</select>
 					</div>
 				</div>
@@ -79,7 +79,7 @@ include '../Includes/header.php';
 					</div>
 					<div class="hpadding20 col-sm-4 col-md-4">
 						<label>Location<span class="mandatory">*</span></label>
-						<input type="text" name="ad_name" class="form-control" maxlength="100">
+						<input type="text" name="ad_location" class="form-control" maxlength="100">
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -89,13 +89,13 @@ include '../Includes/header.php';
 						<label>
 							Address 1 (Max 100 characters)<span class="mandatory">*</span>
 						</label>
-						<input type="text" name="ad_name" class="form-control" maxlength="100">
+						<input type="text" name="ad_address1" class="form-control" maxlength="100">
 					</div>
 					<div class="hpadding20 col-sm-6 col-md-6">
 						<label>
 							Address 2 (Max 100 characters)<span class="mandatory">*</span>
 						</label>
-						<input type="text" name="ad_name" class="form-control" maxlength="100">
+						<input type="text" name="ad_address2" class="form-control" maxlength="100">
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -103,11 +103,11 @@ include '../Includes/header.php';
 				<div class="row">
 					<div class="hpadding20 col-sm-6 col-md-6">
 						<label>Email ID<span class="mandatory">*</span></label>
-						<input type="text" name="ad_name" class="form-control" maxlength="150">
+						<input type="text" name="ad_email" class="form-control" maxlength="150">
 					</div>
 					<div class="hpadding20 col-sm-6 col-md-6">
 						<label>Phone No<span class="mandatory">*</span></label>
-						<input type="text" name="ad_name" class="form-control" maxlength="20">
+						<input type="text" name="ad_mobile" class="form-control" maxlength="20">
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -119,13 +119,13 @@ include '../Includes/header.php';
 				<div class="row">
 					<div class="hpadding20 col-sm-12 col-md-12">
 						<label>Company profile (Max length 300 characters)<span class="mandatory">*</span></label>
-						<textarea class="form-control" maxlength="300"></textarea>
+						<textarea class="form-control" name="ad-comp-profile" maxlength="300"></textarea>
 					</div>
 				</div>
 				<div class="row">
 					<div class="hpadding20 col-sm-12 col-md-12">
 						<label>Product details (Max length 500 characters)<span class="mandatory">*</span></label>
-						<textarea class="form-control" maxlength="500"></textarea>
+						<textarea class="form-control" name="ad-prdct-dtls" maxlength="500"></textarea>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -168,7 +168,7 @@ include '../Includes/header.php';
 						<button class="btn btn-danger btn-block bold" onclick="cancelForm();">CANCEL</button>
 					</div>
 					<div class="padding20 col-md-6 col-sm-6 text-center">
-						<button class="btn btn-primary btn-block bold">SUBMIT</button>
+						<button class="btn btn-primary btn-block bold" onclick="submitAd();">SUBMIT</button>
 					</div>
 				</div>
 			</div>

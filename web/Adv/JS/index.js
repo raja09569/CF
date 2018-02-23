@@ -75,5 +75,40 @@ function LoadCategories(){
 
 function loadSubCat(select){
 	var catID = $(select).val();
-	
+	$.ajax({
+		url: "phps/get_sub_categories.php",
+		type: "POST",
+		data: {catID: catID},
+		success: function(msg){
+			$("select[name='ad-sub-categories']").empty();
+			var a = JSON.parse(msg);
+			if(a.length > 0){
+				var data = "<option value='select' disable selected>Select Sub Category</option>";
+				$("select[name='ad-sub-categories']").append(data);
+				for(var i=0; i<a.length; i++){
+					var data = "<option value='"+a[i].subcatID+"'>"+a[i].subcatName+"</option>";
+					$("select[name='ad-sub-categories']").append(data);
+				}
+			}else{
+				var data = "<option value='no' disable selected>No sub categories found!</option>";
+				$("select[name='ad-sub-categories']").append(data);
+			}
+		},
+		error: function(err){
+			if(err.status == "0"){
+				alert("Unable to connect to server, Try again");
+			}else{
+				alert("Something went wrong, Try again");
+			}
+		}
+	})	
+}
+
+function submitAd(){
+	var category = $("select[name='ad-categories']").val();
+	var subcat = $("select[name='ad-categories']").val();
+	var name = $("input[name='ad-name']").val();
+	var company = $("input[name='ad-company']").val();
+	var country = $("input[name='ad-country']").val();
+	var country = $("input[name='ad-country']").val();
 }
