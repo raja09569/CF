@@ -33,18 +33,19 @@ include '../Includes/header.php';
 				<div class="row">
 					<div class="hpadding20 col-sm-6 col-md-6">
 						<label>Select Category</label>
-						<select class="form-control">
+						<select class="form-control" name="ad-categories" onchange="loadSubCat(this)">
 							<option value="select">Select Category</option>
 						</select>
 					</div>
 					<div class="hpadding20 col-sm-6 col-md-6">
-						<label>Select Category</label>
+						<label>Select Sub Category</label>
 						<select class="form-control">
 							<option value="select">Select Category</option>
 						</select>
 					</div>
 				</div>
 				<div class="clearfix"></div>
+				<br/>
 				<div class="row">
 					<div class="hpadding20 col-sm-12 col-md-12">
 						<label>
@@ -53,6 +54,7 @@ include '../Includes/header.php';
 						<input type="text" name="ad_name" class="form-control" maxlength="50">
 					</div>
 				</div>
+				<br/>
 				<div class="row">
 					<div class="hpadding20 col-sm-12 col-md-12">
 						<label>
@@ -61,6 +63,7 @@ include '../Includes/header.php';
 						<input type="text" name="ad_company" class="form-control" maxlength="50">
 					</div>
 				</div>
+				<br/>
 				<div class="row">
 					<div class="hpadding20 col-sm-4 col-md-4">
 						<label>
@@ -80,6 +83,7 @@ include '../Includes/header.php';
 					</div>
 				</div>
 				<div class="clearfix"></div>
+				<br/>
 				<div class="row">
 					<div class="hpadding20 col-sm-6 col-md-6">
 						<label>
@@ -95,6 +99,7 @@ include '../Includes/header.php';
 					</div>
 				</div>
 				<div class="clearfix"></div>
+				<br/>
 				<div class="row">
 					<div class="hpadding20 col-sm-6 col-md-6">
 						<label>Email ID<span class="mandatory">*</span></label>
@@ -125,32 +130,42 @@ include '../Includes/header.php';
 				</div>
 				<div class="clearfix"></div>
 				<br/>
-				<div class="row">
-					<div class="hpadding20 col-sm-12 col-md-12">
-						<label>Photos (Max 5 photos)</label>
-						<input type="file" name="ad_name" class="form-control" accept="image/x-png, image/gif, image/jpeg" multiple>
+				<div class="row ">
+					<label class="hpadding20 col-sm-12 col-md-12">Photos (Max 5 photos)</label>
+					<br/><br/>
+					<div class="row" style="margin: 0px;">
+						<div class="hpadding20 col-md-2 col-sm-2 ad-img-div" id="div_1">
+							<span class="ad-img-close" id="close_1" onclick="removeThis(this)">X</span>
+							<input type="file" name="files" title="Load File" style="display: none;" id="input_1" onchange="checkImages(this)"/>
+							<img src="../images/plus.png" height="120" width="120" class="img-responsive img-thumbnail ad-img" onclick="showChooser(this);" id="img_1">
+						</div>
+						<div class="hpadding20 col-md-2 col-sm-2 ad-img-div" id="div_2">
+							<span class="ad-img-close" id="close_2" onclick="removeThis(this)">X</span>
+							<input type="file" name="files" title="Load File" style="display: none;" id="input_2" onchange="checkImages(this)"/>
+							<img src="../images/plus.png" height="120" width="120" class="img-responsive img-thumbnail ad-img" onclick="showChooser(this);" id="img_2">
+						</div>
+						<div class="hpadding20 col-md-2 col-sm-2 ad-img-div" id="div_3">
+							<span class="ad-img-close" id="close_3" onclick="removeThis(this)">X</span>
+							<input type="file" name="files" title="Load File" style="display: none;" id="input_3" onchange="checkImages(this)"/>
+							<img src="../images/plus.png" height="120" width="120" class="img-responsive img-thumbnail ad-img" onclick="showChooser(this);" id="img_3">
+						</div>
+						<div class="hpadding20 col-md-2 col-sm-2 ad-img-div" id="div_4">
+							<span class="ad-img-close" id="close_4" onclick="removeThis(this)">X</span>
+							<input type="file" name="files" title="Load File" style="display: none;" id="input_4" onchange="checkImages(this)"/>
+							<img src="../images/plus.png" height="120" width="120" class="img-responsive img-thumbnail ad-img" onclick="showChooser(this);" id="img_4">
+						</div>
+						<div class="hpadding20 col-md-2 col-sm-2 ad-img-div" id="div_5">
+							<span class="ad-img-close" id="close_5" onclick="removeThis(this)">X</span>
+							<input type="file" name="files" title="Load File" style="display: none;" id="input_5" onchange="checkImages(this)"/>
+							<img src="../images/plus.png" height="120" width="120" class="img-responsive img-thumbnail ad-img" onclick="showChooser(this);" id="img_5">
+						</div>
 					</div>
-					<div class="row padding20">
-						<div class="hpadding20 col-md-2 col-sm-2">
-							<img src="../images/No-Image/no-image-found.gif" class="img-responsive img-thumbnail">
-						</div>
-						<div class="hpadding20 col-md-2 col-sm-2">
-							<img src="../images/No-Image/no-image-found.gif" class="img-responsive img-thumbnail">
-						</div>
-						<div class="hpadding20 col-md-2 col-sm-2">
-							<img src="../images/No-Image/no-image-found.gif" class="img-responsive img-thumbnail">
-						</div>
-						<div class="hpadding20 col-md-2 col-sm-2">
-							<img src="../images/No-Image/no-image-found.gif" class="img-responsive img-thumbnail">
-						</div>
-						<div class="hpadding20 col-md-2 col-sm-2">
-							<img src="../images/No-Image/no-image-found.gif" class="img-responsive img-thumbnail">
-						</div>	
-					</div>
+					
 				</div>
+				<div class="clearfix"></div>
 				<div class="row">
 					<div class="padding20 col-md-6 col-sm-6 text-center">
-						<button class="btn btn-danger btn-block bold">CANCEL</button>
+						<button class="btn btn-danger btn-block bold" onclick="cancelForm();">CANCEL</button>
 					</div>
 					<div class="padding20 col-md-6 col-sm-6 text-center">
 						<button class="btn btn-primary btn-block bold">SUBMIT</button>

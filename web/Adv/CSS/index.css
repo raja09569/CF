@@ -27,10 +27,22 @@ ul.flightstable li.ft2{
 .border-none {
 	border: none;
 }
-
 .post-ad-form textarea {
 	resize: none;
 }
 .mandatory {
 	color: #e74c3c;
+}
+.ad-img {
+	height: 120px;
+}
+.ad-img-div {
+	display: none;
+}
+.ad-img-close {
+	position: absolute;
+	right: 52px;
+	color: #c0392b;
+	font-weight: bold;
+	display: none;
 }
