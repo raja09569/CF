@@ -59,9 +59,25 @@ include '../Includes/header.php';
 							</button>
 						</div>
 						<div class="col-md-4 offset-0 text-right">
-							<a href="post-ad.php" class="btn btn-primary wh60percent">
-								POST AD
-							</a>
+							<?php
+								if(isset($_SESSION['customer_user_ID'])){
+									if(isset($_SESSION['from_postAd'])){
+										unset($_SESSION['from_postAd']);
+									}
+									?>
+									<a href="post-ad.php" class="btn btn-primary wh60percent">
+										POST AD
+									</a>
+									<?php
+								}else{
+									$_SESSION['from_postAd'] = "true";
+									?>
+									<a href="../Customer/Login.php" class="btn btn-primary wh60percent">
+										POST AD
+									</a>
+									<?php
+								}
+							?>
 						</div>
 						<div class="clearfix"></div>
 					</div>

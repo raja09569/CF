@@ -2,6 +2,35 @@
 include '../Includes/db.php';
 include '../Includes/header.php';
 ?>	
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#div_1").show();
+		LoadCategories();
+		$("input[name='ad_mobile']").intlTelInput({
+		  initialCountry: "auto",
+		  	geoIpLookup: function(callback) {
+				$.get('http://ipinfo.io', function() {}, "jsonp").
+					always(function(resp) {
+			  		var countryCode = (resp && resp.country) ? resp.country : "";
+			  		callback(countryCode);
+			  		//alert(countryCode);
+				});
+		  	},
+		  	utilsScript: "../assets/js/utils.js", // just for formatting/placeholders etc
+			autoPlaceholder: true
+		});
+	});
+</script>
+<link rel="stylesheet" href="../css/intlTelInput.css" >
+<style>
+	.iti-flag {
+		background-image: url("../img/flags.png");
+	}
+	.intl-tel-input {
+	    display: block;
+	}
+</style>
+<script src="../assets/js/intlTelInput.js"></script>
 <link rel="stylesheet" type="text/css" href="CSS/index.css">
 <script type="text/javascript" src="JS/index.js"></script>
 	<div class="container breadcrub">
@@ -107,7 +136,7 @@ include '../Includes/header.php';
 					</div>
 					<div class="hpadding20 col-sm-6 col-md-6">
 						<label>Phone No<span class="mandatory">*</span></label>
-						<input type="text" name="ad_mobile" class="form-control" maxlength="20">
+						<input type="tel" name="ad_mobile" class="form-control" maxlength="20">
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -118,10 +147,20 @@ include '../Includes/header.php';
 				<br/>
 				<div class="row">
 					<div class="hpadding20 col-sm-12 col-md-12">
+						<label>
+							Heading (Max 100 characters)<span class="mandatory">*</span>
+						</label>
+						<input type="text" name="ad_heading" class="form-control" maxlength="100">
+					</div>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="hpadding20 col-sm-12 col-md-12">
 						<label>Company profile (Max length 300 characters)<span class="mandatory">*</span></label>
 						<textarea class="form-control" name="ad-comp-profile" maxlength="300"></textarea>
 					</div>
 				</div>
+				<br/>
 				<div class="row">
 					<div class="hpadding20 col-sm-12 col-md-12">
 						<label>Product details (Max length 500 characters)<span class="mandatory">*</span></label>
@@ -130,7 +169,7 @@ include '../Includes/header.php';
 				</div>
 				<div class="clearfix"></div>
 				<br/>
-				<div class="row ">
+				<div class="row">
 					<label class="hpadding20 col-sm-12 col-md-12">Photos (Max 5 photos)</label>
 					<br/><br/>
 					<div class="row" style="margin: 0px;">

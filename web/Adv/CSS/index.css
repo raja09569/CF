@@ -1,16 +1,18 @@
-
 .topsortby2 {
 	padding-bottom: 30px;
 }
+
 .ft1 img {
 	width: 180px;
 	height: 100px;
 }
+
 ul.flightstable li.ft2{
 	float:left;
 	width:33%;
 	padding: 0px 0px 0px 20px;
 }
+
 @media (min-width: 600px) {
 	ul.flightstable li.ft2{
 		float:left;
@@ -18,27 +20,35 @@ ul.flightstable li.ft2{
 		padding: 0px;
 	}
 }
+
 .more-btn {
 	margin-top: 60px;
 }
+
 .ad-Images {
 	height: 150px;
 }
+
 .border-none {
 	border: none;
 }
+
 .post-ad-form textarea {
 	resize: none;
 }
+
 .mandatory {
 	color: #e74c3c;
 }
+
 .ad-img {
 	height: 120px;
 }
+
 .ad-img-div {
 	display: none;
 }
+
 .ad-img-close {
 	position: absolute;
 	right: 52px;

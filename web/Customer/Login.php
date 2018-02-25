@@ -64,6 +64,11 @@
 					?>
 					<script>window.location.href = "../cab_details_page.php"</script>
 					<?php
+				}else if(isset($_SESSION['from_postAd'])){
+					unset($_SESSION['from_postAd']);
+					?>
+					<script>window.location.href = "../Adv/post-ad.php"</script>
+					<?php
 				}else{
 					?>
 					<script>window.location.href = "user_dashboard.php"</script>
