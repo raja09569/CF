@@ -1,7 +1,10 @@
 <?php
 include '../Includes/db.php';
 include '../Includes/header.php';
-?>	
+?>
+<script src="../assets/js/jquery.easy-autocomplete.min.js"></script> 
+<link rel="stylesheet" href="../assets/css/easy-autocomplete.min.css">
+<link rel="stylesheet" href="../assets/css/easy-autocomplete.themes.min.css"> 	
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#div_1").show();
@@ -19,6 +22,18 @@ include '../Includes/header.php';
 		  	utilsScript: "../assets/js/utils.js", // just for formatting/placeholders etc
 			autoPlaceholder: true
 		});
+
+		var options = {
+		  url: "../assets/JSON/countries.json",
+		  getValue: "name",
+		  list: {	
+		    match: {
+		      enabled: true
+		    }
+		  },
+		  theme: "square"
+		};
+		$("input[name='ad_country']").easyAutocomplete(options);
 	});
 </script>
 <link rel="stylesheet" href="../css/intlTelInput.css" >
@@ -28,6 +43,18 @@ include '../Includes/header.php';
 	}
 	.intl-tel-input {
 	    display: block;
+	}
+	.easy-autocomplete.eac-square input {
+	    border: 2px solid #ebebeb;
+	    border-radius: 4px;
+	    color: #999;
+	    font-family: unset;
+	    font-size: 14px;
+	    font-style: normal;
+	    font-weight: normal;
+	    margin: 0;
+	    min-width: 100%;
+	    padding: 6px 0px 6px 12px;
 	}
 </style>
 <script src="../assets/js/intlTelInput.js"></script>
@@ -98,7 +125,7 @@ include '../Includes/header.php';
 						<label>
 							Country <span class="mandatory">*</span>
 						</label>
-						<input type="text" name="ad_country" class="form-control" maxlength="100">
+						<input name="ad_country" class="form-control" maxlength="100">
 					</div>
 					<div class="hpadding20 col-sm-4 col-md-4">
 						<label>

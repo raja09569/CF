@@ -36,7 +36,7 @@ if($cab_type != ""){
 		exit;
 	}else{
 		
-		$query1 = mysqli_query($conn, "select * from tbl_drivers order by s_no limit 1");
+		$query1 = mysqli_query($conn, "select driver_id from tbl_drivers order by driver_id desc limit 1");
 		$num1 = mysqli_num_rows($query1);
 		if($num1 != 0){
 			$row1 = mysqli_fetch_assoc($query1);

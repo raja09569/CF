@@ -43,10 +43,13 @@ ul.flightstable li.ft2{
 
 .ad-img {
 	height: 120px;
+	width: 100%;
+	display: block;
 }
 
 .ad-img-div {
 	display: none;
+	height: auto;
 }
 
 .ad-img-close {
