@@ -97,6 +97,9 @@ include 'web/includes/db.php';
 							<ul class="dropdown-menu">
 								<li><a href="web/Customer/Login.php">My Account</a></li>	
 								<li><a href="web/Admin/Login.php">Manager Login</a></li>
+								<li><a href="web/Bus-Admin/admin">Bus Agent</a></li>
+								<li><a href="web/Bus-Admin/admin">Bus Admin</a></li>
+								<li><a href="web/Bus-Admin/">Bus User</a></li>
 							</ul>
 						  </li>
 						<?php

@@ -118,7 +118,7 @@
 								contentType: false,
 								type: "POST",
 								success: function(msg){
-									//alert(msg);
+									console.log(msg);
 									var output = JSON.parse(msg);
 									if(output.msg == "Success"){
 										if(isVarified != null){
@@ -155,50 +155,6 @@
 									}
 								}
 							});
-							/*if(document.getElementById("profile_pic").files.length == 0 ){
-								var data = new FormData();
-								data.append('name',name.value);
-								data.append('phoneno', mobile.value);
-								data.append('email_id', emailId.value);
-								data.append('address', adrs.value);
-								data.append('password', pword.value);
-								
-								var xhr = new XMLHttpRequest();    
-								 xhr.open('POST', 'create_user.php', true);  
-
-								 xhr.send(data);
-								 xhr.onload = function () {                  
-
-								 if (xhr.status === 200) {
-									 $('#reg_form').trigger("reset");
-								   $('#result').append("Registration successful. Now you can login. <a href='user_login.php'>Click here</a> to login")
-								  } else {
-								   alert("Something went wrong, Try again.");
-								  }
-								 };
-							}else{
-								var data = new FormData();
-								data.append('name',name.value);
-								data.append('phoneno', mobile.value);
-								data.append('email_id', emailId.value);
-								data.append('address', adrs.value);
-								data.append('password', pword.value);
-								data.append('profile_pic', file, file.name);
-								
-								var xhr = new XMLHttpRequest();    
-								 xhr.open('POST', 'create_user.php', true);  
-
-								 xhr.send(data);
-								 xhr.onload = function () {                  
-
-								 if (xhr.status === 200) {
-									 $('#reg_form').trigger("reset");
-								   $('#result').append("Registration successful. Now you can login. <a href='user_login.php'>Click here</a> to login")
-								  } else {
-								   alert("Something went wrong, Try again.");
-								  }
-								 };
-							}*/
 						}
 					}
 

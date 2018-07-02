@@ -2,6 +2,13 @@
 
 include '../Includes/db.php';
 
+
+include 'Twilio/autoload.php';
+
+// Use the REST API Client to make requests to the Twilio REST API
+use Twilio\Rest\Client;
+
+
 $fname = $_POST['fname'];
 $lname = $_POST['lname'];
 $dialCode = $_POST['dialCode'];
@@ -73,7 +80,7 @@ if(isset($_POST['sendOTP'])){
 		$randomNum = generateRandomString();
 		$query4 = mysqli_query($conn, "update tbl_verification_codes set verification_code='".$randomNum."' where mobile='".$phoneno."'");
 		if($query4){
-			sendSMS($phoneno, "Your Requested Verification Code is ".$randomNum);
+			sendSMS($dialCode, $phoneno, "Your Requested Verification Code is ".$randomNum);
 			$outp = '{"msg": "Success"}';
 			echo $outp;
 			exit();
@@ -86,7 +93,7 @@ if(isset($_POST['sendOTP'])){
 		$randomNum = generateRandomString();
 		$query3 = mysqli_query($conn, "insert into tbl_verification_codes (mobile, verification_code) values ('".$phoneno."', '".$randomNum."')");
 		if($query3){
-			sendSMS($phoneno, "Your Requested Verification Code is ".$randomNum);
+			sendSMS($dialCode, $phoneno, "Your Requested Verification Code is ".$randomNum);
 			$outp['msg'] = "Success";
 			echo json_encode($outp);
 			exit();
@@ -168,8 +175,8 @@ function generateRandomString($length = 6) {
     return $randomString;
 }
 
-function sendSMS($mobile, $message){
-	$user = "leesoft";
+function sendSMS($dialCode, $mobile, $message){
+	/*$user = "leesoft";
 	$apikey = "PtIcihedW5GofPekdaZg"; 
 	$senderid  =  "LEESMS";
 	$message = urlencode($message);
@@ -179,7 +186,27 @@ function sendSMS($mobile, $message){
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	$output = curl_exec($ch);      
 	curl_close($ch); 
-	//echo $output;
+	//echo $output;*/
+	$sid = 'ACf54475d186bab664a2353aa3528e009e';
+	$token = '22ae630a4c595e86bd4c852e643eeb54';
+	$client = new Client($sid, $token);
+
+
+	$send_number = $mobile; // Add Number to Send To
+	$twilio_number = '+15412095968 ';// Add Your registered Twilio Number
+	//$message = 'Merrick Lee freaking rocks!!!';
+
+	$send_number = $dialCode.$send_number.'';
+	$twilio_number = $twilio_number.'';
+
+
+	$client->messages->create(
+		$send_number,
+		array(
+			'from' => $twilio_number,
+			'body' => $message,
+		)
+	);
 }
 
 ?>

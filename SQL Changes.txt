@@ -1,1 +1,2 @@
 -> ALTER TABLE `tbl_amount_collection_from_driver` CHANGE `driver_id` `driver_id` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+-> Bus admin db imported in to localhost
