@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2018 at 10:23 AM
+-- Generation Time: Jul 08, 2018 at 07:12 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -996,7 +996,7 @@ CREATE TABLE IF NOT EXISTS `tbl_verification_codes` (
 `s_no` int(11) NOT NULL,
   `mobile` varchar(15) NOT NULL,
   `verification_code` varchar(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `tbl_verification_codes`
@@ -1005,7 +1005,8 @@ CREATE TABLE IF NOT EXISTS `tbl_verification_codes` (
 INSERT INTO `tbl_verification_codes` (`s_no`, `mobile`, `verification_code`) VALUES
 (1, '1234567890', '927949'),
 (2, '8143668149', ''),
-(3, '9441294890', '130927');
+(3, '9441294890', '130927'),
+(4, '8074346363', '291963');
 
 --
 -- Indexes for dumped tables
@@ -1399,7 +1400,7 @@ MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `tbl_verification_codes`
 --
 ALTER TABLE `tbl_verification_codes`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
