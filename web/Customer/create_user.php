@@ -189,6 +189,7 @@ function sendSMS($dialCode, $mobile, $message){
 	//echo $output;*/
 	$sid = 'ACf54475d186bab664a2353aa3528e009e';
 	$token = '22ae630a4c595e86bd4c852e643eeb54';
+
 	$client = new Client($sid, $token);
 
 
@@ -196,7 +197,7 @@ function sendSMS($dialCode, $mobile, $message){
 	$twilio_number = '+15412095968 ';// Add Your registered Twilio Number
 	//$message = 'Merrick Lee freaking rocks!!!';
 
-	$send_number = $dialCode.$send_number.'';
+	$send_number = "+".$dialCode.$send_number.'';
 	$twilio_number = $twilio_number.'';
 
 
