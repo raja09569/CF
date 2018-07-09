@@ -9,29 +9,27 @@ class Bus_model extends CI_Model {
 	
 	 function get_busdetails(){
 		 
-		 
-			     $this->db->select('bus.id as id, bus.bus_name, bus.bus_reg_no, bus.max_seats, bus.board_point, bus.board_time, bus.drop_point, bus.drop_time, bus_type.bus_type, bus.bus_status');
-			     $this->db->from('bus' );
-			     $this->db->join('bus_type', 'bus.bus_type_id = bus_type.id','left');
-				 
-				 $this->db->where('bus.bus_status','1');
-				 /* $this->db->where('bus_type.status','1');*/
-				 
-				 
-			     $this->db->group_by("bus.id");
-				 
-				  $menu = $this->session->userdata('admin');
-					if($menu!='1'){						
-						$user = $this->session->userdata('id');
-						$this->db->where('bus.created_by', $user);
-					}
-					
-				 
-				 $query = $this->db->get();
+		$this->db->select('tbl_bus.id as id, tbl_bus.bus_name, tbl_bus.bus_reg_no, tbl_bus.max_seats, tbl_bus.board_point, tbl_bus.board_time, tbl_bus.drop_point, tbl_bus.drop_time, tbl_bus_type.bus_type, tbl_bus.bus_status');
+		$this->db->from('tbl_bus');
+		$this->db->join('tbl_bus_type', 'tbl_bus.bus_type_id = tbl_bus_type.id','left');
+		
+		$this->db->where('tbl_bus.bus_status','1');
+		/* $this->db->where('bus_type.status','1');*/
+		
+		
+		$this->db->group_by("tbl_bus.id");
+		
+		$menu = $this->session->userdata('admin');
+		if($menu!='1'){						
+			$user = $this->session->userdata('id');
+			$this->db->where('tbl_bus.created_by', $user);
+		}
+		
+		$query = $this->db->get();
 
-			     $result = $query->result();
+		$result = $query->result();
 
-			     return $result;
+		return $result;
 			    
      }
 	 
@@ -39,7 +37,7 @@ class Bus_model extends CI_Model {
 	 function userdetails_get($id){
 		
 			   $query = $this->db->where('id',$id);
-			   $query = $this->db->get('bus');
+			   $query = $this->db->get('tbl_bus');
 			   $result = $query->row();
 			   return $result; 
 			    
@@ -52,7 +50,7 @@ class Bus_model extends CI_Model {
                $data['amenities_id']=$comma_separated;
 			  			//var_dump($comma_separated);
 //exit();						
-			   $result = $this->db->insert('bus', $data);
+			   $result = $this->db->insert('tbl_bus', $data);
 			   return $result;
      }
 	 
@@ -63,11 +61,11 @@ class Bus_model extends CI_Model {
 			    	$menu = $this->session->userdata('admin');
 				if($menu!='1'){
 					$user = $this->session->userdata('id');
-					$this->db->where('bus.created_by', $user);
+					$this->db->where('tbl_bus.created_by', $user);
 				}
 				
 				
-			   $query = $this->db->get('bus');
+			   $query = $this->db->get('tbl_bus');
 			   $result = $query->row();
 			   return $result;  
 	   }
@@ -81,7 +79,7 @@ class Bus_model extends CI_Model {
                $data['amenities_id']=$comma_separated;
 		    
 			   $this->db->where('id', $id);
-			   $result = $this->db->update('bus', $data);
+			   $result = $this->db->update('tbl_bus', $data);
 			   return $result;
 	 }
 	   
@@ -134,7 +132,7 @@ class Bus_model extends CI_Model {
 	 public function update_delete_status($data,$data2){
 		 
 				 $this->db->where('id',$data);
-				 $result = $this->db->update('bus_type',$data2);
+				 $result = $this->db->update('tbl_bus_type',$data2);
 				 return $result;
 	 }
  
@@ -142,13 +140,13 @@ class Bus_model extends CI_Model {
 	 function  bustype_add($data){
 
 		   
-			   $result = $this->db->insert('bus_type',$data);
+			   $result = $this->db->insert('tbl_bus_type',$data);
 			   return $result;
      }
      function check_Bustype($data){
      	         $new_data=$data['bus_type'];
 			   $this->db->where('bus_type=',$new_data);
-			   $query = $this->db->get('bus_type');
+			   $query = $this->db->get('tbl_bus_type');
 			   /*echo $this->db->last_query();*/
 			   $result = $query->row();
 			  
@@ -157,7 +155,7 @@ class Bus_model extends CI_Model {
 	 
 	 function view_Bustype(){
 			         
-			   $query = $this->db->get('bus_type');
+			   $query = $this->db->get('tbl_bus_type');
 			   $result = $query->result();
 			   return $result;
      }
@@ -165,7 +163,7 @@ class Bus_model extends CI_Model {
 	 function get_single_bustype($id){
 		      
 		       $query = $this->db->where('id',$id);
-			   $query = $this->db->get('bus_type');
+			   $query = $this->db->get('tbl_bus_type');
 			   $result = $query->row();
 			   return $result;  
 	   }
@@ -173,27 +171,27 @@ class Bus_model extends CI_Model {
 	 function bustypedetails_edit($data, $id){
 		    
 			   $this->db->where('id', $id);
-			   $result = $this->db->update('bus_type', $data); 
+			   $result = $this->db->update('tbl_bus_type', $data); 
 			   return "Success";
 	 }
 	 
 	 public function get_bustype_id() {
 		        $query = $this->db->where('status','1');
-				$query = $this->db->get('bus_type');
+				$query = $this->db->get('tbl_bus_type');
 			    $result = $query->result();
 			    return $result; 				
 	 }	
 	 
 	 public function get_bus_typeid() {
 		
-				$query = $this->db->get('bus_type');
+				$query = $this->db->get('tbl_bus_type');
 			    $result = $query->result();
 			    return $result; 				
 	 }	
 	  
 	 public function get_amenities_id(){
 		 
-		        $query = $this->db->get('amenities');
+		        $query = $this->db->get('tbl_bus_amenities');
 			    $result = $query->result();
 			    return $result;
 	 }
@@ -206,21 +204,21 @@ class Bus_model extends CI_Model {
 	 
 	 	function get_buspopupdetails($id){
 	
-				$this->db->select('bus.*, bus.id as bus_id, bus_type.id, bus_type.bus_type, seat_layout.layout,
+				$this->db->select('tbl_bus.*, tbl_bus.id as bus_id, tbl_bus_type.id, tbl_bus_type.bus_type, seat_layout.layout,
                 
-                GROUP_CONCAT(amenities.amenities ORDER BY amenities.id) as amenities'); 
+                GROUP_CONCAT(tbl_bus_amenities.amenities ORDER BY tbl_bus_amenities.id) as amenities'); 
 
 				
-                $this->db->from('bus');
-                $this->db->join('bus_type', 'bus.bus_type_id = bus_type.id','left');   				               
+                $this->db->from('tbl_bus');
+                $this->db->join('tbl_bus_type', 'tbl_bus.bus_type_id = tbl_bus_type.id','left');   				               
                 //$this->db->join('amenities', 'bus.amenities_id = amenities.id','left');
-				$this->db->join('seat_layout', 'seat_layout.bus_id = bus.id','left'); 
+				$this->db->join('tbl_bus_seat_layout', 'tbl_bus_seat_layout.bus_id = tbl_bus.id','left'); 
 				
-				$this->db->join('amenities', 'FIND_IN_SET(amenities.id, bus.amenities_id) > 0','left');
+				$this->db->join('tbl_bus_amenities', 'FIND_IN_SET(tbl_bus_amenities.id, tbl_bus.amenities_id) > 0','left');
 
-				$this->db->group_by("bus.id");	
+				$this->db->group_by("tbl_bus.id");	
 				
-                $this->db->where('bus.id',$id); 
+                $this->db->where('tbl_bus.id',$id); 
                 $query = $this->db->get();			
 			    $result = $query->row();	
 			    return $result;				
@@ -229,7 +227,7 @@ class Bus_model extends CI_Model {
 	     public function busupdate_delete_status($id,$data1){
 		 
 				 $this->db->where('id',$id);
-				 $result = $this->db->update('bus',$data1);
+				 $result = $this->db->update('tbl_bus',$data1);
 				 return $result;
 	     }
 }

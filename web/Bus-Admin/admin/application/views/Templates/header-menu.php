@@ -2,9 +2,9 @@
         <!-- Logo -->
         <a href="<?php echo base_url(); ?>" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>T</b>B</span>
+          <span class="logo-mini"><b>C</b>F</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="hidden-xs"><?php $title = $this->session->userdata('title');echo $title['title'];
+          <span class="hidden-xs"><?php echo "Cameroun Facile"; //$title = $this->session->userdata('title');echo $title['title'];
 		 //print_r($title);
 		 ?></span>
         </a>
@@ -25,7 +25,7 @@
               <li class="dropdown user user-menu">
 				
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">				          
-                  <img src="<?php echo  $this->session->userdata('profile_pic'); ?>" class="user-image" >
+                  <img src="<?php echo  "../../../../".$this->session->userdata('profile_pic'); ?>" class="user-image" >
                   <span class="hidden-xs">
                     <?php $a=$this->session->userdata('logged_in_admin');
 					
@@ -41,7 +41,7 @@
                   <ul class="dropdown-menu">
                   <!-- User image --> 
                   <li class="user-header">
-                      <img src="<?php echo  $this->session->userdata('profile_pic'); ?>" class="img-circle">
+                      <img src="<?php echo  "../../../../".$this->session->userdata('profile_pic'); ?>" class="img-circle">
                   </li>				  
                   <!-- Menu Body -->
                   <!-- Menu Footer-->
@@ -54,7 +54,7 @@
 					 </div>
 
                     <div class="pull-right">
-                      <a href="<?php echo base_url(); ?>logout" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="<?php echo "../";//echo base_url(); ?>logout" class="btn btn-default btn-flat">Sign out</a>
                     </div>
                   </li>
                 </ul>

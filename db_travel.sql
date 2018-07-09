@@ -1,20 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2018 at 07:12 PM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+-- Generation Time: Jul 09, 2018 at 06:46 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 5.6.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `db_travel`
@@ -26,11 +28,11 @@ SET time_zone = "+00:00";
 -- Table structure for table `tbl_admin`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_admin` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_admin` (
+  `s_no` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_admin`
@@ -45,8 +47,8 @@ INSERT INTO `tbl_admin` (`s_no`, `username`, `password`) VALUES
 -- Table structure for table `tbl_ads`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_ads` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_ads` (
+  `s_no` int(11) NOT NULL,
   `ad_id` varchar(100) NOT NULL,
   `category_id` varchar(100) NOT NULL,
   `subcategory_id` varchar(100) NOT NULL,
@@ -69,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `tbl_ads` (
   `created_by` varchar(100) NOT NULL,
   `is_deleted` varchar(10) NOT NULL,
   `created_at` varchar(150) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_ads`
@@ -101,14 +103,14 @@ INSERT INTO `tbl_ads` (`s_no`, `ad_id`, `category_id`, `subcategory_id`, `name`,
 -- Table structure for table `tbl_ad_categories`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_ad_categories` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_ad_categories` (
+  `s_no` int(11) NOT NULL,
   `category_id` varchar(10) NOT NULL,
   `name` varchar(100) NOT NULL,
   `icon` varchar(150) NOT NULL,
   `is_deleted` varchar(10) NOT NULL,
   `created_date` varchar(150) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_ad_categories`
@@ -125,13 +127,13 @@ INSERT INTO `tbl_ad_categories` (`s_no`, `category_id`, `name`, `icon`, `is_dele
 -- Table structure for table `tbl_ad_images`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_ad_images` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_ad_images` (
+  `s_no` int(11) NOT NULL,
   `ad_id` varchar(10) NOT NULL,
   `img` varchar(150) NOT NULL,
   `size` varchar(10) NOT NULL,
   `addedOn` varchar(150) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_ad_images`
@@ -164,15 +166,15 @@ INSERT INTO `tbl_ad_images` (`s_no`, `ad_id`, `img`, `size`, `addedOn`) VALUES
 -- Table structure for table `tbl_ad_subcategories`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_ad_subcategories` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_ad_subcategories` (
+  `s_no` int(11) NOT NULL,
   `category_id` varchar(20) NOT NULL,
   `subcategory_id` varchar(20) NOT NULL,
   `name` varchar(100) NOT NULL,
   `icon` varchar(100) NOT NULL,
   `is_deleted` varchar(10) NOT NULL,
   `created_date` varchar(150) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_ad_subcategories`
@@ -192,8 +194,8 @@ INSERT INTO `tbl_ad_subcategories` (`s_no`, `category_id`, `subcategory_id`, `na
 -- Table structure for table `tbl_amount_collection_from_driver`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_amount_collection_from_driver` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_amount_collection_from_driver` (
+  `s_no` int(11) NOT NULL,
   `driver_id` varchar(100) NOT NULL,
   `total_amount` varchar(100) NOT NULL,
   `amount_collected` varchar(100) NOT NULL,
@@ -203,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `tbl_amount_collection_from_driver` (
   `on_collected_month` varchar(100) NOT NULL,
   `on_collected_year` varchar(100) NOT NULL,
   `due_amount` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_amount_collection_from_driver`
@@ -217,24 +219,56 @@ INSERT INTO `tbl_amount_collection_from_driver` (`s_no`, `driver_id`, `total_amo
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_bus`
+--
+
+CREATE TABLE `tbl_bus` (
+  `id` int(11) NOT NULL,
+  `bus_name` varchar(20) NOT NULL,
+  `bus_type_id` int(11) NOT NULL,
+  `amenities_id` varchar(250) NOT NULL,
+  `bus_reg_no` varchar(20) NOT NULL,
+  `max_seats` int(11) NOT NULL,
+  `board_point` varchar(250) NOT NULL,
+  `board_time` varchar(20) NOT NULL,
+  `drop_point` varchar(20) NOT NULL,
+  `drop_time` varchar(20) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `bus_status` int(200) NOT NULL DEFAULT '1',
+  `created_by` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_bus`
+--
+
+INSERT INTO `tbl_bus` (`id`, `bus_name`, `bus_type_id`, `amenities_id`, `bus_reg_no`, `max_seats`, `board_point`, `board_time`, `drop_point`, `drop_time`, `status`, `bus_status`, `created_by`) VALUES
+(1, 'KMN', 1, '5', '12212', 40, 'kochi', '10:15 AM', 'munnar', '10:15 AM', 1, 1, 'admin'),
+(2, 'MNT', 2, '4', '4545', 20, 'munnar', '10:15 AM', 'kochi', '10:15 AM', 1, 1, 'admin'),
+(3, 'Volvo', 1, '4,5', '1234', 45, 'Bangalore', '03:00 PM', 'Kochi', '06:00 AM', 1, 1, 'admin'),
+(4, 'Volvo XL', 1, '6', '2563', 40, 'Banglore', '02:30 PM', 'Chennai', '07:30 PM', 1, 1, '1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_bus_admin`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_admin` (
-`id` int(250) NOT NULL,
+CREATE TABLE `tbl_bus_admin` (
+  `id` int(250) NOT NULL,
   `username` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
   `profile_picture` varchar(250) NOT NULL,
   `status` varchar(250) NOT NULL,
   `user_type` int(25) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_admin`
 --
 
 INSERT INTO `tbl_bus_admin` (`id`, `username`, `password`, `profile_picture`, `status`, `user_type`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'http://techlabz.in/truebusupdate/admin/assets/uploads/profile_pic/admin/1511772739_man.png', '1', 1);
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Bus-Pics/admin.png', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -242,8 +276,8 @@ INSERT INTO `tbl_bus_admin` (`id`, `username`, `password`, `profile_picture`, `s
 -- Table structure for table `tbl_bus_agent`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_agent` (
-`id` int(250) NOT NULL,
+CREATE TABLE `tbl_bus_agent` (
+  `id` int(250) NOT NULL,
   `username` varchar(250) NOT NULL,
   `first_name` varchar(250) NOT NULL,
   `last_name` varchar(250) NOT NULL,
@@ -257,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_agent` (
   `profile_picture` varchar(250) NOT NULL,
   `status` varchar(250) NOT NULL DEFAULT '1',
   `created_by` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_agent`
@@ -272,11 +306,11 @@ INSERT INTO `tbl_bus_agent` (`id`, `username`, `first_name`, `last_name`, `passw
 -- Table structure for table `tbl_bus_amenities`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_amenities` (
-`id` int(250) NOT NULL,
+CREATE TABLE `tbl_bus_amenities` (
+  `id` int(250) NOT NULL,
   `amenities` varchar(250) NOT NULL,
   `status` int(250) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_amenities`
@@ -304,19 +338,19 @@ INSERT INTO `tbl_bus_amenities` (`id`, `amenities`, `status`) VALUES
 -- Table structure for table `tbl_bus_blogs`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_blogs` (
-`id` int(40) NOT NULL,
+CREATE TABLE `tbl_bus_blogs` (
+  `id` int(40) NOT NULL,
   `block_name` text NOT NULL,
   `blog_content` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_blogs`
 --
 
 INSERT INTO `tbl_bus_blogs` (`id`, `block_name`, `blog_content`) VALUES
-(1, 'Routs&Operators&TicketsSold ', '<div class="clm-1">\r\n<div class="container">\r\n<div class="secssion3">\r\n<div class="row">\r\n<div class="col-md-3"><br class="head-ourcities1" />\r\n<h3 class="head-sec3"><img src="#s#/assets/images/quality.png" alt="" /> <span class="tb_operator1">67000 <small class="smalls">ROUTES<br /></small></span></h3>\r\n<div class="tb_list_offer">\r\n<div class="ofer_list">UPTO RS.100 OFF</div>\r\n<div class="ofer_list_bold">TRAVEL SMART</div>\r\n<div class="ofer_list_normal">Code:RBM120</div>\r\n<div class="ofer_list_normal">Book Using Pay Money</div>\r\n</div>\r\n</div>\r\n<div class="col-md-3">\r\n<h3 class="head-sec3"><img src="#s#/assets/images/reliability.png" alt="" /> <span class="tb_operator2">1800<small class="smalls"> BUS OPERATORS</small></span></h3>\r\n<div class="ofer_list">UPTO 70% OFF</div>\r\n<div class="ofer_list_bold">ON HOTELS ACROSS INDIA</div>\r\n<div class="ofer_list_normal">Offer Code:RBRTM120</div>\r\n<div class="ofer_list_normal">&nbsp;</div>\r\n<div class="ofer_list_normal">\r\n<div class="col-md-3">\r\n<h3 class="head-sec3"><img src="#s#/assets/images/quality.png" alt="" /> <span class="tb_operator3">6,00,000 + <small class="smalls">TICKETS SOLD</small></span></h3>\r\n<div class="tb_list_offer">&nbsp;&nbsp; FLAT Rs.100 OFF\r\n<div class="ofer_list_bold left">&nbsp;&nbsp; red Bus APP OFFER</div>\r\n<div class="ofer_list_normal">&nbsp;&nbsp; book via the redBUS APP</div>\r\n<div class="ofer_list_normal">&nbsp;&nbsp; Code:ERHH54</div>\r\n</div>\r\n</div>\r\n</div>\r\n<div class="right-section">&nbsp;</div>\r\n<div class="right-section">\r\n<h4 class="tb_head">Top Bus Routers</h4>\r\n<ul class="clm4-list">\r\n<li>\r\n<p class="headlist-para"><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Hyderabad to Bangalore</a></p>\r\n</li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Pune to Bangalore </a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Hyderabad to Chennai</a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Coimbatore to Bangalore </a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Chennai to Madurai</a></li>\r\n</ul>\r\n<div class="right-section">\r\n<h4 class="tb_head">Top Cities</h4>\r\n<ul class="clm4-list">\r\n<li>\r\n<p class="headlist-para"><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Hyderabad to Bangalore</a></p>\r\n</li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Pune to Bangalore </a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Hyderabad to Chennai</a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Coimbatore to Bangalore </a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Chennai to Madurai</a></li>\r\n</ul>\r\n<h4 class="tb_head">Top Bus Operators</h4>\r\n<ul class="clm4-list">\r\n<li>\r\n<p class="headlist-para"><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Hyderabad to Bangalore</a></p>\r\n</li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Pune to Bangalore </a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Hyderabad to Chennai</a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Coimbatore to Bangalore </a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Chennai to Madurai</a></li>\r\n</ul>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>'),
-(2, 'footer ', '<div class="clm-4">\r\n<div class="container">\r\n<div class="secssion6">\r\n<div class="row">\r\n<div class="col-md-9">\r\n<h3 class="head-ourcities2">Follow Us</h3>\r\n<ul class="clm4-list">\r\n<li>\r\n<p class="headlist-para"><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">About TrueBus</a></p>\r\n</li>\r\n<li>FAQ</li>\r\n<li>Careers</li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">TrueBus Coupons</a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Contact Us </a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Terms of Use</a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">Privacy Policy &nbsp;</a></li>\r\n<li><a href="/shibila/true-bus/CI-admin-structure-adminLTE/">TrueBus on Mobilenew</a></li>\r\n</ul>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>'),
+(1, 'Routs&Operators&TicketsSold ', '<div class=\"clm-1\">\r\n<div class=\"container\">\r\n<div class=\"secssion3\">\r\n<div class=\"row\">\r\n<div class=\"col-md-3\"><br class=\"head-ourcities1\" />\r\n<h3 class=\"head-sec3\"><img src=\"#s#/assets/images/quality.png\" alt=\"\" /> <span class=\"tb_operator1\">67000 <small class=\"smalls\">ROUTES<br /></small></span></h3>\r\n<div class=\"tb_list_offer\">\r\n<div class=\"ofer_list\">UPTO RS.100 OFF</div>\r\n<div class=\"ofer_list_bold\">TRAVEL SMART</div>\r\n<div class=\"ofer_list_normal\">Code:RBM120</div>\r\n<div class=\"ofer_list_normal\">Book Using Pay Money</div>\r\n</div>\r\n</div>\r\n<div class=\"col-md-3\">\r\n<h3 class=\"head-sec3\"><img src=\"#s#/assets/images/reliability.png\" alt=\"\" /> <span class=\"tb_operator2\">1800<small class=\"smalls\"> BUS OPERATORS</small></span></h3>\r\n<div class=\"ofer_list\">UPTO 70% OFF</div>\r\n<div class=\"ofer_list_bold\">ON HOTELS ACROSS INDIA</div>\r\n<div class=\"ofer_list_normal\">Offer Code:RBRTM120</div>\r\n<div class=\"ofer_list_normal\">&nbsp;</div>\r\n<div class=\"ofer_list_normal\">\r\n<div class=\"col-md-3\">\r\n<h3 class=\"head-sec3\"><img src=\"#s#/assets/images/quality.png\" alt=\"\" /> <span class=\"tb_operator3\">6,00,000 + <small class=\"smalls\">TICKETS SOLD</small></span></h3>\r\n<div class=\"tb_list_offer\">&nbsp;&nbsp; FLAT Rs.100 OFF\r\n<div class=\"ofer_list_bold left\">&nbsp;&nbsp; red Bus APP OFFER</div>\r\n<div class=\"ofer_list_normal\">&nbsp;&nbsp; book via the redBUS APP</div>\r\n<div class=\"ofer_list_normal\">&nbsp;&nbsp; Code:ERHH54</div>\r\n</div>\r\n</div>\r\n</div>\r\n<div class=\"right-section\">&nbsp;</div>\r\n<div class=\"right-section\">\r\n<h4 class=\"tb_head\">Top Bus Routers</h4>\r\n<ul class=\"clm4-list\">\r\n<li>\r\n<p class=\"headlist-para\"><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Hyderabad to Bangalore</a></p>\r\n</li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Pune to Bangalore </a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Hyderabad to Chennai</a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Coimbatore to Bangalore </a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Chennai to Madurai</a></li>\r\n</ul>\r\n<div class=\"right-section\">\r\n<h4 class=\"tb_head\">Top Cities</h4>\r\n<ul class=\"clm4-list\">\r\n<li>\r\n<p class=\"headlist-para\"><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Hyderabad to Bangalore</a></p>\r\n</li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Pune to Bangalore </a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Hyderabad to Chennai</a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Coimbatore to Bangalore </a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Chennai to Madurai</a></li>\r\n</ul>\r\n<h4 class=\"tb_head\">Top Bus Operators</h4>\r\n<ul class=\"clm4-list\">\r\n<li>\r\n<p class=\"headlist-para\"><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Hyderabad to Bangalore</a></p>\r\n</li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Pune to Bangalore </a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Hyderabad to Chennai</a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Coimbatore to Bangalore </a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Chennai to Madurai</a></li>\r\n</ul>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>'),
+(2, 'footer ', '<div class=\"clm-4\">\r\n<div class=\"container\">\r\n<div class=\"secssion6\">\r\n<div class=\"row\">\r\n<div class=\"col-md-9\">\r\n<h3 class=\"head-ourcities2\">Follow Us</h3>\r\n<ul class=\"clm4-list\">\r\n<li>\r\n<p class=\"headlist-para\"><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">About TrueBus</a></p>\r\n</li>\r\n<li>FAQ</li>\r\n<li>Careers</li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">TrueBus Coupons</a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Contact Us </a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Terms of Use</a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">Privacy Policy &nbsp;</a></li>\r\n<li><a href=\"/shibila/true-bus/CI-admin-structure-adminLTE/\">TrueBus on Mobilenew</a></li>\r\n</ul>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</div>'),
 (3, 'Banner Image', '<p>assets/images/images/banner-inner.png</p>');
 
 -- --------------------------------------------------------
@@ -325,8 +359,8 @@ INSERT INTO `tbl_bus_blogs` (`id`, `block_name`, `blog_content`) VALUES
 -- Table structure for table `tbl_bus_board_points`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_board_points` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_board_points` (
+  `id` int(11) NOT NULL,
   `bus_id` int(11) NOT NULL,
   `board_point` int(11) NOT NULL,
   `pickup_point` varchar(20) NOT NULL,
@@ -334,7 +368,7 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_board_points` (
   `landmark` varchar(250) NOT NULL,
   `address` varchar(250) NOT NULL,
   `status` int(200) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_board_points`
@@ -351,8 +385,8 @@ INSERT INTO `tbl_bus_board_points` (`id`, `bus_id`, `board_point`, `pickup_point
 -- Table structure for table `tbl_bus_booking_details`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_booking_details` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_booking_details` (
+  `id` int(11) NOT NULL,
   `booking_id` varchar(250) NOT NULL,
   `amount` varchar(250) NOT NULL,
   `bus_id` varchar(250) NOT NULL,
@@ -365,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_booking_details` (
   `promo_code` varchar(255) DEFAULT NULL,
   `booking_date` varchar(250) NOT NULL,
   `status` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_booking_details`
@@ -392,46 +426,14 @@ INSERT INTO `tbl_bus_booking_details` (`id`, `booking_id`, `amount`, `bus_id`, `
 -- Table structure for table `tbl_bus_book_bus`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_book_bus` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_book_bus` (
+  `id` int(11) NOT NULL,
   `bus_id` int(11) NOT NULL,
   `user_id` varchar(20) NOT NULL,
   `book_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `amount` decimal(10,2) NOT NULL,
   `status` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_bus_bus`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_bus_bus` (
-`id` int(11) NOT NULL,
-  `bus_name` varchar(20) NOT NULL,
-  `bus_type_id` int(11) NOT NULL,
-  `amenities_id` varchar(250) NOT NULL,
-  `bus_reg_no` varchar(20) NOT NULL,
-  `max_seats` int(11) NOT NULL,
-  `board_point` varchar(250) NOT NULL,
-  `board_time` varchar(20) NOT NULL,
-  `drop_point` varchar(20) NOT NULL,
-  `drop_time` varchar(20) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1',
-  `bus_status` int(200) NOT NULL DEFAULT '1',
-  `created_by` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `tbl_bus_bus`
---
-
-INSERT INTO `tbl_bus_bus` (`id`, `bus_name`, `bus_type_id`, `amenities_id`, `bus_reg_no`, `max_seats`, `board_point`, `board_time`, `drop_point`, `drop_time`, `status`, `bus_status`, `created_by`) VALUES
-(1, 'KMN', 1, '5', '12212', 40, 'kochi', '10:15 AM', 'munnar', '10:15 AM', 1, 1, 'admin'),
-(2, 'MNT', 2, '4', '4545', 20, 'munnar', '10:15 AM', 'kochi', '10:15 AM', 1, 1, 'admin'),
-(3, 'Volvo', 1, '4,5', '1234', 45, 'Bangalore', '03:00 PM', 'Kochi', '06:00 AM', 1, 1, 'admin'),
-(4, 'Volvo XL', 1, '6', '2563', 40, 'Banglore', '02:30 PM', 'Chennai', '07:30 PM', 1, 1, '1');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -439,34 +441,13 @@ INSERT INTO `tbl_bus_bus` (`id`, `bus_name`, `bus_type_id`, `amenities_id`, `bus
 -- Table structure for table `tbl_bus_bus_gallery`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_bus_gallery` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_bus_gallery` (
+  `id` int(11) NOT NULL,
   `image` varchar(750) NOT NULL,
   `user_id` int(250) NOT NULL,
   `bus_id` int(250) NOT NULL,
   `created_by` int(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_bus_bus_type`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_bus_bus_type` (
-`id` int(11) NOT NULL,
-  `bus_type` varchar(20) NOT NULL,
-  `status` varchar(250) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `tbl_bus_bus_type`
---
-
-INSERT INTO `tbl_bus_bus_type` (`id`, `bus_type`, `status`) VALUES
-(1, 'AC', '1'),
-(2, 'Non AC', '1'),
-(3, 'sleeper', '1');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -474,15 +455,15 @@ INSERT INTO `tbl_bus_bus_type` (`id`, `bus_type`, `status`) VALUES
 -- Table structure for table `tbl_bus_cancellation`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_cancellation` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_cancellation` (
+  `id` int(11) NOT NULL,
   `bus_id` varchar(11) NOT NULL,
   `advertisement_status` int(250) NOT NULL,
   `cancel_time` varchar(250) NOT NULL,
   `percentage` varchar(11) NOT NULL,
   `flat` varchar(250) NOT NULL,
   `type` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -490,8 +471,8 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_cancellation` (
 -- Table structure for table `tbl_bus_customer_details`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_customer_details` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_customer_details` (
+  `id` int(11) NOT NULL,
   `customer_name` varchar(250) NOT NULL,
   `age` varchar(250) NOT NULL,
   `mobile` varchar(250) NOT NULL,
@@ -500,7 +481,7 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_customer_details` (
   `booking_id` varchar(250) NOT NULL,
   `order_id` varchar(250) NOT NULL,
   `seat_no` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_customer_details`
@@ -527,8 +508,8 @@ INSERT INTO `tbl_bus_customer_details` (`id`, `customer_name`, `age`, `mobile`, 
 -- Table structure for table `tbl_bus_drop_points`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_drop_points` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_drop_points` (
+  `id` int(11) NOT NULL,
   `bus_id` varchar(250) NOT NULL,
   `drop_point` varchar(250) NOT NULL,
   `stoping_point` varchar(250) NOT NULL,
@@ -536,7 +517,7 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_drop_points` (
   `landmark` varchar(250) NOT NULL,
   `address` varchar(250) NOT NULL,
   `status` int(200) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_drop_points`
@@ -553,15 +534,15 @@ INSERT INTO `tbl_bus_drop_points` (`id`, `bus_id`, `drop_point`, `stoping_point`
 -- Table structure for table `tbl_bus_promo_details`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_promo_details` (
-`id` int(100) NOT NULL,
+CREATE TABLE `tbl_bus_promo_details` (
+  `id` int(100) NOT NULL,
   `code` varchar(100) NOT NULL,
   `type` varchar(100) DEFAULT NULL,
   `amount` int(100) DEFAULT NULL,
   `expire_date` date NOT NULL,
   `status` int(100) NOT NULL DEFAULT '0',
   `created_by` int(10) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -569,8 +550,8 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_promo_details` (
 -- Table structure for table `tbl_bus_rating`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_rating` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_rating` (
+  `id` int(11) NOT NULL,
   `user_id` varchar(250) NOT NULL,
   `bus_id` varchar(250) NOT NULL,
   `bus_quality` varchar(250) NOT NULL,
@@ -578,7 +559,7 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_rating` (
   `Staff_behaviour` varchar(250) NOT NULL,
   `average` varchar(250) NOT NULL,
   `comments` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -586,8 +567,8 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_rating` (
 -- Table structure for table `tbl_bus_route`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_route` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_route` (
+  `id` int(11) NOT NULL,
   `bus_id` int(11) NOT NULL,
   `board_point` varchar(20) NOT NULL,
   `board_time` varchar(20) NOT NULL,
@@ -596,7 +577,7 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_route` (
   `fare` int(11) NOT NULL,
   `status` int(200) NOT NULL DEFAULT '1',
   `created_by` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_route`
@@ -613,8 +594,8 @@ INSERT INTO `tbl_bus_route` (`id`, `bus_id`, `board_point`, `board_time`, `drop_
 -- Table structure for table `tbl_bus_seat_layout`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_seat_layout` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_seat_layout` (
+  `id` int(11) NOT NULL,
   `bus_id` varchar(250) NOT NULL,
   `bus_type` varchar(250) NOT NULL,
   `totel_seat` varchar(250) NOT NULL,
@@ -622,16 +603,16 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_seat_layout` (
   `layout_type` varchar(250) NOT NULL,
   `last_seat` varchar(250) NOT NULL,
   `no_sleeper` varchar(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_seat_layout`
 --
 
 INSERT INTO `tbl_bus_seat_layout` (`id`, `bus_id`, `bus_type`, `totel_seat`, `layout`, `layout_type`, `last_seat`, `no_sleeper`) VALUES
-(1, '1', 'Seater / Semi sleeper', '40', '{"0":[{"bus":0,"type":"seater","seat_no":"A1"},{"bus":1,"type":"seater","seat_no":"A2"},{"bus":2,"type":"seater","seat_no":"A3"},{"bus":3,"type":"seater","seat_no":"A4"},{"bus":4,"type":"seater","seat_no":"A5"},{"bus":5,"type":"seater","seat_no":"A6"},{"bus":6,"type":"seater","seat_no":"A7"},{"bus":7,"type":"seater","seat_no":"A8"},{"bus":8,"type":"seater","seat_no":"A9"},{"bus":9,"type":"seater","seat_no":"A10"},{"bus":10,"type":"seater","seat_no":"A11"}],"1":[{"bus":11,"type":"seater","seat_no":"B1"},{"bus":12,"type":"seater","seat_no":"B2"},{"bus":13,"type":"seater","seat_no":"B3"},{"bus":14,"type":"seater","seat_no":"B4"},{"bus":15,"type":"seater","seat_no":"B5"},{"bus":16,"type":"seater","seat_no":"B6"},{"bus":17,"type":"seater","seat_no":"B7"},{"bus":18,"type":"seater","seat_no":"B8"},{"bus":19,"type":"seater","seat_no":"B9"},{"bus":20,"type":"seater","seat_no":"B10"},{"bus":21,"type":"seater","seat_no":"B11"}],"2":[{"bus":26,"type":"seater","seat_no":"C1"},{"bus":27,"type":"seater","seat_no":"C2"},{"bus":28,"type":"seater","seat_no":"C3"},{"bus":29,"type":"seater","seat_no":"C4"},{"bus":30,"type":"seater","seat_no":"C5"},{"bus":31,"type":"seater","seat_no":"C6"},{"bus":32,"type":"seater","seat_no":"C7"},{"bus":33,"type":"seater","seat_no":"C8"},{"bus":34,"type":"seater","seat_no":"C9"},{"bus":35,"type":"seater","seat_no":"C10"},{"bus":36,"type":"seater","seat_no":"C11"},{"bus":37,"type":"seater","seat_no":"C12"},{"bus":38,"type":"seater","seat_no":"C13"}],"3":[],"4":[{"bus":35,"type":"seater","seat_no":"E1"},{"bus":36,"type":"seater","seat_no":"E2"},{"bus":37,"type":"seater","seat_no":"E3"},{"bus":38,"type":"seater","seat_no":"E4"},{"bus":39,"type":"seater","seat_no":"E5"}]}', 'layout-3', '5', ''),
-(2, '2', 'Sleeper', '20', '{"0":[{"bus":0,"type":"sleeper","seat_no":"A1"},{"bus":1,"type":"sleeper","seat_no":"A2"},{"bus":2,"type":"sleeper","seat_no":"A3"},{"bus":3,"type":"sleeper","seat_no":"A4"},{"bus":4,"type":"sleeper","seat_no":"A5"}],"1":[{"bus":5,"type":"sleeper","seat_no":"B1"},{"bus":6,"type":"sleeper","seat_no":"B2"},{"bus":7,"type":"sleeper","seat_no":"B3"},{"bus":8,"type":"sleeper","seat_no":"B4"},{"bus":9,"type":"sleeper","seat_no":"B5"}],"2":[{"bus":10,"type":"sleeper","seat_no":"C1"},{"bus":11,"type":"sleeper","seat_no":"C2"},{"bus":12,"type":"sleeper","seat_no":"C3"},{"bus":13,"type":"sleeper","seat_no":"C4"},{"bus":14,"type":"sleeper","seat_no":"C5"}],"3":[],"4":[{"bus":15,"type":"sleeper","seat_no":"E1"},{"bus":16,"type":"sleeper","seat_no":"E2"},{"bus":17,"type":"sleeper","seat_no":"E3"},{"bus":18,"type":"sleeper","seat_no":"E4"},{"bus":19,"type":"sleeper","seat_no":"E5"}]}', 'layout-2', '5', ''),
-(3, '3', 'Seater / Semi sleeper', '45', '{"0":[{"bus":0,"type":"seater","seat_no":"A1"},{"bus":1,"type":"seater","seat_no":"A2"},{"bus":2,"type":"seater","seat_no":"A3"},{"bus":3,"type":"seater","seat_no":"A4"},{"bus":4,"type":"seater","seat_no":"A5"},{"bus":5,"type":"seater","seat_no":"A6"},{"bus":6,"type":"seater","seat_no":"A7"},{"bus":7,"type":"seater","seat_no":"A8"},{"bus":8,"type":"seater","seat_no":"A9"},{"bus":9,"type":"seater","seat_no":"A10"}],"1":[{"bus":10,"type":"seater","seat_no":"B1"},{"bus":11,"type":"seater","seat_no":"B2"},{"bus":12,"type":"seater","seat_no":"B3"},{"bus":13,"type":"seater","seat_no":"B4"},{"bus":14,"type":"seater","seat_no":"B5"},{"bus":15,"type":"seater","seat_no":"B6"},{"bus":16,"type":"seater","seat_no":"B7"},{"bus":17,"type":"seater","seat_no":"B8"},{"bus":18,"type":"seater","seat_no":"B9"},{"bus":19,"type":"seater","seat_no":"B10"}],"2":[{"bus":20,"type":"seater","seat_no":"C1"},{"bus":21,"type":"seater","seat_no":"C2"},{"bus":22,"type":"seater","seat_no":"C3"},{"bus":23,"type":"seater","seat_no":"C4"},{"bus":24,"type":"seater","seat_no":"C5"},{"bus":25,"type":"seater","seat_no":"C6"},{"bus":26,"type":"seater","seat_no":"C7"},{"bus":27,"type":"seater","seat_no":"C8"},{"bus":28,"type":"seater","seat_no":"C9"},{"bus":29,"type":"seater","seat_no":"C10"}],"3":[{"bus":30,"type":"seater","seat_no":"D1"},{"bus":31,"type":"seater","seat_no":"D2"},{"bus":32,"type":"seater","seat_no":"D3"},{"bus":33,"type":"seater","seat_no":"D4"},{"bus":34,"type":"seater","seat_no":"D5"},{"bus":35,"type":"seater","seat_no":"D6"},{"bus":36,"type":"seater","seat_no":"D7"},{"bus":37,"type":"seater","seat_no":"D8"},{"bus":38,"type":"seater","seat_no":"D9"},{"bus":39,"type":"seater","seat_no":"D10"}],"4":[{"bus":40,"type":"seater","seat_no":"E1"},{"bus":41,"type":"seater","seat_no":"E2"},{"bus":42,"type":"seater","seat_no":"E3"},{"bus":43,"type":"seater","seat_no":"E4"},{"bus":44,"type":"seater","seat_no":"E5"}]}', 'layout-4', '5', '');
+(1, '1', 'Seater / Semi sleeper', '40', '{\"0\":[{\"bus\":0,\"type\":\"seater\",\"seat_no\":\"A1\"},{\"bus\":1,\"type\":\"seater\",\"seat_no\":\"A2\"},{\"bus\":2,\"type\":\"seater\",\"seat_no\":\"A3\"},{\"bus\":3,\"type\":\"seater\",\"seat_no\":\"A4\"},{\"bus\":4,\"type\":\"seater\",\"seat_no\":\"A5\"},{\"bus\":5,\"type\":\"seater\",\"seat_no\":\"A6\"},{\"bus\":6,\"type\":\"seater\",\"seat_no\":\"A7\"},{\"bus\":7,\"type\":\"seater\",\"seat_no\":\"A8\"},{\"bus\":8,\"type\":\"seater\",\"seat_no\":\"A9\"},{\"bus\":9,\"type\":\"seater\",\"seat_no\":\"A10\"},{\"bus\":10,\"type\":\"seater\",\"seat_no\":\"A11\"}],\"1\":[{\"bus\":11,\"type\":\"seater\",\"seat_no\":\"B1\"},{\"bus\":12,\"type\":\"seater\",\"seat_no\":\"B2\"},{\"bus\":13,\"type\":\"seater\",\"seat_no\":\"B3\"},{\"bus\":14,\"type\":\"seater\",\"seat_no\":\"B4\"},{\"bus\":15,\"type\":\"seater\",\"seat_no\":\"B5\"},{\"bus\":16,\"type\":\"seater\",\"seat_no\":\"B6\"},{\"bus\":17,\"type\":\"seater\",\"seat_no\":\"B7\"},{\"bus\":18,\"type\":\"seater\",\"seat_no\":\"B8\"},{\"bus\":19,\"type\":\"seater\",\"seat_no\":\"B9\"},{\"bus\":20,\"type\":\"seater\",\"seat_no\":\"B10\"},{\"bus\":21,\"type\":\"seater\",\"seat_no\":\"B11\"}],\"2\":[{\"bus\":26,\"type\":\"seater\",\"seat_no\":\"C1\"},{\"bus\":27,\"type\":\"seater\",\"seat_no\":\"C2\"},{\"bus\":28,\"type\":\"seater\",\"seat_no\":\"C3\"},{\"bus\":29,\"type\":\"seater\",\"seat_no\":\"C4\"},{\"bus\":30,\"type\":\"seater\",\"seat_no\":\"C5\"},{\"bus\":31,\"type\":\"seater\",\"seat_no\":\"C6\"},{\"bus\":32,\"type\":\"seater\",\"seat_no\":\"C7\"},{\"bus\":33,\"type\":\"seater\",\"seat_no\":\"C8\"},{\"bus\":34,\"type\":\"seater\",\"seat_no\":\"C9\"},{\"bus\":35,\"type\":\"seater\",\"seat_no\":\"C10\"},{\"bus\":36,\"type\":\"seater\",\"seat_no\":\"C11\"},{\"bus\":37,\"type\":\"seater\",\"seat_no\":\"C12\"},{\"bus\":38,\"type\":\"seater\",\"seat_no\":\"C13\"}],\"3\":[],\"4\":[{\"bus\":35,\"type\":\"seater\",\"seat_no\":\"E1\"},{\"bus\":36,\"type\":\"seater\",\"seat_no\":\"E2\"},{\"bus\":37,\"type\":\"seater\",\"seat_no\":\"E3\"},{\"bus\":38,\"type\":\"seater\",\"seat_no\":\"E4\"},{\"bus\":39,\"type\":\"seater\",\"seat_no\":\"E5\"}]}', 'layout-3', '5', ''),
+(2, '2', 'Sleeper', '20', '{\"0\":[{\"bus\":0,\"type\":\"sleeper\",\"seat_no\":\"A1\"},{\"bus\":1,\"type\":\"sleeper\",\"seat_no\":\"A2\"},{\"bus\":2,\"type\":\"sleeper\",\"seat_no\":\"A3\"},{\"bus\":3,\"type\":\"sleeper\",\"seat_no\":\"A4\"},{\"bus\":4,\"type\":\"sleeper\",\"seat_no\":\"A5\"}],\"1\":[{\"bus\":5,\"type\":\"sleeper\",\"seat_no\":\"B1\"},{\"bus\":6,\"type\":\"sleeper\",\"seat_no\":\"B2\"},{\"bus\":7,\"type\":\"sleeper\",\"seat_no\":\"B3\"},{\"bus\":8,\"type\":\"sleeper\",\"seat_no\":\"B4\"},{\"bus\":9,\"type\":\"sleeper\",\"seat_no\":\"B5\"}],\"2\":[{\"bus\":10,\"type\":\"sleeper\",\"seat_no\":\"C1\"},{\"bus\":11,\"type\":\"sleeper\",\"seat_no\":\"C2\"},{\"bus\":12,\"type\":\"sleeper\",\"seat_no\":\"C3\"},{\"bus\":13,\"type\":\"sleeper\",\"seat_no\":\"C4\"},{\"bus\":14,\"type\":\"sleeper\",\"seat_no\":\"C5\"}],\"3\":[],\"4\":[{\"bus\":15,\"type\":\"sleeper\",\"seat_no\":\"E1\"},{\"bus\":16,\"type\":\"sleeper\",\"seat_no\":\"E2\"},{\"bus\":17,\"type\":\"sleeper\",\"seat_no\":\"E3\"},{\"bus\":18,\"type\":\"sleeper\",\"seat_no\":\"E4\"},{\"bus\":19,\"type\":\"sleeper\",\"seat_no\":\"E5\"}]}', 'layout-2', '5', ''),
+(3, '3', 'Seater / Semi sleeper', '45', '{\"0\":[{\"bus\":0,\"type\":\"seater\",\"seat_no\":\"A1\"},{\"bus\":1,\"type\":\"seater\",\"seat_no\":\"A2\"},{\"bus\":2,\"type\":\"seater\",\"seat_no\":\"A3\"},{\"bus\":3,\"type\":\"seater\",\"seat_no\":\"A4\"},{\"bus\":4,\"type\":\"seater\",\"seat_no\":\"A5\"},{\"bus\":5,\"type\":\"seater\",\"seat_no\":\"A6\"},{\"bus\":6,\"type\":\"seater\",\"seat_no\":\"A7\"},{\"bus\":7,\"type\":\"seater\",\"seat_no\":\"A8\"},{\"bus\":8,\"type\":\"seater\",\"seat_no\":\"A9\"},{\"bus\":9,\"type\":\"seater\",\"seat_no\":\"A10\"}],\"1\":[{\"bus\":10,\"type\":\"seater\",\"seat_no\":\"B1\"},{\"bus\":11,\"type\":\"seater\",\"seat_no\":\"B2\"},{\"bus\":12,\"type\":\"seater\",\"seat_no\":\"B3\"},{\"bus\":13,\"type\":\"seater\",\"seat_no\":\"B4\"},{\"bus\":14,\"type\":\"seater\",\"seat_no\":\"B5\"},{\"bus\":15,\"type\":\"seater\",\"seat_no\":\"B6\"},{\"bus\":16,\"type\":\"seater\",\"seat_no\":\"B7\"},{\"bus\":17,\"type\":\"seater\",\"seat_no\":\"B8\"},{\"bus\":18,\"type\":\"seater\",\"seat_no\":\"B9\"},{\"bus\":19,\"type\":\"seater\",\"seat_no\":\"B10\"}],\"2\":[{\"bus\":20,\"type\":\"seater\",\"seat_no\":\"C1\"},{\"bus\":21,\"type\":\"seater\",\"seat_no\":\"C2\"},{\"bus\":22,\"type\":\"seater\",\"seat_no\":\"C3\"},{\"bus\":23,\"type\":\"seater\",\"seat_no\":\"C4\"},{\"bus\":24,\"type\":\"seater\",\"seat_no\":\"C5\"},{\"bus\":25,\"type\":\"seater\",\"seat_no\":\"C6\"},{\"bus\":26,\"type\":\"seater\",\"seat_no\":\"C7\"},{\"bus\":27,\"type\":\"seater\",\"seat_no\":\"C8\"},{\"bus\":28,\"type\":\"seater\",\"seat_no\":\"C9\"},{\"bus\":29,\"type\":\"seater\",\"seat_no\":\"C10\"}],\"3\":[{\"bus\":30,\"type\":\"seater\",\"seat_no\":\"D1\"},{\"bus\":31,\"type\":\"seater\",\"seat_no\":\"D2\"},{\"bus\":32,\"type\":\"seater\",\"seat_no\":\"D3\"},{\"bus\":33,\"type\":\"seater\",\"seat_no\":\"D4\"},{\"bus\":34,\"type\":\"seater\",\"seat_no\":\"D5\"},{\"bus\":35,\"type\":\"seater\",\"seat_no\":\"D6\"},{\"bus\":36,\"type\":\"seater\",\"seat_no\":\"D7\"},{\"bus\":37,\"type\":\"seater\",\"seat_no\":\"D8\"},{\"bus\":38,\"type\":\"seater\",\"seat_no\":\"D9\"},{\"bus\":39,\"type\":\"seater\",\"seat_no\":\"D10\"}],\"4\":[{\"bus\":40,\"type\":\"seater\",\"seat_no\":\"E1\"},{\"bus\":41,\"type\":\"seater\",\"seat_no\":\"E2\"},{\"bus\":42,\"type\":\"seater\",\"seat_no\":\"E3\"},{\"bus\":43,\"type\":\"seater\",\"seat_no\":\"E4\"},{\"bus\":44,\"type\":\"seater\",\"seat_no\":\"E5\"}]}', 'layout-4', '5', '');
 
 -- --------------------------------------------------------
 
@@ -639,8 +620,8 @@ INSERT INTO `tbl_bus_seat_layout` (`id`, `bus_id`, `bus_type`, `totel_seat`, `la
 -- Table structure for table `tbl_bus_setting`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_setting` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_setting` (
+  `id` int(11) NOT NULL,
   `title` varchar(250) NOT NULL,
   `logo` varchar(250) NOT NULL,
   `favicon` varchar(250) NOT NULL,
@@ -654,7 +635,7 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_setting` (
   `paypal` varchar(250) NOT NULL,
   `paypalid` varchar(251) NOT NULL,
   `app_key` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_setting`
@@ -666,11 +647,32 @@ INSERT INTO `tbl_bus_setting` (`id`, `title`, `logo`, `favicon`, `smtp_username`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_bus_type`
+--
+
+CREATE TABLE `tbl_bus_type` (
+  `id` int(11) NOT NULL,
+  `bus_type` varchar(20) NOT NULL,
+  `status` varchar(250) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_bus_type`
+--
+
+INSERT INTO `tbl_bus_type` (`id`, `bus_type`, `status`) VALUES
+(1, 'AC', '1'),
+(2, 'Non AC', '1'),
+(3, 'sleeper', '1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_bus_user`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_bus_user` (
-`id` int(11) NOT NULL,
+CREATE TABLE `tbl_bus_user` (
+  `id` int(11) NOT NULL,
   `user_id` varchar(20) NOT NULL,
   `username` varchar(30) NOT NULL,
   `password` varchar(250) NOT NULL,
@@ -680,7 +682,7 @@ CREATE TABLE IF NOT EXISTS `tbl_bus_user` (
   `gender` varchar(16) NOT NULL,
   `mob` bigint(20) NOT NULL,
   `reset_key` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_bus_user`
@@ -697,8 +699,8 @@ INSERT INTO `tbl_bus_user` (`id`, `user_id`, `username`, `password`, `name`, `do
 -- Table structure for table `tbl_cab_categories`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_cab_categories` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_cab_categories` (
+  `s_no` int(11) NOT NULL,
   `category_id` varchar(10) NOT NULL,
   `name` varchar(100) NOT NULL,
   `icon` varchar(150) NOT NULL,
@@ -713,7 +715,7 @@ CREATE TABLE IF NOT EXISTS `tbl_cab_categories` (
   `tax` varchar(10) NOT NULL,
   `is_deleted` varchar(10) NOT NULL,
   `created_date` varchar(150) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_cab_categories`
@@ -732,8 +734,8 @@ INSERT INTO `tbl_cab_categories` (`s_no`, `category_id`, `name`, `icon`, `no_of_
 -- Table structure for table `tbl_customers`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_customers` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_customers` (
+  `s_no` int(11) NOT NULL,
   `cust_id` varchar(100) NOT NULL,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
@@ -756,7 +758,7 @@ CREATE TABLE IF NOT EXISTS `tbl_customers` (
   `is_deleted` varchar(10) NOT NULL,
   `ip_address` varchar(100) NOT NULL,
   `registered_date` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -764,8 +766,8 @@ CREATE TABLE IF NOT EXISTS `tbl_customers` (
 -- Table structure for table `tbl_customer_trips`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_customer_trips` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_customer_trips` (
+  `s_no` int(11) NOT NULL,
   `booking_id` varchar(15) NOT NULL,
   `driver_id` varchar(10) NOT NULL,
   `cust_id` varchar(100) NOT NULL,
@@ -790,7 +792,7 @@ CREATE TABLE IF NOT EXISTS `tbl_customer_trips` (
   `status` varchar(20) NOT NULL,
   `feedback` text NOT NULL,
   `booked_date` varchar(150) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_customer_trips`
@@ -811,8 +813,8 @@ INSERT INTO `tbl_customer_trips` (`s_no`, `booking_id`, `driver_id`, `cust_id`, 
 -- Table structure for table `tbl_drivers`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_drivers` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_drivers` (
+  `s_no` int(11) NOT NULL,
   `driver_id` varchar(10) NOT NULL,
   `name` varchar(100) NOT NULL,
   `mobile_number` varchar(20) NOT NULL,
@@ -847,7 +849,7 @@ CREATE TABLE IF NOT EXISTS `tbl_drivers` (
   `device_id` varchar(150) NOT NULL,
   `is_deleted` varchar(10) NOT NULL,
   `registered_date` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_drivers`
@@ -863,12 +865,12 @@ INSERT INTO `tbl_drivers` (`s_no`, `driver_id`, `name`, `mobile_number`, `email_
 -- Table structure for table `tbl_driver_activation_tracking`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_driver_activation_tracking` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_driver_activation_tracking` (
+  `s_no` int(11) NOT NULL,
   `driver_id` varchar(10) NOT NULL,
   `activation_status` varchar(100) NOT NULL,
   `on_date` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_driver_activation_tracking`
@@ -906,14 +908,14 @@ INSERT INTO `tbl_driver_activation_tracking` (`s_no`, `driver_id`, `activation_s
 -- Table structure for table `tbl_driver_comments`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_driver_comments` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_driver_comments` (
+  `s_no` int(11) NOT NULL,
   `driver_id` varchar(100) NOT NULL,
   `cust_id` varchar(100) NOT NULL,
   `booking_id` varchar(20) NOT NULL,
   `comment` text NOT NULL,
   `comment_date` varchar(150) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_driver_comments`
@@ -928,15 +930,15 @@ INSERT INTO `tbl_driver_comments` (`s_no`, `driver_id`, `cust_id`, `booking_id`,
 -- Table structure for table `tbl_driver_locations`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_driver_locations` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_driver_locations` (
+  `s_no` int(11) NOT NULL,
   `driver_id` varchar(10) NOT NULL,
   `location` varchar(200) NOT NULL,
   `lattitude` varchar(100) NOT NULL,
   `longitude` varchar(100) NOT NULL,
   `date` varchar(150) NOT NULL,
   `time` varchar(150) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_driver_locations`
@@ -958,12 +960,12 @@ INSERT INTO `tbl_driver_locations` (`s_no`, `driver_id`, `location`, `lattitude`
 -- Table structure for table `tbl_driver_log`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_driver_log` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_driver_log` (
+  `s_no` int(11) NOT NULL,
   `driver_id` varchar(10) NOT NULL,
   `log_status` varchar(100) NOT NULL,
   `date` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -971,12 +973,12 @@ CREATE TABLE IF NOT EXISTS `tbl_driver_log` (
 -- Table structure for table `tbl_offer_slides`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_offer_slides` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_offer_slides` (
+  `s_no` int(11) NOT NULL,
   `slidename` varchar(100) NOT NULL,
   `url` varchar(250) NOT NULL,
   `created_date` varchar(150) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_offer_slides`
@@ -992,11 +994,11 @@ INSERT INTO `tbl_offer_slides` (`s_no`, `slidename`, `url`, `created_date`) VALU
 -- Table structure for table `tbl_verification_codes`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_verification_codes` (
-`s_no` int(11) NOT NULL,
+CREATE TABLE `tbl_verification_codes` (
+  `s_no` int(11) NOT NULL,
   `mobile` varchar(15) NOT NULL,
   `verification_code` varchar(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_verification_codes`
@@ -1016,211 +1018,211 @@ INSERT INTO `tbl_verification_codes` (`s_no`, `mobile`, `verification_code`) VAL
 -- Indexes for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_ads`
 --
 ALTER TABLE `tbl_ads`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_ad_categories`
 --
 ALTER TABLE `tbl_ad_categories`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_ad_images`
 --
 ALTER TABLE `tbl_ad_images`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_ad_subcategories`
 --
 ALTER TABLE `tbl_ad_subcategories`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_amount_collection_from_driver`
 --
 ALTER TABLE `tbl_amount_collection_from_driver`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
+
+--
+-- Indexes for table `tbl_bus`
+--
+ALTER TABLE `tbl_bus`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_admin`
 --
 ALTER TABLE `tbl_bus_admin`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_agent`
 --
 ALTER TABLE `tbl_bus_agent`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_amenities`
 --
 ALTER TABLE `tbl_bus_amenities`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_blogs`
 --
 ALTER TABLE `tbl_bus_blogs`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_board_points`
 --
 ALTER TABLE `tbl_bus_board_points`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_booking_details`
 --
 ALTER TABLE `tbl_bus_booking_details`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_book_bus`
 --
 ALTER TABLE `tbl_bus_book_bus`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_bus_bus`
---
-ALTER TABLE `tbl_bus_bus`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_bus_gallery`
 --
 ALTER TABLE `tbl_bus_bus_gallery`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_bus_bus_type`
---
-ALTER TABLE `tbl_bus_bus_type`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_cancellation`
 --
 ALTER TABLE `tbl_bus_cancellation`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_customer_details`
 --
 ALTER TABLE `tbl_bus_customer_details`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_drop_points`
 --
 ALTER TABLE `tbl_bus_drop_points`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_promo_details`
 --
 ALTER TABLE `tbl_bus_promo_details`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_rating`
 --
 ALTER TABLE `tbl_bus_rating`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_route`
 --
 ALTER TABLE `tbl_bus_route`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_seat_layout`
 --
 ALTER TABLE `tbl_bus_seat_layout`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_setting`
 --
 ALTER TABLE `tbl_bus_setting`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_bus_type`
+--
+ALTER TABLE `tbl_bus_type`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_bus_user`
 --
 ALTER TABLE `tbl_bus_user`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_cab_categories`
 --
 ALTER TABLE `tbl_cab_categories`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_customers`
 --
 ALTER TABLE `tbl_customers`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_customer_trips`
 --
 ALTER TABLE `tbl_customer_trips`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_drivers`
 --
 ALTER TABLE `tbl_drivers`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_driver_activation_tracking`
 --
 ALTER TABLE `tbl_driver_activation_tracking`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_driver_comments`
 --
 ALTER TABLE `tbl_driver_comments`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_driver_locations`
 --
 ALTER TABLE `tbl_driver_locations`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_driver_log`
 --
 ALTER TABLE `tbl_driver_log`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_offer_slides`
 --
 ALTER TABLE `tbl_offer_slides`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- Indexes for table `tbl_verification_codes`
 --
 ALTER TABLE `tbl_verification_codes`
- ADD PRIMARY KEY (`s_no`);
+  ADD PRIMARY KEY (`s_no`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1230,177 +1232,213 @@ ALTER TABLE `tbl_verification_codes`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `tbl_ads`
 --
 ALTER TABLE `tbl_ads`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
 -- AUTO_INCREMENT for table `tbl_ad_categories`
 --
 ALTER TABLE `tbl_ad_categories`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tbl_ad_images`
 --
 ALTER TABLE `tbl_ad_images`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 --
 -- AUTO_INCREMENT for table `tbl_ad_subcategories`
 --
 ALTER TABLE `tbl_ad_subcategories`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `tbl_amount_collection_from_driver`
 --
 ALTER TABLE `tbl_amount_collection_from_driver`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_bus`
+--
+ALTER TABLE `tbl_bus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_admin`
 --
 ALTER TABLE `tbl_bus_admin`
-MODIFY `id` int(250) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(250) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_agent`
 --
 ALTER TABLE `tbl_bus_agent`
-MODIFY `id` int(250) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(250) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_amenities`
 --
 ALTER TABLE `tbl_bus_amenities`
-MODIFY `id` int(250) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id` int(250) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_blogs`
 --
 ALTER TABLE `tbl_bus_blogs`
-MODIFY `id` int(40) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_board_points`
 --
 ALTER TABLE `tbl_bus_board_points`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_booking_details`
 --
 ALTER TABLE `tbl_bus_booking_details`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_book_bus`
 --
 ALTER TABLE `tbl_bus_book_bus`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_bus_bus`
---
-ALTER TABLE `tbl_bus_bus`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_bus_gallery`
 --
 ALTER TABLE `tbl_bus_bus_gallery`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `tbl_bus_bus_type`
---
-ALTER TABLE `tbl_bus_bus_type`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_cancellation`
 --
 ALTER TABLE `tbl_bus_cancellation`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_customer_details`
 --
 ALTER TABLE `tbl_bus_customer_details`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_drop_points`
 --
 ALTER TABLE `tbl_bus_drop_points`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_promo_details`
 --
 ALTER TABLE `tbl_bus_promo_details`
-MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_rating`
 --
 ALTER TABLE `tbl_bus_rating`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_route`
 --
 ALTER TABLE `tbl_bus_route`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_seat_layout`
 --
 ALTER TABLE `tbl_bus_seat_layout`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_setting`
 --
 ALTER TABLE `tbl_bus_setting`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_bus_type`
+--
+ALTER TABLE `tbl_bus_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tbl_bus_user`
 --
 ALTER TABLE `tbl_bus_user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `tbl_cab_categories`
 --
 ALTER TABLE `tbl_cab_categories`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `tbl_customers`
 --
 ALTER TABLE `tbl_customers`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tbl_customer_trips`
 --
 ALTER TABLE `tbl_customer_trips`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `tbl_drivers`
 --
 ALTER TABLE `tbl_drivers`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `tbl_driver_activation_tracking`
 --
 ALTER TABLE `tbl_driver_activation_tracking`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
 --
 -- AUTO_INCREMENT for table `tbl_driver_comments`
 --
 ALTER TABLE `tbl_driver_comments`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `tbl_driver_locations`
 --
 ALTER TABLE `tbl_driver_locations`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `tbl_driver_log`
 --
 ALTER TABLE `tbl_driver_log`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `tbl_offer_slides`
 --
 ALTER TABLE `tbl_offer_slides`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `tbl_verification_codes`
 --
 ALTER TABLE `tbl_verification_codes`
-MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `s_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

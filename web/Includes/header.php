@@ -251,9 +251,9 @@
 								<ul class="dropdown-menu">
 									<li><a href="Customer/Login.php">My Account</a></li>	
 									<li><a href="Admin/Login.php">Manager Login</a></li>
-									<li><a href="Bus-Admin/admin">Bus Agent</a></li>
-									<li><a href="Bus-Admin/admin">Bus Admin</a></li>
-									<li><a href="Bus-Admin/">Bus User</a></li>
+									<li><a href="Bus/agent">Bus Agent</a></li>
+									<li><a href="Bus/admin">Bus Admin</a></li>
+									<!-- <li><a href="Bus-Admin/">Bus User</a></li> -->
 								</ul>
 							  </li>
 							<?php
