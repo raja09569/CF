@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2018 at 06:46 PM
+-- Generation Time: Jul 10, 2018 at 08:06 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -246,7 +246,8 @@ INSERT INTO `tbl_bus` (`id`, `bus_name`, `bus_type_id`, `amenities_id`, `bus_reg
 (1, 'KMN', 1, '5', '12212', 40, 'kochi', '10:15 AM', 'munnar', '10:15 AM', 1, 1, 'admin'),
 (2, 'MNT', 2, '4', '4545', 20, 'munnar', '10:15 AM', 'kochi', '10:15 AM', 1, 1, 'admin'),
 (3, 'Volvo', 1, '4,5', '1234', 45, 'Bangalore', '03:00 PM', 'Kochi', '06:00 AM', 1, 1, 'admin'),
-(4, 'Volvo XL', 1, '6', '2563', 40, 'Banglore', '02:30 PM', 'Chennai', '07:30 PM', 1, 1, '1');
+(4, 'Volvo XL', 1, '6', '2563', 40, 'Banglore', '02:30 PM', 'Chennai', '07:30 PM', 1, 1, '1'),
+(5, 'Test', 2, '1,3,5', 'AP22AJ7895', 20, 'Hyderabad', '03:00 PM', 'Bangalore', '03:00 AM', 1, 1, 'admin');
 
 -- --------------------------------------------------------
 
@@ -298,7 +299,8 @@ CREATE TABLE `tbl_bus_agent` (
 --
 
 INSERT INTO `tbl_bus_agent` (`id`, `username`, `first_name`, `last_name`, `password`, `company_name`, `address`, `email`, `phone_number`, `city`, `country`, `profile_picture`, `status`, `created_by`) VALUES
-(1, 'agent', 'Agent', 'Test', 'b33aed8f3134996703dc39f9a7c95783', 'test', 'test', 'test@gmail.com', '9856321245', 'kochi', 'india', 'http://techlabz.in/truebusupdate/admin/assets/uploads/img/1511772130_images.jpg', '1', 'admin');
+(1, 'agent', 'Agent', 'Test', 'b33aed8f3134996703dc39f9a7c95783', 'test', 'test', 'test@gmail.com', '9856321245', 'kochi', 'india', 'http://techlabz.in/truebusupdate/admin/assets/uploads/img/1511772130_images.jpg', '1', 'admin'),
+(2, 'testagent', 'test', 'agent', '47ec2dd791e31e2ef2076caf64ed9b3d', 'test company', 'test address', 'test@gmail.com', '1234567890', 'bangalore', 'India', 'http://localhost:8080/cf/web/Bus-Admin/admin/assets/uploads/img/1531227460_cf-logo.png', '1', 'admin');
 
 -- --------------------------------------------------------
 
@@ -377,7 +379,8 @@ CREATE TABLE `tbl_bus_board_points` (
 INSERT INTO `tbl_bus_board_points` (`id`, `bus_id`, `board_point`, `pickup_point`, `pickup_time`, `landmark`, `address`, `status`) VALUES
 (1, 1, 1, 'vytilla', '10:15 AM', 'd', 'sddfff', 1),
 (2, 2, 2, 'adimali', '10:15 AM', 'asd', 'sdf', 1),
-(3, 3, 3, 'madivala', '03:00 PM', 'test', 'test', 1);
+(3, 3, 3, 'madivala', '03:00 PM', 'test', 'test', 1),
+(4, 2, 1, 'Bangalore', '04:30 PM', 'Near Silk board', 'Silkboard', 1);
 
 -- --------------------------------------------------------
 
@@ -438,20 +441,6 @@ CREATE TABLE `tbl_bus_book_bus` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_bus_bus_gallery`
---
-
-CREATE TABLE `tbl_bus_bus_gallery` (
-  `id` int(11) NOT NULL,
-  `image` varchar(750) NOT NULL,
-  `user_id` int(250) NOT NULL,
-  `bus_id` int(250) NOT NULL,
-  `created_by` int(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tbl_bus_cancellation`
 --
 
@@ -464,6 +453,13 @@ CREATE TABLE `tbl_bus_cancellation` (
   `flat` varchar(250) NOT NULL,
   `type` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_bus_cancellation`
+--
+
+INSERT INTO `tbl_bus_cancellation` (`id`, `bus_id`, `advertisement_status`, `cancel_time`, `percentage`, `flat`, `type`) VALUES
+(1, '1', 1, '18:30', '10', '25', 'percentage');
 
 -- --------------------------------------------------------
 
@@ -526,7 +522,22 @@ CREATE TABLE `tbl_bus_drop_points` (
 INSERT INTO `tbl_bus_drop_points` (`id`, `bus_id`, `drop_point`, `stoping_point`, `drop_time`, `landmark`, `address`, `status`) VALUES
 (1, '1', '1', 'Adimali', '10:15 AM', 'xzfcgg', 'fg', 1),
 (2, '2', '2', 'vytilla', '10:15 AM', 'sdff', 'zdf', 1),
-(3, '3', '3', 'Aluva', '06:00 AM', 'test', 'test', 1);
+(3, '3', '3', 'Aluva', '06:00 AM', 'test', 'test', 1),
+(4, '2', '1', 'Munnar', '04:30 PM', 'Near Munnar', 'Munnar', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_bus_gallery`
+--
+
+CREATE TABLE `tbl_bus_gallery` (
+  `id` int(11) NOT NULL,
+  `image` varchar(750) NOT NULL,
+  `user_id` int(250) NOT NULL,
+  `bus_id` int(250) NOT NULL,
+  `created_by` int(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -543,6 +554,13 @@ CREATE TABLE `tbl_bus_promo_details` (
   `status` int(100) NOT NULL DEFAULT '0',
   `created_by` int(10) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_bus_promo_details`
+--
+
+INSERT INTO `tbl_bus_promo_details` (`id`, `code`, `type`, `amount`, `expire_date`, `status`, `created_by`) VALUES
+(1, '202483', NULL, 123456, '2018-07-10', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -586,7 +604,8 @@ CREATE TABLE `tbl_bus_route` (
 INSERT INTO `tbl_bus_route` (`id`, `bus_id`, `board_point`, `board_time`, `drop_point`, `drop_time`, `fare`, `status`, `created_by`) VALUES
 (1, 1, 'kochi', '10:15 AM', 'munnar', '10:15 AM', 2000, 1, 'admin'),
 (2, 2, 'munnar', '10:15 AM', 'kochi', '10:15 AM', 520, 1, 'admin'),
-(3, 3, 'Bangalore', '03:00 PM', 'Kochi', '06:00 AM', 2000, 1, 'admin');
+(3, 3, 'Bangalore', '03:00 PM', 'Kochi', '06:00 AM', 2000, 1, 'admin'),
+(4, 2, 'Hyderabad', '04:15 PM', 'Bangalore', '04:15 AM', 789, 1, 'admin');
 
 -- --------------------------------------------------------
 
@@ -663,7 +682,8 @@ CREATE TABLE `tbl_bus_type` (
 INSERT INTO `tbl_bus_type` (`id`, `bus_type`, `status`) VALUES
 (1, 'AC', '1'),
 (2, 'Non AC', '1'),
-(3, 'sleeper', '1');
+(3, 'sleeper', '1'),
+(4, 'Sem Sleeper', '1');
 
 -- --------------------------------------------------------
 
@@ -1099,12 +1119,6 @@ ALTER TABLE `tbl_bus_book_bus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tbl_bus_bus_gallery`
---
-ALTER TABLE `tbl_bus_bus_gallery`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `tbl_bus_cancellation`
 --
 ALTER TABLE `tbl_bus_cancellation`
@@ -1120,6 +1134,12 @@ ALTER TABLE `tbl_bus_customer_details`
 -- Indexes for table `tbl_bus_drop_points`
 --
 ALTER TABLE `tbl_bus_drop_points`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_bus_gallery`
+--
+ALTER TABLE `tbl_bus_gallery`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1268,7 +1288,7 @@ ALTER TABLE `tbl_amount_collection_from_driver`
 -- AUTO_INCREMENT for table `tbl_bus`
 --
 ALTER TABLE `tbl_bus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_bus_admin`
@@ -1280,7 +1300,7 @@ ALTER TABLE `tbl_bus_admin`
 -- AUTO_INCREMENT for table `tbl_bus_agent`
 --
 ALTER TABLE `tbl_bus_agent`
-  MODIFY `id` int(250) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(250) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_bus_amenities`
@@ -1298,7 +1318,7 @@ ALTER TABLE `tbl_bus_blogs`
 -- AUTO_INCREMENT for table `tbl_bus_board_points`
 --
 ALTER TABLE `tbl_bus_board_points`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_bus_booking_details`
@@ -1313,16 +1333,10 @@ ALTER TABLE `tbl_bus_book_bus`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tbl_bus_bus_gallery`
---
-ALTER TABLE `tbl_bus_bus_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tbl_bus_cancellation`
 --
 ALTER TABLE `tbl_bus_cancellation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_bus_customer_details`
@@ -1334,13 +1348,19 @@ ALTER TABLE `tbl_bus_customer_details`
 -- AUTO_INCREMENT for table `tbl_bus_drop_points`
 --
 ALTER TABLE `tbl_bus_drop_points`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbl_bus_gallery`
+--
+ALTER TABLE `tbl_bus_gallery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_bus_promo_details`
 --
 ALTER TABLE `tbl_bus_promo_details`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_bus_rating`
@@ -1352,7 +1372,7 @@ ALTER TABLE `tbl_bus_rating`
 -- AUTO_INCREMENT for table `tbl_bus_route`
 --
 ALTER TABLE `tbl_bus_route`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_bus_seat_layout`
@@ -1370,7 +1390,7 @@ ALTER TABLE `tbl_bus_setting`
 -- AUTO_INCREMENT for table `tbl_bus_type`
 --
 ALTER TABLE `tbl_bus_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_bus_user`
