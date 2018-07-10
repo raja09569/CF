@@ -12,7 +12,7 @@ class Admin_model extends CI_Model {
 				$this->db->select("count(*) as count");
 				$this->db->where("password",md5($data['password']));
 				$this->db->where("id",$id);
-				$this->db->from("admin");
+				$this->db->from("tbl_bus_admin");
 				$count = $this->db->get()->row();
 					//var_dump($count);
 				if($count->count == 0) {
@@ -22,7 +22,7 @@ class Admin_model extends CI_Model {
 					
 					$update_data['password'] = md5($data['n_password']);
 					$this->db->where('id', $id);
-					$result = $this->db->update('admin', $update_data); 
+					$result = $this->db->update('tbl_bus_admin', $update_data); 
 			   
 					if($result) {
 						return true;
@@ -36,9 +36,9 @@ class Admin_model extends CI_Model {
 			
 		  function get_admin_profile_details($id) {
 	
-				$this->db->select("admin.*,");
-				$this->db->where('admin.id', $id);
-				$this->db->from("admin");
+				$this->db->select("tbl_bus_admin.*,");
+				$this->db->where('tbl_bus_admin.id', $id);
+				$this->db->from("tbl_bus_admin");
 				$query = $this->db->get();
 				$result = $query->row();
 
@@ -50,7 +50,7 @@ class Admin_model extends CI_Model {
 						$this->db->select("count(*) as count");
 						$this->db->where("username",$data['username']);
 						$this->db->where("id !=",$id);
-						$this->db->from("admin");
+						$this->db->from("tbl_bus_admin");
 						$count = $this->db->get()->row();
 							//var_dump($count);
 						if($count->count > 0) {
@@ -59,7 +59,7 @@ class Admin_model extends CI_Model {
 						else {
 
 							$this->db->where('id', $id);
-							$result = $this->db->update('admin', $data); 
+							$result = $this->db->update('tbl_bus_admin', $data); 
 					   
 							if($result) {
 	   		return true;

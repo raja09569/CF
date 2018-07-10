@@ -9,7 +9,7 @@ class Blogs_model extends CI_Model {
 	
 	   	  public function get_blogdetails(){
 					  
-			 $query = $this->db->get('blogs');
+			 $query = $this->db->get('tbl_bus_blogs');
 		     $result = $query->result();
 		     return $result;   
 			    
@@ -18,7 +18,7 @@ class Blogs_model extends CI_Model {
 		  public function editget_blogs_id($id){
 		 
 			 $query = $this->db->where('id',$id);
-			 $query = $this->db->get('blogs');
+			 $query = $this->db->get('tbl_bus_blogs');
 			 $result = $query->row();			
 			 return $result;
 	    }
@@ -26,7 +26,7 @@ class Blogs_model extends CI_Model {
 		  public function edit_blog_details($data, $id){
 		 
 			 $this->db->where('id',$id);
-			 $result = $this->db->update('blogs',$data);
+			 $result = $this->db->update('tbl_bus_blogs',$data);
 			  
 			  return $result;			 
 			 

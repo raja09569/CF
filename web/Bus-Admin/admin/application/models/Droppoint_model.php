@@ -30,18 +30,18 @@ class Droppoint_model extends CI_Model {
 			     $result = $query->result();
 			     return $result;*/
 
-                 $this->db->select('dp.id as id, dp.stoping_point, dp.landmark, dp.address, dp.drop_time, bus.bus_name, route.drop_point');
-			     $this->db->from('drop_points as dp' );
-			     $this->db->join('route', 'dp.drop_point = route.id','left');
-			     $this->db->join('bus', 'dp.bus_id = bus.id','left');
+                 $this->db->select('dp.id as id, dp.stoping_point, dp.landmark, dp.address, dp.drop_time, tbl_bus.bus_name, tbl_bus_route.drop_point');
+			     $this->db->from('tbl_bus_drop_points as dp' );
+			     $this->db->join('tbl_bus_route', 'dp.drop_point = tbl_bus_route.id','left');
+			     $this->db->join('tbl_bus', 'dp.bus_id = tbl_bus.id','left');
 				 $this->db->where('dp.status = 1', $user);
-				 $this->db->where('bus.bus_status','1');
+				 $this->db->where('tbl_bus.bus_status','1');
 			     $this->db->group_by("dp.id");
 				 
 				  $menu = $this->session->userdata('admin');
 					    if($menu!='1'){						
 						$user = $this->session->userdata('id');
-						$this->db->where('bus.created_by', $user);
+						$this->db->where('tbl_bus.created_by', $user);
 					}
 			    
 				 $query = $this->db->get();
@@ -51,7 +51,7 @@ class Droppoint_model extends CI_Model {
 	 
 	  function  droppointdetails_add($data){
 		   
-			   $result = $this->db->insert('drop_points',$data);
+			   $result = $this->db->insert('tbl_bus_drop_points',$data);
 			   return $result;
      }
 
@@ -60,10 +60,10 @@ class Droppoint_model extends CI_Model {
 					    $menu = $this->session->userdata('admin');
 					    if($menu!='1'){						
 						$user = $this->session->userdata('id');
-						$this->db->where('bus.created_by', $user);
+						$this->db->where('tbl_bus.created_by', $user);
 					}
                 $this->db->where('bus_status','1');
-				$query = $this->db->get('bus');
+				$query = $this->db->get('tbl_bus');
 			    $result = $query->result();
 			    return $result; 				
 	 }	
@@ -72,7 +72,7 @@ class Droppoint_model extends CI_Model {
 		 
 				
 				$this->db->where('bus_id', $id);
-				$query = $this->db->get('route');
+				$query = $this->db->get('tbl_bus_route');
 			    $result = $query->result();
 									
 					return $result;
@@ -84,7 +84,7 @@ class Droppoint_model extends CI_Model {
 		        //$this->db->where('id', $id);
 				$id=$_POST['value'];
 				$this->db->where('bus_id', $id);
-				$query = $this->db->get('route');
+				$query = $this->db->get('tbl_bus_route');
 			    $result = $query->result();
 				
 				foreach($result as $editrouteget)
@@ -100,7 +100,7 @@ class Droppoint_model extends CI_Model {
       function get_single_dropdpoint($id){
 		  
 		       $query = $this->db->where('id',$id);
-			   $query = $this->db->get('drop_points');
+			   $query = $this->db->get('tbl_bus_drop_points');
 			   $result = $query->row();
 			   return $result;  
 	 }
@@ -110,11 +110,11 @@ class Droppoint_model extends CI_Model {
 		    $menu = $this->session->userdata('admin');
 					    if($menu!='1'){						
 						$user = $this->session->userdata('id');
-						$this->db->where('bus.created_by', $user);
+						$this->db->where('tbl_bus.created_by', $user);
 					}
                 
 				$this->db->where('bus_status','1');
-				$query = $this->db->get('bus');
+				$query = $this->db->get('tbl_bus');
 			    $result = $query->result();
 			    return $result; 				
 	 }	
@@ -122,7 +122,7 @@ class Droppoint_model extends CI_Model {
       function dropdpoint_edit($data, $id){
 		    
 			   $this->db->where('id', $id);
-			   $result = $this->db->update('drop_points', $data); 
+			   $result = $this->db->update('tbl_bus_drop_points', $data); 
 			   return $result;
 	 }
 	 
@@ -140,18 +140,18 @@ class Droppoint_model extends CI_Model {
 			   return "error";
 		       }*/
 			     $this->db->where('id',$id);
-				 $result = $this->db->update('drop_points',$data1);
+				 $result = $this->db->update('tbl_bus_drop_points',$data1);
 				 return $result;
 	 }
 	 
 	  function view_popup_dropdetails($id){
 		 
-		       $this->db->select('drop_points.*, bus.id, bus.bus_name, route.drop_point');
-			   $this->db->from('drop_points');
-			   $this->db->join('bus','drop_points.bus_id = bus.id','left');
-			   $this->db->join('route','route.id = drop_points.drop_point','left');
+		       $this->db->select('tbl_bus_drop_points.*, tbl_bus.id, tbl_bus.bus_name, tbl_bus_route.drop_point');
+			   $this->db->from('tbl_bus_drop_points');
+			   $this->db->join('tbl_bus','tbl_bus_drop_points.bus_id = tbl_bus.id','left');
+			   $this->db->join('tbl_bus_route','tbl_bus_route.id = tbl_bus_drop_points.drop_point','left');
 			   
-			   $this->db->where('drop_points.id',$id);
+			   $this->db->where('tbl_bus_drop_points.id',$id);
 			   $query = $this->db->get();
 			   $result = $query->row();
 			   return $result;			

@@ -12,7 +12,7 @@ class Promo_model extends CI_Model {
 
      	$this->db->where('code',$data['code']);
 
-      	 $query = $this->db->get('promo_details');
+      	 $query = $this->db->get('tbl_bus_promo_details');
       	
 			   $result = $query->result();
 
@@ -25,13 +25,13 @@ class Promo_model extends CI_Model {
  	
  	 function  promodetails_add($data){
 				
-			   $result = $this->db->insert('promo_details', $data);
+			   $result = $this->db->insert('tbl_bus_promo_details', $data);
 			   return $result;
      }
       //retrieve all promo code details
       function get_promodetails(){
 
-      	 $query = $this->db->get('promo_details');
+      	 $query = $this->db->get('tbl_bus_promo_details');
 			   $result = $query->result();
 			   return $result;
 			    
@@ -40,7 +40,7 @@ class Promo_model extends CI_Model {
      function get_single_promo($id){
 		  
 		       $query = $this->db->where('id',$id);
-			   $query = $this->db->get('promo_details');
+			   $query = $this->db->get('tbl_bus_promo_details');
 			   $result = $query->row();
 			   return $result;  
 	   }
@@ -48,13 +48,13 @@ class Promo_model extends CI_Model {
 	    function promodetails_edit($data, $id){
 		    
 			   $this->db->where('id', $id);
-			   $result = $this->db->update('promo_details', $data);
+			   $result = $this->db->update('tbl_bus_promo_details', $data);
 			   return $result;
 	 }
 	 public function promoupdate_delete_status($id){
 		 
 				 $this->db->where('id',$id);
-				 $result = $this->db->delete('promo_details');
+				 $result = $this->db->delete('tbl_bus_promo_details');
 				 return $result;
 	     }
 
@@ -63,7 +63,7 @@ class Promo_model extends CI_Model {
 				$this->db->select('*'); 
 
 				$this->db->where('id',$id); 
-                $this->db->from('promo_details');
+                $this->db->from('tbl_bus_promo_details');
                   				             
                 
                 $query = $this->db->get();			

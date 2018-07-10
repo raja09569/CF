@@ -12,7 +12,7 @@ class Profile_model extends CI_Model {
 				$this->db->select("count(*) as count");
 				$this->db->where("password",md5($data['password']));
 				$this->db->where("id",$id);
-				$this->db->from("agent");
+				$this->db->from("tbl_bus_agent");
 				$count = $this->db->get()->row();
 					//var_dump($count);
 				if($count->count == 0) {
@@ -22,7 +22,7 @@ class Profile_model extends CI_Model {
 					
 					$update_data['password'] = md5($data['n_password']);
 					$this->db->where('id', $id);
-					$result = $this->db->update('agent', $update_data); 
+					$result = $this->db->update('tbl_bus_agent', $update_data); 
 			   
 					if($result) {
 						return true;
@@ -37,7 +37,7 @@ class Profile_model extends CI_Model {
 		  
 		  
 					$query = $this->db->where('id', $id);
-					$query = $this->db->get('agent');	
+					$query = $this->db->get('tbl_bus_agent');	
 					$result = $query->row();
 					return $result;
 	      }
@@ -48,7 +48,7 @@ class Profile_model extends CI_Model {
 						$this->db->select("count(*) as count");
 						$this->db->where("first_name",$data['first_name']);						
 						$this->db->where("id !=",$id);
-						$this->db->from("agent");
+						$this->db->from("tbl_bus_agent");
 						$count = $this->db->get()->row();
 						if($count->count > 0) {
 							return "exist";
@@ -56,7 +56,7 @@ class Profile_model extends CI_Model {
 						else {
 
 									$this->db->where('id', $id);
-									$result = $this->db->update('agent', $data); 									
+									$result = $this->db->update('tbl_bus_agent', $data); 									
 						
 							
 							if($result) {

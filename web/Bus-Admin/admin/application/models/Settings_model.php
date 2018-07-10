@@ -18,7 +18,7 @@ class Settings_model extends CI_Model {
 	 public function update_settings($data){
 	 	           
 		$data['payment_option'] = implode(",", $data['payment_option'] );
-		$result = $this->db->update('setting', $data);
+		$result = $this->db->update('tbl_bus_setting', $data);
 		return $result;
 	 }
 	 

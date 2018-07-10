@@ -70,9 +70,11 @@
                            		  
                          <a class="btn btn-sm bg-olive show-busgetdetails"  href="javascript:void(0);"  data-id="<?php echo $bus->id; ?>">
                               <i class="fa fa-fw fa-eye"></i> View </a>							
-                              <a class="btn btn-sm btn-primary" href="<?php echo base_url();?>Bus_details/edit_bus/<?php echo $bus->id; ?>">
+                              <!-- <a class="btn btn-sm btn-primary" href="<?php echo base_url();?>Bus_details/edit_bus/<?php echo $bus->id; ?>"> -->
+                              <a class="btn btn-sm btn-primary" href="edit_bus/<?php echo $bus->id; ?>">
                               <i class="fa fa-fw fa-edit"></i>Edit</a>
-                              <a class="btn btn-sm btn-danger" href="<?php echo base_url();?>Bus_details/delete_bus/<?php echo $bus->id; ?>" onClick="return doconfirm()">
+                              <!-- <a class="btn btn-sm btn-danger" href="<?php echo base_url();?>Bus_details/delete_bus/<?php echo $bus->id; ?>" onClick="return doconfirm()"> -->
+                              <a class="btn btn-sm btn-danger" href="delete_bus/<?php echo $bus->id; ?>" onClick="return doconfirm()">
                               <i class="fa fa-fw fa-trash"></i>Delete</a>							
                            </td>
                         </tr>

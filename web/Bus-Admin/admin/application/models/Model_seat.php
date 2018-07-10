@@ -6,7 +6,7 @@ class Model_seat extends CI_Model {
 		parent::_construct();
  	}
 	function deatils($data) {
-		$table1 ="seat_layout";
+		$table1 ="tbl_bus_seat_layout";
 		
 		
 		$select_data="*";
@@ -41,7 +41,7 @@ class Model_seat extends CI_Model {
 		 
  
 		  );
-		  $table='seat_layout';
+		  $table='tbl_bus_seat_layout';
 		$result = $this->get_table_wheres( $select_data, $where_data, $table );
 		return $result ;
 	}
@@ -52,7 +52,7 @@ class Model_seat extends CI_Model {
 		 
  
 		  );
-		  $table='booking_details';
+		  $table='tbl_bus_booking_details';
 		
 		$this->db->select('*');
 		$this->db->where("FIND_IN_SET('".$data."',seat_no) ");
@@ -70,7 +70,7 @@ class Model_seat extends CI_Model {
 	function get_label() {
 		$select_data="*";
 		  $where_data="";
-		  $table='seat_layout';
+		  $table='tbl_bus_seat_layout';
 		
 		$this->db->select($select_data);
 		
@@ -98,11 +98,11 @@ class Model_seat extends CI_Model {
 				 $menu = $this->session->userdata('admin');
 					if($menu!='1'){						
 						$user = $this->session->userdata('id');
-						$this->db->where('bus.created_by', $user);
+						$this->db->where('tbl_bus.created_by', $user);
 					}
 					
 	           $this->db->where('bus_status','1');
-	           $query = $this->db->get('bus');
+	           $query = $this->db->get('tbl_bus');
 			   $result = $query->result();
 			   return $result;
    }

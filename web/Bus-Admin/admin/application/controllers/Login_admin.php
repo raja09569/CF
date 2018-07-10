@@ -32,7 +32,7 @@ class Login_admin extends CI_Controller {
 
 			if($this->form_validation->run() == TRUE) {
 				//redirect(base_url().'Bus_details/view_busdetails');
-				$this->load->view('Bus_details/view_busdetails');
+				redirect('Bus_details/view_busdetails');
 			}
 		}
 		$this->load->view('login-form');

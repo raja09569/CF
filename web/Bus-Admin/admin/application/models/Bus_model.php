@@ -7,81 +7,78 @@ class Bus_model extends CI_Model {
  	}
 	
 	
-	 function get_busdetails(){
-		 
+	function get_busdetails(){
+		
 		$this->db->select('tbl_bus.id as id, tbl_bus.bus_name, tbl_bus.bus_reg_no, tbl_bus.max_seats, tbl_bus.board_point, tbl_bus.board_time, tbl_bus.drop_point, tbl_bus.drop_time, tbl_bus_type.bus_type, tbl_bus.bus_status');
 		$this->db->from('tbl_bus');
 		$this->db->join('tbl_bus_type', 'tbl_bus.bus_type_id = tbl_bus_type.id','left');
-		
+	
 		$this->db->where('tbl_bus.bus_status','1');
 		/* $this->db->where('bus_type.status','1');*/
-		
-		
+	
+	
 		$this->db->group_by("tbl_bus.id");
-		
+	
 		$menu = $this->session->userdata('admin');
 		if($menu!='1'){						
 			$user = $this->session->userdata('id');
 			$this->db->where('tbl_bus.created_by', $user);
 		}
-		
+	
 		$query = $this->db->get();
 
 		$result = $query->result();
 
 		return $result;
-			    
-     }
+			
+	}
 	 
 	   
-	 function userdetails_get($id){
+	function userdetails_get($id){
+	
+		$query = $this->db->where('id',$id);
+		$query = $this->db->get('tbl_bus');
+		$result = $query->row();
+		return $result; 
+			
+	}	
+	
+	function  busdetails_add($data){
 		
-			   $query = $this->db->where('id',$id);
-			   $query = $this->db->get('tbl_bus');
-			   $result = $query->row();
-			   return $result; 
-			    
-	 }	
+		$array = $data['amenities_id'];			   
+		$comma_separated = implode(",", $array);
+		$data['amenities_id']=$comma_separated;
+		//var_dump($comma_separated);
+		//exit();						
+		$result = $this->db->insert('tbl_bus', $data);
+		return $result;
+	}
 	 
-	 function  busdetails_add($data){
-		 
-               $array = $data['amenities_id'];			   
-               $comma_separated = implode(",", $array);
-               $data['amenities_id']=$comma_separated;
-			  			//var_dump($comma_separated);
-//exit();						
-			   $result = $this->db->insert('tbl_bus', $data);
-			   return $result;
-     }
-	 
-	 function get_single_bus($id){
-		  
-		       $query = $this->db->where('id',$id);
-			   
-			    	$menu = $this->session->userdata('admin');
-				if($menu!='1'){
-					$user = $this->session->userdata('id');
-					$this->db->where('tbl_bus.created_by', $user);
-				}
-				
-				
-			   $query = $this->db->get('tbl_bus');
-			   $result = $query->row();
-			   return $result;  
-	   }
+	function get_single_bus($id){
+		$query = $this->db->where('id',$id);
+			
+		$menu = $this->session->userdata('admin');
+		if($menu!='1'){
+			$user = $this->session->userdata('id');
+			$this->db->where('tbl_bus.created_by', $user);
+		}	
+		$query = $this->db->get('tbl_bus');
+		$result = $query->row();
+		return $result;  
+	}
 	   
-	 function busdetails_edit($data, $id){
-		 
-		       $array = $data['amenities_id'];
-			  // var_dump($data);
-			   //exit();
-               $comma_separated = implode(",", $array);
-               $data['amenities_id']=$comma_separated;
-		    
-			   $this->db->where('id', $id);
-			   $result = $this->db->update('tbl_bus', $data);
-			   return $result;
-	 }
+	function busdetails_edit($data, $id){
+		
+		$array = $data['amenities_id'];
+		// var_dump($data);
+		//exit();
+		$comma_separated = implode(",", $array);
+		$data['amenities_id']=$comma_separated;
+	
+		$this->db->where('id', $id);
+		$result = $this->db->update('tbl_bus', $data);
+		return $result;
+	}
 	   
 	/* function busdetails_delete($id){
 		 

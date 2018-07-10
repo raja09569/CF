@@ -8,7 +8,7 @@ class Agent_model extends CI_Model {
 	
 	 public function get_agent_details(){
 		  
-		 $query = $this->db->get('agent');
+		 $query = $this->db->get('tbl_bus_agent');
 		 $result = $query->result();
 		 return $result;
 
@@ -17,7 +17,7 @@ class Agent_model extends CI_Model {
 	 public function add_aget($data){
 	 	$data['password']=md5($data['password']);
 		 
-		 $result = $this->db->insert('agent', $data);
+		 $result = $this->db->insert('tbl_bus_agent', $data);
 		 return $result;
 	 }
 	 
@@ -31,7 +31,7 @@ class Agent_model extends CI_Model {
 	 public function editget_bustype_id($id){
 		 
 		 $query = $this->db->where('id',$id);
-		 $query = $this->db->get('agent');
+		 $query = $this->db->get('tbl_bus_agent');
 		 $result = $query->row();
 		 return $result;
 	 }
@@ -39,7 +39,7 @@ class Agent_model extends CI_Model {
 	 public function edit_aget($data, $id){
 		 
 	     $this->db->where('id',$id);
-		 $result = $this->db->update('agent',$data);
+		 $result = $this->db->update('tbl_bus_agent',$data);
 		 return $result; 
 	 }
 	/* public function get_bustypeid(){
@@ -52,7 +52,7 @@ class Agent_model extends CI_Model {
 	 public function delete_agent($id){
 		 
 		 $this->db->where('id', $id);
-		 $result = $this->db->Delete('agent');
+		 $result = $this->db->Delete('tbl_bus_agent');
 		 if($result){
 			 echo "success";
 		 }
@@ -67,7 +67,7 @@ class Agent_model extends CI_Model {
 	 public function view_popup_agentdetails($id){
 		  
 		 $this->db->where('id', $id);
-		 $query = $this->db->get('agent');
+		 $query = $this->db->get('tbl_bus_agent');
 		 $result = $query->row();
 		 return $result;
 

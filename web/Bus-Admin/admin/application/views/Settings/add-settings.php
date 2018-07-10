@@ -111,7 +111,7 @@
 								   <label for="exampleInputEmail1">Logo</label>
 								   <input tabindex="8" name="logo" class="" accept="image/*" type="file">
 								   <img src="<?php echo base_url().$result->logo; ?>" width="100px" height="100px" alt="Picture Not Found"/>
-								   </div>							   
+								   </div>							   `
 								   
 								   <div class="form-group has-feedback">
 								   <label for="exampleInputEmail1">Favicon</label>

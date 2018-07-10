@@ -9,7 +9,7 @@ class Customer_model extends CI_Model {
 	
 	   	 function get_customerdetails(){
 	
-		$query=$this->db->get('user');
+		$query=$this->db->get('tbl_bus_user');
 	    return $query->result();  
 			    
 	 }

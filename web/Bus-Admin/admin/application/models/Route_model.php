@@ -13,18 +13,18 @@ class Route_model extends CI_Model {
 			   $result = $query->result();
 			   return $result;*/
 				 
-                 $this->db->select('route.id as id, route.board_point, route.board_time, route.drop_point, route.drop_time,
-				 route.fare, bus.bus_name');
-			     $this->db->from('route' );
-			     $this->db->join('bus', 'route.bus_id = bus.id','left');
-				 $this->db->where('route.status = 1', $user);
-				 $this->db->where('bus.bus_status','1');
-			     $this->db->group_by("route.id");
+                 $this->db->select('tbl_bus_route.id as id, tbl_bus_route.board_point, tbl_bus_route.board_time, tbl_bus_route.drop_point, tbl_bus_route.drop_time,
+				 tbl_bus_route.fare, tbl_bus.bus_name');
+			     $this->db->from('tbl_bus_route' );
+			     $this->db->join('tbl_bus', 'tbl_bus_route.bus_id = tbl_bus.id','left');
+				 $this->db->where('tbl_bus_route.status = 1', $user);
+				 $this->db->where('tbl_bus.bus_status','1');
+			     $this->db->group_by("tbl_bus_route.id");
 				 
 				    $menu = $this->session->userdata('admin');
 					if($menu!='1'){						
 						$user = $this->session->userdata('id');
-						$this->db->where('bus.created_by', $user);
+						$this->db->where('tbl_bus.created_by', $user);
 					}
 			    
 				 $query = $this->db->get();
@@ -34,7 +34,7 @@ class Route_model extends CI_Model {
 	 
 	 function  routedetails_add($data){
 			   
-			   $result = $this->db->insert('route', $data);
+			   $result = $this->db->insert('tbl_bus_route', $data);
 			   return $result;
 			   
 			  /* $data1 = array(
@@ -57,10 +57,10 @@ class Route_model extends CI_Model {
 					$menu = $this->session->userdata('admin');
 					if($menu!='1'){						
 						$user = $this->session->userdata('id');
-						$this->db->where('bus.created_by', $user);
+						$this->db->where('tbl_bus.created_by', $user);
 					}
 				$this->db->where('bus_status','1');	
-				$query = $this->db->get('bus');
+				$query = $this->db->get('tbl_bus');
 			    $result = $query->result();
 			    return $result; 				
 	 }	
@@ -70,10 +70,10 @@ class Route_model extends CI_Model {
 		  $menu = $this->session->userdata('admin');
 					if($menu!='1'){						
 						$user = $this->session->userdata('id');
-						$this->db->where('bus.created_by', $user);
+						$this->db->where('tbl_bus.created_by', $user);
 					}
 		        $this->db->where('bus_status','1');
-				$query = $this->db->get('bus');
+				$query = $this->db->get('tbl_bus');
 			    $result = $query->result();
 			    return $result; 				
 	 }	
@@ -81,7 +81,7 @@ class Route_model extends CI_Model {
 	 function get_single_route($id){
 		  
 		       $query = $this->db->where('id',$id);
-			   $query = $this->db->get('route');
+			   $query = $this->db->get('tbl_bus_route');
 			   $result = $query->row();
 			   return $result;  
 	   }
@@ -89,17 +89,17 @@ class Route_model extends CI_Model {
 	 function route_edit($data, $id){
 		    
 			   $this->db->where('id', $id);
-			   $result = $this->db->update('route', $data); 
+			   $result = $this->db->update('tbl_bus_route', $data); 
 			   return "Success";
 	 }
 	 
 	 function view_popup_route($id){
 		 
-		       $this->db->select('route.*, bus.id, bus.bus_name');
-			   $this->db->from('route');
-			   $this->db->join('bus','route.bus_id = bus.id','left');
+		       $this->db->select('tbl_bus_route.*, tbl_bus.id, tbl_bus.bus_name');
+			   $this->db->from('tbl_bus_route');
+			   $this->db->join('tbl_bus','tbl_bus_route.bus_id = tbl_bus.id','left');
 			   
-			   $this->db->where('route.id',$id);
+			   $this->db->where('tbl_bus_route.id',$id);
 			   $query = $this->db->get();
 			   $result = $query->row();
 			   return $result;
@@ -109,7 +109,7 @@ class Route_model extends CI_Model {
       function routeupdate_delete_status($id, $data1)
 	  {
 		         $this->db->where('id',$id);
-				 $result = $this->db->update('route',$data1);
+				 $result = $this->db->update('tbl_bus_route',$data1);
 				 return $result;
 	  }
 	 

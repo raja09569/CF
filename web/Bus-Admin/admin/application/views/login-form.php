@@ -23,10 +23,10 @@
   <body class="hold-transition login-page">
       <div class="login-box">
         <div class="login-logo">
-          <a href="<?php echo base_url(); ?>"><b>Cameroun Facile</b></a>
+          <a href="<?php echo "../../../index.php";//base_url(); ?>"><b>Cameroun Facile</b></a>
              </div><!-- /.login-logo -->    
                 <div class="login-box-body">
-                    <p class="login-box-msg">Sign in to start your session</p>
+                    <p class="login-box-msg">Bus Administrator</p>
                       <?php if(validation_errors()) { ?>
             <div class="alert alert-danger">
                 <?php echo validation_errors(); ?>
@@ -46,6 +46,9 @@
            <div class="col-xs-12 right">
                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
            </div><!-- /.col -->
+           <div class="col-xs-12 center" style="text-align: center;padding:10px;font-weight:bold;">
+               <a href="../../../index.php"><i class="fa fa-home"></i>&nbsp;&nbsp;HOME</a>
+           </div
            </div>
         </form>
 

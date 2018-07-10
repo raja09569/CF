@@ -16,8 +16,7 @@ class Bus_details extends CI_Controller {
  	//view user details
     public function view_busdetails(){ 
 		//$a = $sessid=$this->session->userdata('logged_in_admin');
-		//$sessid = (($a->user_type == 1));		  
-		//echo "yes";
+		//$sessid = (($a->user_type == 1));	
 		$template['page'] = "Busdetails/view-busdetails";
 		$template['page_title'] = "Bus Details";
 		$template['data'] = $this->Bus_model->get_busdetails();
