@@ -85,7 +85,7 @@ function smtp_setup($data)
 	  
  
 		);
-		$table='setting';
+		$table='tbl_bus_setting';
 	  $this->update_table_where( $update_data, $where_data, $table);
 	  return true;
 }

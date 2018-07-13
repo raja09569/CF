@@ -3,7 +3,11 @@
          <div class="tb_header">
             <div class="container">
                <div class="col-md-6" style="padding:0;">
-                  <div class="tb_logo"> <a href="<?php echo base_url();?>home"><img src="<?php echo base_url()."admin/".$logo->logo;?>"> </a> </div>
+                  <div class="tb_logo">
+                    <a href="<?php echo base_url();?>home">
+                      <img src="<?php echo base_url()."admin/".$logo->logo;?>"> 
+                    </a> 
+                  </div>
                </div>
                <div class="col-md-4" style="padding:0;">
                   <div class="tb_navbar">

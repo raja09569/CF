@@ -13,7 +13,7 @@ class Model_common extends CI_Model {
 			'id'     => 1
 	    );
 			
-		$table = "setting";  //------------ Select table
+		$table = "tbl_bus_setting";  //------------ Select table
 		$result = $this->get_table_where( $select_data, $where_data, $table );
 		return $result;	
 }

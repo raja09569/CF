@@ -15,24 +15,24 @@ class Cancel_model extends CI_Model {
            
 			   $this->db->select('id');
 			   $this->db->where('username',$data['username']);
-			   $query=$this->db->get('user');
+			   $query=$this->db->get('tbl_bus_user');
 			   $row1 = $query->row();
 			   if(!empty($row1)){
 			   
 			   
-			   $this->db->select('booking_details.id as id,booking_details.*,booking_details.booking_date,user.username,bus.bus_name,route.board_point,
-			   route.drop_point,route.board_time,customer_details.customer_name,customer_details.age,customer_details.gender,customer_details.seat_no');
+			   $this->db->select('tbl_bus_booking_details.id as id,tbl_bus_booking_details.*,tbl_bus_booking_details.booking_date,tbl_bus_user.username,tbl_bus.bus_name,tbl_bus_route.board_point,
+			   tbl_bus_route.drop_point,tbl_bus_route.board_time,tbl_bus_customer_details.customer_name,tbl_bus_customer_details.age,tbl_bus_customer_details.gender,tbl_bus_customer_details.seat_no');
 
-			   $this->db->from('booking_details');
-			   $this->db->join('user','user.id = booking_details.user_id','left');
-			   $this->db->join('bus', 'booking_details.bus_id=bus.id', 'left');
-			   $this->db->join('route', 'route.id=booking_details.rout_id', 'left');
-			   $this->db->join('customer_details', 'booking_details.id = customer_details.order_id', 'left');
+			   $this->db->from('tbl_bus_booking_details');
+			   $this->db->join('tbl_bus_user','tbl_bus_user.id = tbl_bus_booking_details.user_id','left');
+			   $this->db->join('tbl_bus', 'tbl_bus_booking_details.bus_id=tbl_bus.id', 'left');
+			   $this->db->join('tbl_bus_route', 'tbl_bus_route.id=tbl_bus_booking_details.rout_id', 'left');
+			   $this->db->join('tbl_bus_customer_details', 'tbl_bus_booking_details.id = tbl_bus_customer_details.order_id', 'left');
 			   //$this->db->join('booking_details', 'booking_details.id = customer_details.order_id', 'left');
 			   
 			   
-			   $this->db->where('booking_details.booking_id',$data['booking_id']);
-			   $this->db->where('booking_details.user_id',$row1->id);
+			   $this->db->where('tbl_bus_booking_details.booking_id',$data['booking_id']);
+			   $this->db->where('tbl_bus_booking_details.user_id',$row1->id);
 			   $query = $this->db->get();
 			   $row = $query->row();
 			   //var_dump($row); exit;
@@ -44,7 +44,7 @@ class Cancel_model extends CI_Model {
 				       $datas = array('status' => 'Cancelled','payment_status' => 'Cancelled');
 					   $this->db->where('user_id',$id);
 					   $this->db->where('booking_id',$data['booking_id']);
-					   $result = $this->db->update('booking_details', $datas);
+					   $result = $this->db->update('tbl_bus_booking_details', $datas);
 					  // echo $this->db->last_query();
 					   return $row; 
 					   

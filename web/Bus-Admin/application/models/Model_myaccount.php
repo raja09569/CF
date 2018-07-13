@@ -13,7 +13,7 @@ class Model_myaccount extends CI_Model {
 			'id'     => $user['id']
 			
          );
-		$table	="user";
+		$table	="tbl_bus_user";
 		$result = $this->get_table_wheres( $select_data, $where_data, $table );
 		return $result;
 	}
@@ -37,7 +37,7 @@ class Model_myaccount extends CI_Model {
 			'id'     => $user['id']
 			
          );
-		$table	="user";
+		$table	="tbl_bus_user";
 		$result = $this->get_table_wheres( $select_data, $where_data, $table );
 	
 		if(count($result)>0){
@@ -72,7 +72,7 @@ class Model_myaccount extends CI_Model {
 			'id'     => $data['id'],
 			'password'=>md5($data['password'])
          );
-		$table	="user";
+		$table	="tbl_bus_user";
 		$result = $this->get_table_wheres( $select_data, $where_data, $table );
 		if(count($result)==1){
 			if($data['changepass']== $data['confirmpass']){
@@ -97,16 +97,16 @@ class Model_myaccount extends CI_Model {
 		$user_id=$this->session->userdata('logged_in')['id'];
 		
 		$this->db->select('count(g.booking_id) as total_count,f.status,f.promo_code,i.amount as off_amount,f.amount,f.user_id,f.id,f.booking_id,b.id as bus_id,b.bus_name,a.fare,c.pickup_point,a.board_point,a.drop_point,a.fare,a.board_time,a.drop_time ,d.bus_type,f.booking_date,f.payment_option,h.cancel_time,h.percentage,h.flat,h.type,GROUP_CONCAT(  DISTINCT (CONCAT_WS ("<#>",g.customer_name,g.age,g.gender,g.seat_no)) SEPARATOR " <=> ") as customer');
-			$this->db->from('route a'); 
-			$this->db->join('bus b', 'a.bus_id=b.id', 'left');
+			$this->db->from('tbl_bus_route a'); 
+			$this->db->join('tbl_bus b', 'a.bus_id=b.id', 'left');
 			
-			$this->db->join('bus_type d', 'd.id=b.bus_type_id', 'left');
-			$this->db->join('bus_gallery e', 'e.bus_id=b.id', 'left');
-			$this->db->join('booking_details f', 'f.rout_id=a.id', 'left');
-			$this->db->join('board_points c', 'c.id=f.boarding_point_id', 'left');
-			$this->db->join('customer_details g', 'g.order_id=f.id', 'left');
-			$this->db->join('cancellation h', 'h.bus_id=b.id', 'left');
-			$this->db->join('promo_details i', 'i.code=f.promo_code', 'left');
+			$this->db->join('tbl_bus_type d', 'd.id=b.bus_type_id', 'left');
+			$this->db->join('tbl_bus_gallery e', 'e.bus_id=b.id', 'left');
+			$this->db->join('tbl_bus_booking_details f', 'f.rout_id=a.id', 'left');
+			$this->db->join('tbl_bus_board_points c', 'c.id=f.boarding_point_id', 'left');
+			$this->db->join('tbl_bus_customer_details g', 'g.order_id=f.id', 'left');
+			$this->db->join('tbl_bus_cancellation h', 'h.bus_id=b.id', 'left');
+			$this->db->join('tbl_bus_promo_details i', 'i.code=f.promo_code', 'left');
 			//$this->db->where('a.board_point',$data->board_point);
 			$this->db->where('f.user_id',$user_id);
 			$this->db->where('f.status!=','');
@@ -130,14 +130,14 @@ class Model_myaccount extends CI_Model {
 	public function get_rating() {
 		
 		$this->db->select('f.user_id,f.id,f.booking_id,b.id as bus_id,b.bus_name,a.fare,c.pickup_point,a.board_point,a.drop_point,a.fare,a.board_time,a.drop_time ,d.bus_type,f.booking_date,f.payment_option,g.email as customer_email,GROUP_CONCAT(  DISTINCT (CONCAT_WS ("<#>",g.customer_name,g.age,g.gender)) SEPARATOR " <=> ") as customer');
-			$this->db->from('route a'); 
-			$this->db->join('bus b', 'a.bus_id=b.id', 'left');
+			$this->db->from('tbl_bus_route a'); 
+			$this->db->join('tbl_bus b', 'a.bus_id=b.id', 'left');
 			
-			$this->db->join('bus_type d', 'd.id=b.bus_type_id', 'left');
-			$this->db->join('bus_gallery e', 'e.bus_id=b.id', 'left');
-			$this->db->join('booking_details f', 'f.bus_id=b.id', 'left');
-			$this->db->join('board_points c', 'c.id=f.boarding_point_id', 'left');
-			$this->db->join('customer_details g', 'g.order_id=f.id', 'left');
+			$this->db->join('tbl_bus_type d', 'd.id=b.bus_type_id', 'left');
+			$this->db->join('tbl_bus_gallery e', 'e.bus_id=b.id', 'left');
+			$this->db->join('tbl_bus_booking_details f', 'f.bus_id=b.id', 'left');
+			$this->db->join('tbl_bus_board_points c', 'c.id=f.boarding_point_id', 'left');
+			$this->db->join('tbl_bus_customer_details g', 'g.order_id=f.id', 'left');
 			
 			//$this->db->where('a.board_point',$data->board_point);
 		
@@ -164,7 +164,7 @@ class Model_myaccount extends CI_Model {
 	  'booking_id'     => $data['id']
  
 		);
-		$table='booking_details';
+		$table='tbl_bus_booking_details';
 	  $this->update_table_where( $update_data, $where_data, $table);
 	  return true;
 	}
@@ -176,7 +176,7 @@ class Model_myaccount extends CI_Model {
 		  'bus_id'     => $data['bus_id']
  
 		  );
-		  $table='rating';
+		  $table='tbl_bus_rating';
 		$result = $this->get_table_wheres( $select_data, $where_data, $table );
 		if(count($result)==0){
 			$average = ($data['quality']+$data['punctuality']+$data['behaviour'])/3;
@@ -190,7 +190,7 @@ class Model_myaccount extends CI_Model {
 			  'average'     => $average,
 			  'comments'     => $data['comments']
 		    );
-		 $table='rating';
+		 $table='tbl_bus_rating';
 		 
 		 $this->db->insert($table, $update_data); 
 		  return true;
@@ -200,12 +200,12 @@ class Model_myaccount extends CI_Model {
 	}
 	function deatils_book($data){
 			$this->db->select('f.name,f.username,i.booking_id,i.booking_date,c.board_point,c.drop_point,b.bus_name,d.bus_type');
-			$this->db->from('booking_details i'); 
+			$this->db->from('tbl_bus_booking_details i'); 
 		
-			$this->db->join('bus b', 'i.bus_id=b.id', 'left');
-			$this->db->join('route c', 'c.id=i.rout_id', 'left');
-			$this->db->join('bus_type d', 'd.id=b.bus_type_id', 'left');
-			$this->db->join('user f', 'f.id=i.user_id', 'left');
+			$this->db->join('tbl_bus b', 'i.bus_id=b.id', 'left');
+			$this->db->join('tbl_bus_route c', 'c.id=i.rout_id', 'left');
+			$this->db->join('tbl_bus_type d', 'd.id=b.bus_type_id', 'left');
+			$this->db->join('tbl_bus_user f', 'f.id=i.user_id', 'left');
 			
 			
 			

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2018 at 08:06 PM
+-- Generation Time: Jul 13, 2018 at 04:37 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 5.6.32
 
@@ -247,7 +247,8 @@ INSERT INTO `tbl_bus` (`id`, `bus_name`, `bus_type_id`, `amenities_id`, `bus_reg
 (2, 'MNT', 2, '4', '4545', 20, 'munnar', '10:15 AM', 'kochi', '10:15 AM', 1, 1, 'admin'),
 (3, 'Volvo', 1, '4,5', '1234', 45, 'Bangalore', '03:00 PM', 'Kochi', '06:00 AM', 1, 1, 'admin'),
 (4, 'Volvo XL', 1, '6', '2563', 40, 'Banglore', '02:30 PM', 'Chennai', '07:30 PM', 1, 1, '1'),
-(5, 'Test', 2, '1,3,5', 'AP22AJ7895', 20, 'Hyderabad', '03:00 PM', 'Bangalore', '03:00 AM', 1, 1, 'admin');
+(5, 'Test', 2, '1,3,5', 'AP22AJ7895', 20, 'Hyderabad', '03:00 PM', 'Bangalore', '03:00 AM', 1, 1, 'admin'),
+(6, 'Test', 2, '1,2', 'AP22AJ7895', 20, 'Hyderabad', '04:45 PM', 'Bangalore', '04:45 AM', 1, 1, '1');
 
 -- --------------------------------------------------------
 
@@ -299,7 +300,7 @@ CREATE TABLE `tbl_bus_agent` (
 --
 
 INSERT INTO `tbl_bus_agent` (`id`, `username`, `first_name`, `last_name`, `password`, `company_name`, `address`, `email`, `phone_number`, `city`, `country`, `profile_picture`, `status`, `created_by`) VALUES
-(1, 'agent', 'Agent', 'Test', 'b33aed8f3134996703dc39f9a7c95783', 'test', 'test', 'test@gmail.com', '9856321245', 'kochi', 'india', 'http://techlabz.in/truebusupdate/admin/assets/uploads/img/1511772130_images.jpg', '1', 'admin'),
+(1, 'agent', 'Agent', 'Test', 'b33aed8f3134996703dc39f9a7c95783', 'test', 'test', 'test@gmail.com', '9856321245', 'kochi', 'india', 'Bus-Pics/admin.png', '1', 'admin'),
 (2, 'testagent', 'test', 'agent', '47ec2dd791e31e2ef2076caf64ed9b3d', 'test company', 'test address', 'test@gmail.com', '1234567890', 'bangalore', 'India', 'http://localhost:8080/cf/web/Bus-Admin/admin/assets/uploads/img/1531227460_cf-logo.png', '1', 'admin');
 
 -- --------------------------------------------------------
@@ -661,7 +662,7 @@ CREATE TABLE `tbl_bus_setting` (
 --
 
 INSERT INTO `tbl_bus_setting` (`id`, `title`, `logo`, `favicon`, `smtp_username`, `smtp_host`, `smtp_password`, `sender_id`, `sms_username`, `sms_password`, `payment_option`, `paypal`, `paypalid`, `app_key`) VALUES
-(1, 'True Bus', 'assets/uploads/logo/1505727848_tb_logo.png', 'assets/uploads/favicons/1495099426_bus1.jpg', 'techware@techlabz.in', 'mail.techlabz.in', 'Ge^RgVKmy#H*', '101', 'manu', '676', 'PayPal,Cash', 'https://www.sandbox.paypal.com/cgi-bin/webscr', 'shajeermhmmd@gmail.com', 'my_key');
+(1, 'Cameroun Facile', 'assets/uploads/logo/1505727848_tb_logo.png', 'assets/uploads/favicons/1495099426_bus1.jpg', 'techware@techlabz.in', 'mail.techlabz.in', 'Ge^RgVKmy#H*', '101', 'manu', '676', 'PayPal,Cash', 'https://www.sandbox.paypal.com/cgi-bin/webscr', 'shajeermhmmd@gmail.com', 'my_key');
 
 -- --------------------------------------------------------
 
@@ -1288,7 +1289,7 @@ ALTER TABLE `tbl_amount_collection_from_driver`
 -- AUTO_INCREMENT for table `tbl_bus`
 --
 ALTER TABLE `tbl_bus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_bus_admin`

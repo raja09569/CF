@@ -67,7 +67,7 @@ class Login_model extends CI_Model {
 			'mob'     => $mobile
 		);
 		
-		$table = "user";  //------------ Select table
+		$table = "tbl_bus_user";  //------------ Select table
 		$result = $this->get_table_where( $select_data, $where_data, $table );
 		
 		if( count($result) > 0 ){ // check if user exist or not
@@ -92,7 +92,7 @@ class Login_model extends CI_Model {
 				'username'     => $username
 			);
 			
-			$table = "user";  //------------ Select table
+			$table = "tbl_bus_user";  //------------ Select table
 			$result = $this->get_table_where( $select_data, $where_data, $table );
 			
 			if( count($result) > 0 ){ // check if user exist or not
@@ -126,7 +126,7 @@ class Login_model extends CI_Model {
 			$where_data = array(	// ----------------Array for check data exist ot not
 				'username'     => $data['email']
 			);
-			$table = "user"; 
+			$table = "tbl_bus_user"; 
 
 			 //------------ Select table
 			$result = $this->get_table_where( $select_data, $where_data, $table );

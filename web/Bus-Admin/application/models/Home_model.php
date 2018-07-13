@@ -8,9 +8,9 @@ class Home_model extends CI_Model {
 	function get_board_point($data) {
 		
 		$this->db->distinct();
-        $this->db->select('*')->from('route');  
+        $this->db->select('*')->from('tbl_bus_route');  
         $this->db->like("".$data["type"]."",$data['term'],'after');  
-		$this->db->group_by('route.'.$data["type"].'');
+		$this->db->group_by('tbl_bus_route.'.$data["type"].'');
         $query1 = $this->db->get();      
          $query = $query1->result(); 
 		

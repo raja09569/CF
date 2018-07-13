@@ -13,6 +13,7 @@ class Home extends CI_Controller {
 	public function index(){
 		$s = file_exists(APPPATH.'controllers/Installer.php');
 		//echo "dd is ".$s;
+		$s = 0;
 		if($s == 1)
 		{
 			redirect('installer');
@@ -20,7 +21,7 @@ class Home extends CI_Controller {
 		$template['page'] = 'Home/home';
 		$template['logo'] = get_settings_details(1);
 		$template['page_title'] = ": Online Bus Ticket Booking, Book Volvo AC Bus Tickets, Reservation";   
-		//$this->load->view('template',$template);
+		$this->load->view('template',$template);
 	}
 
 	public function first_show(){
