@@ -1,6 +1,6 @@
 <?php
 session_start();
-$local = true;
+$local = false;
 if($local){
 	$conn = mysqli_connect('localhost', 'root', '', 'db_travel');
 }else{
