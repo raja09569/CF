@@ -77,7 +77,7 @@
          <div class="tb_inner">
          <div class="col-md-9">
          <div class="tb_footer">
-         <ul>
+         <!-- <ul>
          <li><a href="#">About TrueBus &nbsp;|</a></li>
          <li><a href="#">FAQ   &nbsp;|</a></li>
          <li><a href="#">Careers  &nbsp;|</a></li>
@@ -86,9 +86,9 @@
          <li><a href="#">Terms of Use   &nbsp;|</a></li>
          <li><a href="#">Privacy Policy   &nbsp;|</a></li>
          <li><a href="#">TrueBus on Mobilenew .</a></li>
-         </ul>
+         </ul> -->
          </div>
-         <div class="footer_con">  &#169;  2016 <a href="https://techware.co.in/" style="text-decoration:none;">Techware Solution</a></div>
+         <!-- <div class="footer_con">  &#169;  2016 <a href="https://techware.co.in/" style="text-decoration:none;">Techware Solution</a></div> -->
          </div>
          <div class="col-md-3">
          <div class="tb_social">

@@ -109,8 +109,8 @@
                                  <img src="<?php echo base_url();?>assets/images/phone.png">
                                  <div class="tb_list_offer">
                                     <div class="ofer_list"> &nbsp;&nbsp;FLAT Rs.100 OFF</div>
-                                    <div class="ofer_list_bold left"> &nbsp;&nbsp;Truebus APP OFFER</div>
-                                    <div class="ofer_list_normal">&nbsp;&nbsp; book via the Truebus APP</div>
+                                    <div class="ofer_list_bold left"> &nbsp;&nbsp;CFbus APP OFFER</div>
+                                    <div class="ofer_list_normal">&nbsp;&nbsp; book via the CF APP</div>
                                     <div class="ofer_list_normal">&nbsp;&nbsp;  Code:ERHH54</div>
                                  </div>
                               </div>
