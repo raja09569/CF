@@ -36,9 +36,7 @@ class Login extends CI_Controller {
 			$finresult[] = array( 'status'  => 'success','message' =>'Successfully Login', 'code'    => 'success' 
 								
 									
-			);
-			
-		
+			);	
 			print json_encode($finresult);
 		}else{
 			$finresult[] = array( 'status'  => 'failed','message' => 'Unknown credential , please try again!', 'code'    => 'Login failed' ,

@@ -13,40 +13,31 @@ class Login_model extends CI_Model {
           $remember = $request['rememberme'];
 		}
 		$select_data = "*";
-	    $table = "user";
+	    $table = "tbl_bus_user";
 		$this->db->select($select_data);
 		$this->db->where('BINARY(username)', $request['username']);
       
 		$this->db->where('BINARY(password)',  md5($request['password']));
 		$query  = $this->db->get($table);  //--- Table name = User
 		$result = $query->result(); 
-	
 		if(count($result) > 0){ // user credential is success
            $sess_array = array();
 			$sess_array = array(
 			    'id' => $result[0]->id,
 			    'username' => $result[0]->username,
 			     'name' => $result[0]->name
-				
 		    );
 			$this->session->set_userdata('logged_in',$sess_array);
 			$user = $this->session->userdata('logged_in');	
             if($remember=='on' && $remember!=''){
-			
 				  $cookie = array(
 					'name'   => 'user',
 					'value'  => $user,
 					'expire' => 86500
 				 );
-		   
 				$this->input->set_cookie($cookie);
-
 				$this->input->cookie('logged_in', false);    
- 
-
-			
 		    }	
-            
           return true;			
 		}else{
 			return false;
@@ -103,7 +94,7 @@ class Login_model extends CI_Model {
 			return false;
 	 }
 	 function registration($request){
-		$table = 'user';
+		$table = 'tbl_bus_user';
 		$request['password']=md5($request['password']);
 		
 		$this->db->insert($table, $request);
@@ -171,7 +162,7 @@ class Login_model extends CI_Model {
      }public function reset_password_users($data){
 		//var_dump($data['key']);
 		
-			$table="user";
+			$table="tbl_bus_user";
 		
         $where_data = array(	// ----------------Array for check data exist ot not
 			  'reset_key'     => $data['key'],
